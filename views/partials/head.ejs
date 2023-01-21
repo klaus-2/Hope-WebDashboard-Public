@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon"
+    type="image/png"
+    href="/icon-hope.png">
+<title><%= title %></title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<script src="https://kit.fontawesome.com/a2bb9e7555.js" crossorigin="anonymous"></script>
+<!-- Hotjar Tracking Code for https://hopebot.top -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2673606,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<% if (analitics) { %>
+<%- include('./analytics.ejs') %>
+<% } %>
+<%- include("./seo", { arc, bot, user, path, description, title, url, image:`${https}${hostname}/logo.png`}) %>
+</head>
+<body>
+<script type="text/javascript">var preload = document.createElement('div'); preload.className = "preloader"; preload.innerHTML = '</div><div class="spinner"></div>'; document.body.appendChild(preload); window.addEventListener('load', function() { preload.className +=  ' fade'; setTimeout(function(){ preload.style.display = 'none'; },600); 
+})</script>
+<noscript>
+<div class="no-js">
+To view the page please enable javascript in your browser
+</div></noscript>
+<%- include("./nav", { bot, user, path, url, image, name, tag }) %>
+<div class="blur" id="body-blur"></div>
+<%- title === "Dashboard" ? "" : "" %>

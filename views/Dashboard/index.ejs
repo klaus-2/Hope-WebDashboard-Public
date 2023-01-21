@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../partials/_seo.ejs') %>
+  <title>Dashboard: Home - Hope</title>
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/owl-carousel-2/owl.carousel.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+  <!-- End plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    <%- include("../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_navbar.html -->
+      <%- include("../partials/_navbar.ejs") %>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <% if(settings.isPremium == "false") {%>
+          <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card hope-gradient-card">
+                <div class="card-body py-0 px-0 px-sm-3">
+                  <div class="row align-items-center">
+                    <div class="col-4 col-sm-3 col-xl-2">
+                      <img src="../../assets/images/dashboard/Group126@2x.png" class="gradient-hope-img img-fluid" alt="">
+                    </div>
+                    <div class="col-5 col-sm-7 col-xl-8 p-0">
+                      <h4 class="mb-1 mb-sm-0" name="translate" caption="dashboard_premium_banner1">Want even more features?</h4>
+                      <p class="mb-0 font-weight-normal d-none d-sm-block"><span name="translate" caption="dashboard_premium_banner2">Check out the incredible advantages that</span> <b name="translate" caption="dashboard_premium_banner3">PREMIUM</b> <span name="translate" caption="dashboard_premium_banner4">offers to boost your server!</span></p>
+                    </div>
+                    <div class="col-3 col-sm-2 col-xl-2 pl-0 text-center">
+                      <span>
+                        <a href="/premium" target="_blank" class="btn btn-outline-light btn-rounded get-started-btn" name="translate" caption="dashboard_premium_banner5">Upgrade to PREMIUM</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+          <div class="row ">
+            <div class="col-md-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-row justify-content-between">
+                    <h4 class="card-title" name="translate" caption="dashboard_home_announcement">ANNOUNCEMENTS</h4>
+                  </div>
+                  <div class="preview-list">
+                    <% newsDB.forEach((news, count) => {%>
+                    <div class="preview-item border-bottom">
+                      <% if (news.newsIcon) { %>
+                      <div class="preview-thumbnail">
+                        <img src="<%= news.newsIcon %>" alt="image" class="rounded-circle" />
+                      </div>
+                      <% } else { %>
+                      <div class="preview-thumbnail">
+                      </div>
+                      <% } %>
+                      <div class="preview-item-content d-flex flex-grow">
+                        <div class="flex-grow">
+                          <div class="d-flex d-md-block d-xl-flex justify-content-between">
+                            <% if (news.newsLink) { %>
+                            <a class="filter-settings" href="<%= news.newsLink %>">
+                              <h6 class="preview-subject"><%= news.newsTitle %></h6>
+                            </a>
+                            <% } else { %>
+                            <h6 class="preview-subject"><%= news.newsTitle %></h6>
+                            <% } %>
+                            <p class="text-muted text-small"><%=moment(news.date).fromNow();%></p>
+                          </div>
+                          <p class="text-muted"><%= news.newsShort %></p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="welcome" class="modal-window">
+                      <div>
+                        <a href="#" title="Close" class="modal-close">Close</a>
+                        <h2>Hope Changelog 1.0.8</h2>
+                        <h5>Welcome Addon</h5>
+                        <p>As said at <a href="https://discord.com/channels/804851508944306236/913113703845625907/932376177761460334">https://discord.com/channels/804851508944306236/913113703845625907/932376177761460334</a>the Welcome addon has been completely rewritten.</p>
+
+                        <p>- Now you can choose between 3 options to configure it: Text, Embed or Image.</p>
+
+                        <p>- Each option is a unique mode, so only one of these modes will be active at a time.</p>
+
+                        <p>- The commands have not been updated yet and will not be (at least for now)
+                          The reason is that Discord will soon be limiting the intent of messages to bots and bots that don't get this intent will have to migrate their commands to slashs.</p>
+
+                        <p>I'm going to focus more on the dashboard, so just configure your server there. When I have enough time I will be writing the main commands for slash (because there is a limit of slashs) - Thanks Discord ❤️</p>
+
+                        <p>- All modules have a preview tab for you to check how your configuration is coming along, but even then there is still the simjoin and simleave commands to run a test on the channel/private.</p>
+
+                        <p>Remember that this update will only take effect on your server after you update the dashboard settings from this v1.0.8 update.</p>
+
+                        <p>In the future I will be adding options to customize text and image colors, change the font type and I will also be putting more options for custom backgrounds.</p>
+
+                        <p>Anyway, it really turned out pretty cool. Hope you like it 🙌</p>
+                      </div>
+                    </div>
+
+                    <div id="update-v1-1-2" class="modal-window">
+                      <div>
+                        <a href="#" title="Close" class="modal-close">Close</a>
+                        <h2>Hope Changelog 1.1.2</h2>
+                        <h5>Auto-Birthdays</h5>
+                        <p>Formerly just Birthdays, now Auto-Birthdays has been completely re-written and has new features and nice improvements.</p>
+                        <li>Added notification options</li>
+                        <li> Added message customization options</li>
+                        <li>Added channel options</li>
+                        <li>Added page to dashboard</li>
+                        <hr>
+                        <h5>Ticket Transcripts</h5>
+                        <p>The transcripts were not expiring on the correct date. This has been fixed in this update.</p>
+                        <hr>
+                        <h5>Auto-Animes</h5>
+                        <p>I've made some improvements to the auto-anime optimization. Let me know if you encounter any problems related to this addon.</p>
+                        <hr>
+                        <h5>Economy System</h5>
+                        <p>The Economy System has received some changes for an update coming in the future. Because of this, the current economy has been reset for all users.</p>
+                      </div>
+                    </div>
+
+                    <div id="update-v1-1-3" class="modal-window">
+                      <div>
+                        <a href="#" title="Close" class="modal-close">Close</a>
+                        <h2>Hope Changelog 1.1.3</h2>
+                        <p>This is a small update with some fixes and improvements.</p>
+                        <li>A minor bug that caused a crash when updating a streamer on the Auto-Twitch page on the dashboard has been fixed.</li>
+                        <li>Leaderboard page updated. (Displays all results divided by pages and with search bar).</li>
+                        <li>Small bug in the Welcome addon fixed.</li>
+                        <li>AutoMessage fixed.</li>
+                        <li>Third node added to HopeDJ.</li>
+                        <hr>
+                        <p>That's it, before I finish, I wanted to say that I am not very well in health these last days, so I will be away for a few days until I get better. So I won't be coding for a while. If you find bugs in any feature, just open a ticket and I'll take care of it as soon as possible. I count on your support 😊 and take care of yourselves ❤️</p>
+                      </div>
+                    </div>
+
+                    <div id="update-v1-1-4" class="modal-window">
+                      <div>
+                        <a href="#" title="Close" class="modal-close">Close</a>
+                        <h2>Hope Changelog 1.1.4</h2>
+                        <p>Not much change at the moment, just a small update with fixes and some changes.</p>
+                        <li>Auto-Reddit is now limited to premium users only.</li>
+                        <li>HopeDJ updated.</li>
+                        <li>General bug fixing.</li>
+                        <li>Added the Autoplay function (Auto Play) to HopeDJ.</li>
+                      </div>
+                    </div>
+
+                    <div id="update-v1-1-6" class="modal-window">
+                      <div>
+                        <a href="#" title="Close" class="modal-close">Close</a>
+                        <h2>Hope Changelog 1.1.6</h2>
+                        <h5>Auto-Animes</h5>
+                        <p>New Summer Season 2022 has been added to the anime list. (Spring Season Animes have been removed.)</p>
+                        <h5>Auto-Reddit</h5>
+                        <p>This addon has been permanently disabled from Hope. All commands for this addon on the bot and dashboard pages have been removed.</p>
+                      </div>
+                    </div>
+                    <%})%>
+                    <style>
+                      .is-help {
+                        padding: 3px;
+                        color: #555;
+                      }
+
+                      .is-help:hover {
+                        color: #dd364d;
+                      }
+
+                      .card {
+                        border: 0px;
+                      }
+
+                      .modal-window {
+                        position: fixed;
+                        background-color: rgb(0 0 0 / 82%);
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        z-index: 1030;
+                        visibility: hidden;
+                        opacity: 0;
+                        pointer-events: none;
+                        transition: all 0.3s;
+                        overflow: auto;
+                      }
+
+                      .modal-window:target {
+                        visibility: visible;
+                        opacity: 1;
+                        pointer-events: auto;
+                      }
+
+                      .modal-window>div {
+                        width: 800px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        padding: 2em;
+                        background: #13151b;
+                      }
+
+                      @media (max-width: 768px) {
+                        .modal-window>div {
+                          width: 800px;
+                          position: absolute;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          padding: 2em;
+                          background: #13151b;
+                        }
+                      }
+
+                      @media (max-width: 543px) {
+                        .modal-window>div {
+                          width: 350px;
+                          position: absolute;
+                          top: 50%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          padding: 2em;
+                          background: #13151b;
+                        }
+                      }
+
+                      @media (max-width: 490px) {
+                        .modal-window>div {
+                          width: 350px;
+                          position: absolute;
+                          top: 60%;
+                          left: 50%;
+                          transform: translate(-50%, -50%);
+                          padding: 2em;
+                          background: #13151b;
+                        }
+                      }
+
+                      .modal-window header {
+                        font-weight: bold;
+                      }
+
+                      .modal-window h1 {
+                        font-size: 150%;
+                        margin: 0 0 15px;
+                      }
+
+                      .modal-close {
+                        color: #aaa;
+                        line-height: 50px;
+                        font-size: 80%;
+                        position: absolute;
+                        right: 0;
+                        text-align: center;
+                        top: 0;
+                        width: 70px;
+                        text-decoration: none;
+                      }
+
+                      .modal-close:hover {
+                        color: rgb(255, 255, 255);
+                      }
+
+                      .modal-window>div {
+                        border-radius: 1rem;
+                      }
+
+                      .modal-window div:not(:last-of-type) {
+                        margin-bottom: 15px;
+                      }
+                    </style>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-8 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_home_activity1">Recent Activity</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th name="translate" caption="dashboard_home_activity2"> Date </th>
+                          <th></th>
+                          <th name="translate" caption="dashboard_home_activity3"> User </th>
+                          <th name="translate" caption="dashboard_home_activity4"> Action </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% avatar.forEach((data, count) => {%>
+                        <tr>
+                          <td class="py-1" style="padding: 0;width: 25px;height: 25px;padding-top: 5px;padding-left: 10px;">
+                            <% if (data) { %>
+                            <img src="<%= data.data.avatar %>" alt="image" />
+                            <% } else { %>
+                            <img src="//cdn.discordapp.com/embed/avatars/2.png" alt="image" />
+                            <% } %>
+                          </td>
+                          <td> <%=moment(data.data.date).format('llll');%> </td>
+                          <td> <code><%=data.data.tag%></code> </td>
+                          <td> <%=data.data.action%> </td>
+                        </tr>
+                        <%})%>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-3 col-lg-12 stretch-card grid-margin">
+              <div class="row">
+                <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+                  <div class="card" style="height: 116px;">
+                    <div class="card-body px-3 py-4">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div class="color-card">
+                          <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0"><%= guild.guild.memberCount %></h2>
+                            <% const percent = (logs.join2 / guild.guild.memberCount) * 100; %>
+                            <p class="text-success ml-2 mb-0 font-weight-medium">+<%= percent.toFixed(2) %>%</p>
+                          </div>
+                          <h6 class="text-muted font-weight-normal" name="translate" caption="dashboard_home_widgets1">Server members</h6>
+                        </div><i class="icon-lg mdi mdi-account-multiple text-primary ml-auto"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3">
+                  <div class="card" style="height: 116px;">
+                    <div class="card-body px-3 py-4">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div class="color-card">
+                          <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0"><%= guild.guild.channels.length %></h2>
+                          </div>
+                          <h6 class="text-muted font-weight-normal" name="translate" caption="dashboard_home_widgets2">Channels</h6>
+                        </div><i class="icon-lg mdi mdi-pound text-danger ml-auto"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3 pb-lg-0 pb-xl-3">
+                  <div class="card" style="height: 116px;">
+                    <div class="card-body px-3 py-4">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div class="color-card">
+                          <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0"><%= guild.guild.roles.length %></h2>
+                          </div>
+                          <h6 class="text-muted font-weight-normal" name="translate" caption="dashboard_home_widgets3">Roles</h6>
+                        </div><i class="icon-lg mdi mdi-sort-descending text-info ml-auto"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-md-6 stretch-card grid-margin grid-margin-sm-0 pb-sm-3 pb-lg-0 pb-xl-3">
+                  <div class="card" style="height: 116px;">
+                    <div class="card-body px-3 py-4">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div class="color-card">
+                          <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0"><%= guild.guild.roles.length %></h2>
+                          </div>
+                          <h6 class="text-muted font-weight-normal" name="translate" caption="dashboard_home_widgets4">Stickers</h6>
+                        </div><i class="icon-lg mdi mdi-sticker text-success ml-auto"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-md-6 stretch-card pb-sm-3 pb-lg-0">
+                  <div class="card" style="height: 116px;">
+                    <div class="card-body px-3 py-4">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div class="color-card">
+                          <div class="d-flex d-sm-block d-md-flex align-items-center">
+                            <h2 class="mb-0"><%= guild.guild.emojis.length %></h2>
+                          </div>
+                          <h6 class="text-muted font-weight-normal" name="translate" caption="dashboard_home_widgets5">Emojis</h6>
+                        </div><i class="icon-lg mdi mdi-emoticon-cool text-warning ml-auto"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-9 stretch-card grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-7">
+                      <h5><span name="translate" caption="dashboard_home_widgets6">Statistics </span><code name="translate" caption="dashboard_home_widgets7">Beta</code></h5>
+                      <p class="text-muted"><span name="translate" caption="dashboard_home_widgets8">Show overview</span> <%- new Date(Date.now()).toDateString() %> <a class="text-muted font-weight-medium pl-2" href="!#"><u><span name="translate" caption="dashboard_home_widgets9">See Details</span></u></a></p>
+                    </div>
+                    <div class="col-sm-5 text-md-right"><button type="button" class="btn btn-icon-text mb-3 mb-sm-0 btn-inverse-primary font-weight-normal mr-0" disabled><i class="mdi mdi-poll btn-icon-prepend"></i><span name="translate" caption="dashboard_home_widgets10">Go to Statistics page</span></button></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="card mb-3 mb-sm-0">
+                        <div class="card-body py-3 px-4">
+                          <p class="m-0 survey-head" name="translate" caption="dashboard_home_widgets11">Joins Today</p>
+                          <div class="d-flex w-100 align-items-end justify-content-between">
+                            <div>
+                              <h3 class="survey-value"><%- logs.join1 %></h3>
+                              <p class="text-success m-0">-<%- (logs.join1 / guild.guild.memberCount) * 100 %> <span name="translate" caption="dashboard_home_widgets12">avg. joins</span></p>
+                            </div>
+                            <div>
+                              <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                  <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                  <div class=""></div>
+                                </div>
+                              </div><canvas height="50" width="70" style="display: block;" class="chartjs-render-monitor"></canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="card mb-3 mb-sm-0">
+                        <div class="card-body py-3 px-3">
+                          <p class="m-0 survey-head" name="translate" caption="dashboard_home_widgets13">Leaves Today</p>
+                          <div class="d-flex w-100 align-items-end justify-content-between">
+                            <div>
+                              <h3 class="survey-value"><%- logs.leave1 %></h3>
+                              <p class="text-danger m-0">-<%- (logs.leave1 / guild.guild.memberCount) * 100 %> <span name="translate" caption="dashboard_home_widgets14">avg. leaves</span></p>
+                            </div>
+                            <div>
+                              <div class="chartjs-size-monitor">
+                                <div class="chartjs-size-monitor-expand">
+                                  <div class=""></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink">
+                                  <div class=""></div>
+                                </div>
+                              </div><canvas height="50" width="70" class="chartjs-render-monitor" style="display: block;"></canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="row my-3">
+                    <div class="col-sm-12">
+                      <div class="sales-chart-height">
+                        <div class="chartjs-size-monitor">
+                          <div class="chartjs-size-monitor-expand">
+                            <div class=""></div>
+                          </div>
+                          <div class="chartjs-size-monitor-shrink">
+                            <div class=""></div>
+                          </div>
+                        </div><!-- Area Chart -->
+                        <div id="areaChart" style="min-height: 400px;" class="echart"></div>
+
+                        <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            echarts.init(document.querySelector("#areaChart")).setOption({
+                              xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: ['Joins Today', 'Leaves Today', 'Joins Weekly', 'Leaves Weekly']
+                              },
+                              yAxis: {
+                                type: 'value'
+                              },
+                              series: [{
+                                data: ["<%- logs.join1 %>", "<%- logs.leave1 %>", "<%- logs.join2 %>", "<%- logs.leave2 %>"],
+                                type: 'line',
+                                smooth: true,
+                                areaStyle: {}
+                              }]
+                            });
+                          });
+                        </script>
+                        <!-- End Area Chart -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <p class="text-muted mb-0"><span name="translate" caption="dashboard_home_widgets15">This is a preview of basic statistical data. Go to</span> <b name="translate" caption="dashboard_home_widgets16">Statistics Page</b> <span name="translate" caption="dashboard_home_widgets17">and configure the advanced statistics module on your server.</span></p>
+                    </div>
+                    <div class="col-sm-4">
+                      <p class="mb-0 text-muted" name="translate" caption="dashboard_home_widgets18">Status</p>
+                      <p class="d-inline-block text-danger mb-0 ml-1" name="translate" caption="dashboard_home_widgets19">module not yet configured.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <%- include("../partials/_footer-dashboard.ejs") %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="../../assets/vendors/progressbar.js/progressbar.min.js"></script>
+  <script src="../../assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+  <script src="../../assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+  <script src="../../assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <script src="../../assets/vendors/apexcharts/apexcharts.min.js"></script>
+  <script src="../../assets/vendors/echarts/echarts.min.js"></script>
+  <!-- Custom js for this page -->
+  <script src="../../assets/js/dashboard.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

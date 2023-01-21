@@ -1,0 +1,13 @@
+node_modules
+utils\logs
+config.js
+.env
+static\404\plane.psd
+static\admin
+routes\admin
+views\Admin
+static\old-static
+start.bat
+pm2-apps.json
+pm2-start.bat
+pm2-stop.bat

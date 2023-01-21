@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Engagement & Fun: Auto-Anime - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <h4 name="translate" caption="dashboard_autoanime1">Auto-Anime</h4>
+          <p class="text-muted mb-0" name="translate" caption="dashboard_autoanime2">Announcement addon for when an anime goes live.</p><br>
+          <div class="row ">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title"><span name="translate" caption="dashboard_autoanime3">Manage animes</span> <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;" name="translate" caption="dashboard_autoanime4">free/premium</code></h4>
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_autoanime5">Choose an anime and add/remove from your watchlist.</p>
+                    </div>
+                  </header>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form class="form-inline" id="data">
+                    <div class="input-group">
+                      <select class="js-example-basic-multiple" multiple="multiple" style="width: 483px;" name="anime" id="anime">
+                        <% for (const anime of all) { %>
+                        <option value="<%- anime.id %>" <% if (dbAnime.animes && dbAnime.animes.includes(anime.id)) { %> selected <% } %>><%- anime.name %></option>
+                        <% } %>
+                      </select>
+                      <p id="alert-error" style="display: none;width: 530px;"></p>
+                      <div class="input-group-append">
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class=" row ">
+            <div class=" col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title" name="translate" caption="dashboard_autoanime6">Manage Channel</h4>
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_autoanime7">Where will i post the announcement for recently aired anime?</p><br>
+                    </div>
+                  </header>
+                  <div class="input-group">
+                    <select id="chanime" name="chanime" class="js-example-basic-single" style="width:483px;max-width:483px">
+                      <%- include('../components/channels', {ch: ch, var1: dbAnime.channelID, var2: dbAnime.enabled }) %>
+                    </select>
+                  </div>
+                  <p class="text-muted mb-0"><span name="translate" caption="dashboard_autoanime8">If you want to disable this addon, just select the</span> <code name="translate" caption="dashboard_autoanime9">#Disabled</code> <span name="translate" caption="dashboard_autoanime10">channel</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form id="rr">
+          <div class=" row ">
+            <div class=" col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title"><span name="translate" caption="dashboard_autoanime11">Manage animes</span> <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;" name="translate" caption="dashboard_autoanime16">new</code></h4>
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_autoanime12">Do you want to notify a specific role ?</p><br>
+                    </div>
+                  </header>
+                  <div class="input-group">
+                    <select id="rranime" name="rranime" class="js-example-basic-single" style="width:483px;max-width:483px">
+                      <% for (const role of rr.roles) { %>
+                        <% if (dbAnime.roleNotify !== role.id && role.name !== "@everyone" && !role.managed) { %>
+                          <option value="<%= role.id %>">@<%= role.name %></option>
+                          <% } else if (dbAnime.roleNotify === role.id) { %>
+                          <option value="<%= role.id %>" selected>@<%= role.name %></option>
+                        <% } %>
+                      <% } %>
+                      <option value="none" <% if (dbAnime.roleNotify === null) { %> selected <% } %>>@None</option>
+                    </select>
+                  </div>
+                  <p class="text-muted mb-0"><span name="translate" caption="dashboard_autoanime13">If you do not want to use this feature, just select the</span> <code name="translate" caption="dashboard_autoanime14">@None</code> <span name="translate" caption="dashboard_autoanime15">role</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+        </div>
+        <!-- content-wrapper ends -->
+        <%- include("../../partials/_footer-dashboard.ejs") %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+  <script>
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true
+    });
+
+    $(document).ready(function() {
+      var premium = "<%- premium %>";
+      var length = $("#anime").val();
+
+      if (length.length >= 10 && premium !== "Premium Server") {
+        if (length.length >= 10) {
+          var x = document.getElementById('alert-error');
+          if (x.style.display === 'none') {
+            x.style.display = 'block';
+          }
+          return false;
+        }
+      }
+
+      $("#anime").on({
+        keypress: function(e) {
+          // if (e.which == 13) console.log('ok');
+        },
+        change: function(e) {
+          e.preventDefault();
+          var form = $(this);
+
+          $.ajax({
+            type: "POST",
+            url: 'auto-anime/list',
+            data: form.serialize(),
+            beforeSend: function() {
+              Toast.fire({
+                icon: 'warning',
+                title: 'Saving...'
+              });
+              var premium = "<%= premium %>";
+              // obtem os dados do seletor
+              var length = $("#anime").val();
+
+              if (length.length >= 10 && premium !== "Premium Server") {
+                var x = document.getElementById('alert-error');
+                if (x.style.display === 'none') {
+                  x.style.display = 'block';
+                }
+                return false;
+              }
+            },
+            success: function(data) {
+              Toast.fire({
+                icon: 'success',
+                title: 'Saved Changes'
+              });
+            }
+          }).fail(function() {
+            Toast.fire({
+              icon: 'error',
+              title: 'Uh-oh! Limit reached',
+              html: '*You have reached the <code>10</code> animes limit. To exceed this limit, become <a href="/premium" style="padding: 5px;color: #fc424a;font-weight: 300;font-size: 0.875rem;border-radius: 4px;"><code>premium</code></a>.'
+            });
+          });
+        },
+      });
+    });
+  </script>
+  <!-- plugins:js -->
+  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../../js/auto-anime.js"></script>
+  <script src="../../assets/js/file-upload.js"></script>
+  <script src="../../assets/js/typeahead.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

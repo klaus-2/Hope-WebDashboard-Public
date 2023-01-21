@@ -1,0 +1,393 @@
+.center {
+    text-align: center;
+  }
+
+  .grid-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    justify-content: space-around;
+    margin: 0 -12px;
+  }
+
+  #plan-selector .grid-item.card {
+    background-size: 100%;
+    padding-bottom: 40px;
+  }
+
+  #plan-selector .grid-item.card p:first-child {
+    text-transform: uppercase;
+  }
+
+  #plan-selector .grid-item.card :first-child {
+    margin-top: 0;
+  }
+
+  .grid-item.card a.link:last-of-type,
+  .grid-item.card h1,
+  .grid-item.card h2,
+  .grid-item.card h3,
+  .grid-item.card h4,
+  .grid-item.card h5,
+  .grid-item.card h6,
+  .grid-item.card p {
+    max-width: 100%;
+  }
+
+  #plan-selector .grid-item.card {
+    background-size: 100%;
+    padding-bottom: 40px;
+  }
+
+  .grid-item.card {
+    transition: opacity 1s;
+    align-items: center;
+    max-width: 380px;
+    width: 100%;
+    padding: 60px 40px 0;
+    height: 100%;
+    background-size: 100%;
+    background-position: top;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    margin-top: 40px;
+  }
+
+  a.primary,
+  button.primary {
+    color: #f9f9f9;
+    color: #f9f9f9;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.009em;
+    background: linear-gradient(316.33deg, rgb(206, 15, 80) 26.51%, rgb(254, 17, 45) 74.7%);
+    box-shadow: rgb(7 8 12 / 25%) 0px 1px 4px, rgb(227 229 234 / 25%) 0px 1px 0px inset;
+    border-radius: 8px;
+  }
+
+  a.primary,
+  a.secondary,
+  button.primary,
+  button.secondary {
+    cursor: pointer;
+    border-radius: 4px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s ease 0s;
+  }
+
+  .grid-item {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 12px
+  }
+
+  .grid-item h1,
+  .grid-item h2,
+  .grid-item h3,
+  .grid-item h4,
+  .grid-item h5,
+  .grid-item h6 {
+    margin-top: 20px
+  }
+
+  .grid-item.center {
+    align-items: center
+  }
+
+  .grid-item.left {
+    align-items: flex-start
+  }
+
+  .grid-item.right {
+    align-items: flex-end
+  }
+
+  .grid-item:last-child {
+    margin-bottom: 0
+  }
+
+  .grid-item.card {
+    transition: opacity 1s;
+    align-items: center;
+    max-width: 380px;
+    width: 100%;
+    padding: 60px 40px 0;
+    height: 100%;
+    background-size: 100%;
+    background-position: top;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    margin-top: 40px
+  }
+
+  .grid-item.card>* {
+    margin-top: 24px;
+    margin-bottom: 0
+  }
+
+  .grid-item.card h2+p,
+  .grid-item.card h3+p,
+  .grid-item.card h4+p,
+  .grid-item.card h5+p,
+  .grid-item.card h6+p,
+  .grid-item.card:first-of-type,
+  .grid-item.card>:first-child {
+    margin-top: 0
+  }
+
+  .grid-item.card a.link:last-of-type,
+  .grid-item.card h1,
+  .grid-item.card h2,
+  .grid-item.card h3,
+  .grid-item.card h4,
+  .grid-item.card h5,
+  .grid-item.card h6,
+  .grid-item.card p {
+    max-width: 100%
+  }
+
+  .grid-item.card picture {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: none
+  }
+
+  .grid-item.card picture img {
+    width: auto;
+    max-height: 60px;
+    margin: 0 auto
+  }
+
+  @media only screen and (min-width:769px) and (max-width:1024px) {
+    .grid-item.card {
+      padding: 60px 36px 0
+    }
+  }
+
+  @media only screen and (min-width:1025px) {
+    .grid-item.card {
+      padding: 60px 44px 0
+    }
+  }
+
+  @media only screen and (min-width:769px) {
+    .grid-item.card {
+      margin-top: 0
+    }
+
+    .grid-item.card>* {
+      margin-top: 28px;
+      margin-bottom: 0
+    }
+  }
+
+  a.primary,
+  a.secondary,
+  button.primary,
+  button.secondary {
+    cursor: pointer;
+    border-radius: 4px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s ease 0s
+  }
+
+  a.primary *,
+  a.secondary *,
+  button.primary *,
+  button.secondary * {
+    margin-top: 1px
+  }
+
+  a.primary,
+  button.primary {
+    color: #f9f9f9;
+    color: #f9f9f9;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.009em;
+    background: linear-gradient(316.33deg, rgb(206, 15, 80) 26.51%, rgb(254, 17, 45) 74.7%);
+    box-shadow: rgb(7 8 12 / 25%) 0px 1px 4px, rgb(227 229 234 / 25%) 0px 1px 0px inset;
+    border-radius: 8px;
+  }
+
+  a.secondary,
+  button.secondary {
+    color: #f9f9f9;
+    background-color: #4e4a59;
+    border: 1px solid #4e4a59
+  }
+
+  a.textColorDark,
+  button.textColorDark {
+    color: #090b13
+  }
+
+  a.primary:focus,
+  a.primary:hover,
+  button.primary:focus,
+  button.primary:hover {
+    color: #f9f9f9;
+    background: linear-gradient(90deg, rgb(254, 17, 45), rgb(206, 15, 80));
+    border: none;
+    text-decoration: none
+  }
+
+  a.secondary:focus,
+  a.secondary:hover,
+  button.secondary:focus,
+  button.secondary:hover {
+    color: #f9f9f9;
+    background-color: #35313f;
+    border: 1px solid #35313f;
+    text-decoration: none
+  }
+
+  a.textColorDark:focus,
+  a.textColorDark:hover,
+  button.textColorDark:focus,
+  button.textColorDark:hover {
+    color: #090b13
+  }
+
+  a.backgroundColorOverride:focus.textColorDark,
+  a.backgroundColorOverride:hover.textColorDark,
+  button.backgroundColorOverride:focus.textColorDark,
+  button.backgroundColorOverride:hover.textColorDark {
+    filter: brightness(.8)
+  }
+
+  a.backgroundColorOverride:focus:not(.textColorDark),
+  a.backgroundColorOverride:hover:not(.textColorDark),
+  button.backgroundColorOverride:focus:not(.textColorDark),
+  button.backgroundColorOverride:hover:not(.textColorDark) {
+    filter: brightness(1.2)
+  }
+
+  a.primary:active,
+  a.secondary:active,
+  button.primary:active,
+  button.secondary:active {
+    opacity: .7;
+    transform: scale(.97);
+    transition: 0s
+  }
+
+  a.primary,
+  a.secondary,
+  button.primary,
+  button.secondary {
+    margin-bottom: 20px;
+    height: 50px;
+    padding: 11.5px 24px;
+    width: 100%;
+    max-width: 320px
+  }
+
+  a.primary.large,
+  a.secondary.large,
+  button.primary.large,
+  button.secondary.large {
+    padding: 11.5px 24px;
+    max-width: 540px
+  }
+
+  a.primary.small,
+  a.secondary.small,
+  button.primary.small,
+  button.secondary.small {
+    padding: 9px 12px;
+    max-width: 150px
+  }
+
+  @media only screen and (min-width:769px) {
+
+    a.primary,
+    a.secondary,
+    button.primary,
+    button.secondary {
+      margin-bottom: 20px;
+      height: 60px;
+      padding: 16.5px 24px;
+      max-width: 360px
+    }
+
+    a.primary.large,
+    a.secondary.large,
+    button.primary.large,
+    button.secondary.large {
+      padding: 20.5px 33px;
+      max-width: 700px;
+      height: 68px
+    }
+
+    a.primary.small,
+    a.secondary.small,
+    button.primary.small,
+    button.secondary.small {
+      padding: 8px 14px;
+      max-width: 260px;
+      height: 50px
+    }
+
+    a.primary *,
+    a.secondary *,
+    button.primary *,
+    button.secondary * {
+      margin-top: 3px
+    }
+  }
+
+  a.link,
+  button.link {
+    padding: 0;
+    color: #f9f9f9;
+    cursor: pointer;
+    background: 0 0;
+    border: none;
+    text-align: inherit
+  }
+
+  footer img,
+  footer picture,
+  header img,
+  header picture,
+  section img,
+  section picture {
+    display: block;
+    width: 100%;
+    height: auto
+  }
+
+  .thumbnail {
+    aspect-ratio: 1.66666667;
+    overflow: hidden;
+    border-radius: 4px
+  }
+
+  .device {
+    aspect-ratio: 2;
+    overflow: hidden
+  }
+
+  h1 picture,
+  h2 picture,
+  h3 picture,
+  h4 picture,
+  h5 picture,
+  h6 picture,
+  p picture {
+    display: inline-block;
+    margin-bottom: 0
+  }

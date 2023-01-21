@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Moderation: Auto-Mod - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form id="data1" class="form-horizontal">
+            <div class="clearfix">
+              <span name="translate" caption="dashboard_autonick1">Auto-Nick</span>
+              <div class="nickto">
+                <label class="switch">
+                  <input id="s1" name="AutoNickAddon" type="checkbox" class="switch" <% if (settings.AutoNickToggle === true) {%> checked <% } %>></input>
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+            <style>
+              .nickto {
+                float: right !important;
+              }
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #181a20fc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgb(255, 0, 0);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #191c24;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  background-color: #00ff4c;
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+              @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+
+                input[type=checkbox],
+                input[type=radio] {
+                  --active: #275EFE;
+                  --active-inner: #fff;
+                  --focus: 2px rgba(39, 94, 254, .3);
+                  --border: #BBC1E1;
+                  --border-hover: #275EFE;
+                  --background: #fff;
+                  --disabled: #F6F8FF;
+                  --disabled-inner: #E1E6F9;
+                  -webkit-appearance: none;
+                  -moz-appearance: none;
+                  height: 21px;
+                  outline: none;
+                  display: inline-block;
+                  vertical-align: top;
+                  position: relative;
+                  margin: 0;
+                  cursor: pointer;
+                  border: 1px solid var(--bc, var(--border));
+                  background: var(--b, var(--background));
+                  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+                }
+
+                input[type=checkbox]:after,
+                input[type=radio]:after {
+                  content: "";
+                  display: block;
+                  left: 0;
+                  top: 0;
+                  position: absolute;
+                  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+                }
+
+                input[type=checkbox]:checked,
+                input[type=radio]:checked {
+                  --b: var(--active);
+                  --bc: var(--active);
+                  --d-o: .3s;
+                  --d-t: .6s;
+                  --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+                }
+
+                input[type=checkbox]:disabled,
+                input[type=radio]:disabled {
+                  --b: var(--disabled);
+                  cursor: not-allowed;
+                  opacity: 0.9;
+                }
+
+                input[type=checkbox]:disabled:checked,
+                input[type=radio]:disabled:checked {
+                  --b: var(--disabled-inner);
+                  --bc: var(--border);
+                }
+
+                input[type=checkbox]:disabled+label,
+                input[type=radio]:disabled+label {
+                  cursor: not-allowed;
+                }
+
+                input[type=checkbox]:hover:not(:checked):not(:disabled),
+                input[type=radio]:hover:not(:checked):not(:disabled) {
+                  --bc: var(--border-hover);
+                }
+
+                input[type=checkbox]:focus,
+                input[type=radio]:focus {
+                  outline: none;
+                }
+
+                input[type=checkbox]:not(.switch),
+                input[type=radio]:not(.switch) {
+                  width: 21px;
+                }
+
+                input[type=checkbox]:not(.switch):after,
+                input[type=radio]:not(.switch):after {
+                  opacity: var(--o, 0);
+                }
+
+                input[type=checkbox]:not(.switch):checked,
+                input[type=radio]:not(.switch):checked {
+                  --o: 1;
+                }
+
+                input[type=checkbox]+label,
+                input[type=radio]+label {
+                  font-size: 14px;
+                  line-height: 21px;
+                  display: inline-block;
+                  vertical-align: top;
+                  cursor: pointer;
+                  margin-left: 4px;
+                }
+
+                input[type=checkbox]:not(.switch) {
+                  border-radius: 7px;
+                }
+
+                input[type=checkbox]:not(.switch):after {
+                  width: 5px;
+                  height: 9px;
+                  border: 2px solid var(--active-inner);
+                  border-top: 0;
+                  border-left: 0;
+                  left: 7px;
+                  top: 4px;
+                  transform: rotate(var(--r, 20deg));
+                }
+
+                input[type=checkbox]:not(.switch):checked {
+                  --r: 43deg;
+                }
+
+                input[type=checkbox].switch {
+                  width: 38px;
+                  border-radius: 11px;
+                }
+
+                input[type=checkbox].switch:after {
+                  left: 2px;
+                  top: 2px;
+                  border-radius: 50%;
+                  width: 15px;
+                  height: 15px;
+                  background: var(--ab, var(--border));
+                  transform: translateX(var(--x, 0));
+                }
+
+                input[type=checkbox].switch:checked {
+                  --ab: var(--active-inner);
+                  --x: 17px;
+                }
+
+                input[type=checkbox].switch:disabled:not(:checked):after {
+                  opacity: 0.6;
+                }
+
+                input[type=radio] {
+                  border-radius: 50%;
+                }
+
+                input[type=radio]:after {
+                  width: 19px;
+                  height: 19px;
+                  border-radius: 50%;
+                  background: var(--active-inner);
+                  opacity: 0;
+                  transform: scale(var(--s, 0.7));
+                }
+
+                input[type=radio]:checked {
+                  --s: .5;
+                }
+              }
+            </style>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_autonick2">This addon will send a message every X messages on a specific channel.</p><br>
+            <div class=" row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_autonick3">Settings</h4>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_autonick4">Change the initial nickname of the user when joining your server</p>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="prenick" name="prenick" placeholder="<%= settings.AutoNickName %>" value="<%= settings.AutoNickName %>">
+                    </div>
+                    <div>
+                    </div>
+                  </div>
+                  <div class="save" id="save" style="z-index: 1040;">
+                    <span><span name="translate" caption="dashboard_autonick5">You have unsaved changes. Do you want to save them?</span>
+                      <input type="submit" class="cta" value="Save" name="confirmchange" id="confirmchange" onclick="offNotify();">
+                      <input name="cancel" type="button" class="ctb" value="Cancel" onclick="mudarCor();""></span>
+                                                  </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+    </div>
+    <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+                      <script>
+                        const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-right',
+                          showConfirmButton: false,
+                          timer: 5000,
+                          timerProgressBar: true
+                        })
+
+                        $("input").change(function() {
+                          $(".save").addClass("changes_true");
+                        });
+
+                        function mudarCor(novaCor) {
+                          var originalAltUsers = document.getElementById("prenick").getAttribute('value');
+                          document.getElementById("prenick").value = originalAltUsers;
+                          $(".save").removeClass("changes_true");
+                        }
+
+                        // FECHA O CHANGES_TRUE QUANDO CLICA EM SALVAR
+                        function offNotify(novaCor) {
+                          $(".save").removeClass("changes_true");
+                        }
+
+                        $("#data1").submit(function(e) {
+                          e.preventDefault();
+                          var form = $(this);
+
+                          $.ajax({
+                            type: "POST",
+                            url: '/dashboard/<%= req.params.guildID %>/autonick',
+                            data: form.serialize(),
+                            beforeSend: function() {
+                              Toast.fire({
+                                icon: 'warning',
+                                title: 'Saving...'
+                              });
+                            },
+                            success: function(data) {
+                              Toast.fire({
+                                icon: 'success',
+                                title: 'Saved Changes'
+                              });
+                            }
+                          }).fail(function() {
+                            Toast.fire({
+                              icon: 'error',
+                              title: 'An error occurred while saving...'
+                            });
+                          });
+                        });
+                      </script>
+                      <!-- content-wrapper ends -->
+                      <%- include("../../partials/_footer-dashboard.ejs") %>
+                      <!-- partial -->
+                  </div>
+                  <!-- main-panel ends -->
+                </div>
+                <!-- page-body-wrapper ends -->
+              </div>
+              <!-- container-scroller -->
+              <!-- plugins:js -->
+              <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+              <!-- endinject -->
+              <!-- Plugin js for this page -->
+              <script src="../../assets/vendors/select2/select2.min.js"></script>
+              <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+              <!-- End plugin js for this page -->
+              <!-- inject:js -->
+              <script src="../../assets/js/off-canvas.js"></script>
+              <script src="../../assets/js/hoverable-collapse.js"></script>
+              <script src="../../assets/js/misc.js"></script>
+              <script src="../../assets/js/settings.js"></script>
+              <script src="../../assets/js/todolist.js"></script>
+              <!-- endinject -->
+              <!-- Custom js for this page -->
+              <script src="../../assets/js/file-upload.js"></script>
+              <script src="../../assets/js/typeahead.js"></script>
+              <script src="../../assets/js/select2.js"></script>
+              <!-- End custom js for this page -->
+</body>
+
+</html>

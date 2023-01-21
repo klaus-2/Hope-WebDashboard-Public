@@ -1,0 +1,7 @@
+<% for (const channel of ch.channels) { %>
+    <% if (channel.type === 0 && !var1.includes(channel.id)) { %>
+      <option value="<%= channel.id %>">#<%= channel.name %></option>
+      <% } else if (channel.type === 0 && var1.includes(channel.id)) { %>
+      <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+    <% } %>
+<% } %>

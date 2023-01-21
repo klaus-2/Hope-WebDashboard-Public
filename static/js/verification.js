@@ -1,0 +1,1 @@
+$("select").on({keydown:function(e){if(e.which===32)return false;},change:function(){$(".save").addClass("changes_true");}});

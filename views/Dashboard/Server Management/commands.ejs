@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Commands</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+    <!-- End Plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../css/update.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+</head>
+
+<body>
+    <div class="container-scroller">
+        <%- include("../../partials/_sidebar.ejs") %>
+            <!-- partial -->
+            <div class="container-fluid page-body-wrapper">
+                <%- include("../../partials/_navbar.ejs") %>
+                    <div class="main-panel">
+                        <div class="content-wrapper">
+                            <form method="POST" action="/dashboard/<%= guild.id %>/bot" class="form-horizontal">
+                                <h4>Bot Settings</h4>
+                                <p class="text-muted mb-0">Customise Hope's Main Settings</p><br>
+                                <div class="row ">
+                                    <div class="col-12 grid-margin">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <header class="sc-1o36vqg-4 kYxrQw">
+                                                    <div class="sc-1o36vqg-3 iVeijx">
+                                                        <h3 class="title is-4">Commands</h3>
+                        <div class="settings-top">
+                            <div class="tabs">
+                                <ul class="tabs">
+                                    <li><a aria-current="page" class="subtab-control is-active"
+                                            href="https://dyno.gg/manage/864193088548634685/commands">Roles</a></li>
+                                    <li><a class="subtab-control"
+                                            href="https://dyno.gg/manage/864193088548634685/commands/manager">Manager</a>
+                                    </li>
+                                    <li><a class="subtab-control"
+                                            href="https://dyno.gg/manage/864193088548634685/commands/moderator">Moderator</a>
+                                    </li>
+                                    <li><a class="subtab-control"
+                                            href="https://dyno.gg/manage/864193088548634685/commands/fun">Fun</a></li>
+                                    <li><a class="subtab-control"
+                                            href="https://dyno.gg/manage/864193088548634685/commands/misc">Misc</a></li>
+                                    <li><a class="subtab-control"
+                                            href="https://dyno.gg/manage/864193088548634685/commands/tags">Tags</a></li>
+                                    <li><a class="subtab-control"
+                                            href="https://dyno.gg/manage/864193088548634685/commands/info">Info</a></li>
+                                </ul>
+                            </div>
+                            <div id="commands-Roles" class="is-active">
+                                <div class="command-group-heading">
+                                    <h3 class="title is-4">Roles</h3>
+                                </div>
+                                
+                                <div class="module-toggles">
+                                    <div class="control rich-command is-pulled-left enabled"><span>
+                                            <h4 class="title is-5" for="addrank">addrank</h4>
+                                            <div class="command-toggle"><input class="" type="checkbox"><label
+                                                    class="checkbox" for="addrank"></label></div>
+                                        </span>
+                                        <p class="help-text">Add a new rank for members to join, works with existing or
+                                            new roles.</p>
+                                        <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                                                class="button command-settings"><label>Help</label></a>
+                                        </div>
+                                    </div>
+                                    <div class="control rich-command is-pulled-left enabled"><span>
+                                            <h4 class="title is-5" for="rank">rank</h4>
+                                            <div class="command-toggle"><input class="" type="checkbox"><label
+                                                    class="checkbox" for="rank"></label></div>
+                                        </span>
+                                        <p class="help-text">Join/leave a rank</p>
+                                        <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                                                class="button command-settings"><span class="icon is-link"><i
+                                                        class="fa fa-question-circle"></i></span><label>Help</label></a>
+                                        </div>
+                                    </div>
+                                    <div class="control rich-command is-pulled-left enabled"><span>
+                                            <h4 class="title is-5" for="ranks">ranks</h4>
+                                            <div class="command-toggle"><input class="" type="checkbox"><label
+                                                    class="checkbox" for="ranks"></label></div>
+                                        </span>
+                                        <p class="help-text">Get a list of joinable ranks.</p>
+                                        <div class="controls"><a class="button command-settings"><span
+                                                    class="icon is-link"><i
+                                                        class="fa fa-cog"></i></span><label>Settings</label></a><a
+                                                class="button command-settings"><span class="icon is-link"><i
+                                                        class="fa fa-question-circle"></i></span><label>Help</label></a>
+                                        </div>
+                                    </div>
+                                    <div class="control rich-command is-pulled-left enabled"><span>
+                                            <h4 class="title is-5" for="delrank">delrank</h4>
+                                            <div class="command-toggle"><input class="" type="checkbox"><label
+                                                    class="checkbox" for="delrank"></label></div>
+                                        </span>
+                                        <p class="help-text">Delete an existing rank, does not delete the role.</p>
+                                        <div class="controls"><a class="button command-settings"><span
+                                                    class="icon is-link"><i
+                                                        class="fa fa-cog"></i></span><label>Settings</label></a><a
+                                                class="button command-settings"><span class="icon is-link"><i
+                                                        class="fa fa-question-circle"></i></span><label>Help</label></a>
+                                        </div>
+                                    </div>
+                                    <div class="control rich-command is-pulled-left enabled"><span>
+                                            <h4 class="title is-5" for="roles">roles</h4>
+                                            <div class="command-toggle"><input class="" type="checkbox"><label
+                                                    class="checkbox" for="roles"></label></div>
+                                        </span>
+                                        <p class="help-text">Get a list of server roles.</p>
+                                        <div class="controls"><a class="button command-settings"><span
+                                                    class="icon is-link"><i
+                                                        class="fa fa-cog"></i></span><label>Settings</label></a><a
+                                                class="button command-settings"><span class="icon is-link"><i
+                                                        class="fa fa-question-circle"></i></span><label>Help</label></a>
+                                        </div>
+                                    </div>
+                                    <div class="control rich-command is-pulled-left enabled"><span>
+                                            <h4 class="title is-5" for="roleinfo">roleinfo</h4>
+                                            <div class="command-toggle"><input class="" type="checkbox"><label
+                                                    class="checkbox" for="roleinfo"></label></div>
+                                        </span>
+                                        <p class="help-text">Get information about a role</p>
+                                        <div class="controls"><a class="button command-settings"><span
+                                                    class="icon is-link"><i
+                                                        class="fa fa-cog"></i></span><label>Settings</label></a><a
+                                                class="button command-settings"><span class="icon is-link"><i
+                                                        class="fa fa-question-circle"></i></span><label>Help</label></a>
+                                        </div>
+                                    </div>
+                                    <div class="control rich-command is-pulled-left enabled"><span>
+                                        <h4 class="title is-5" for="addrank">addrank</h4>
+                                        <div class="command-toggle"><input class="" type="checkbox"><label
+                                                class="checkbox" for="addrank"></label></div>
+                                    </span>
+                                    <p class="help-text">Add a new rank for members to join, works with existing or
+                                        new roles.</p>
+                                    <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                                            class="button command-settings"><label>Help</label></a>
+                                    </div>
+                                </div>
+                                <div class="control rich-command is-pulled-left enabled"><span>
+                                    <h4 class="title is-5" for="addrank">addrank</h4>
+                                    <div class="command-toggle"><input class="" type="checkbox"><label
+                                            class="checkbox" for="addrank"></label></div>
+                                </span>
+                                <p class="help-text">Add a new rank for members to join, works with existing or
+                                    new roles.</p>
+                                <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                                        class="button command-settings"><label>Help</label></a>
+                                </div>
+                            </div>
+                            <div class="control rich-command is-pulled-left enabled"><span>
+                                <h4 class="title is-5" for="addrank">addrank</h4>
+                                <div class="command-toggle"><input class="" type="checkbox"><label
+                                        class="checkbox" for="addrank"></label></div>
+                            </span>
+                            <p class="help-text">Add a new rank for members to join, works with existing or
+                                new roles.</p>
+                            <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                                    class="button command-settings"><label>Help</label></a>
+                            </div>
+                        </div>
+                        <div class="control rich-command is-pulled-left enabled"><span>
+                            <h4 class="title is-5" for="addrank">addrank</h4>
+                            <div class="command-toggle"><input class="" type="checkbox"><label
+                                    class="checkbox" for="addrank"></label></div>
+                        </span>
+                        <p class="help-text">Add a new rank for members to join, works with existing or
+                            new roles.</p>
+                        <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                                class="button command-settings"><label>Help</label></a>
+                        </div>
+                    </div>
+                    <div class="control rich-command is-pulled-left enabled"><span>
+                        <h4 class="title is-5" for="addrank">addrank</h4>
+                        <div class="command-toggle"><input class="" type="checkbox"><label
+                                class="checkbox" for="addrank"></label></div>
+                    </span>
+                    <p class="help-text">Add a new rank for members to join, works with existing or
+                        new roles.</p>
+                    <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                            class="button command-settings"><label>Help</label></a>
+                    </div>
+                </div>
+                <div class="control rich-command is-pulled-left enabled"><span>
+                    <h4 class="title is-5" for="addrank">addrank</h4>
+                    <div class="command-toggle"><input class="" type="checkbox"><label
+                            class="checkbox" for="addrank"></label></div>
+                </span>
+                <p class="help-text">Add a new rank for members to join, works with existing or
+                    new roles.</p>
+                <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                        class="button command-settings"><label>Help</label></a>
+                </div>
+            </div>
+            <div class="control rich-command is-pulled-left enabled"><span>
+                <h4 class="title is-5" for="addrank">addrank</h4>
+                <div class="command-toggle"><input class="" type="checkbox"><label
+                        class="checkbox" for="addrank"></label></div>
+            </span>
+            <p class="help-text">Add a new rank for members to join, works with existing or
+                new roles.</p>
+            <div class="controls"><a class="button command-settings"><label>Settings</label></a><a
+                    class="button command-settings"><label>Help</label></a>
+            </div>
+        </div>
+                                </div>
+                            </div>
+                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            
+                        </div>
+                        <!-- content-wrapper ends -->
+                        <%- include("../../partials/_footer-dashboard.ejs") %>
+                            <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <style>
+        .module-content .title.is-4 {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 0.5em;
+            align-items: center;
+            margin: 20px 0.3em;
+        }
+
+        .title.is-4 {
+            font-size: 1.5rem;
+        }
+
+        .settings-top {
+            padding: 0.5em;
+        }
+
+        .box:not(:last-child),
+        .fieldset:not(:last-child),
+        .block:not(:last-child),
+        .highlight:not(:last-child),
+        .table:not(:last-child),
+        .table-container:not(:last-child),
+        .title:not(:last-child),
+        .subtitle:not(:last-child),
+        .level:not(:last-child),
+        .message:not(:last-child),
+        .tabs:not(:last-child),
+        .notification:not(:last-child) {
+            margin-bottom: 1.5rem;
+        }
+
+        .tabs {
+            margin-bottom: 0;
+            background-color: transparent;
+            margin-top: 0.5em;
+        }
+
+        .tabs ul {
+            border-bottom: none;
+            border-bottom-color: none;
+            background-color: transparent;
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+
+        .tabs {
+            margin-bottom: 0;
+            background-color: transparent;
+            margin-top: 0.5em;
+        }
+
+        .tabs ul {
+            align-items: center;
+            border-bottom-color: #222;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            display: flex;
+            flex-grow: 1;
+            flex-shrink: 0;
+            justify-content: flex-start;
+        }
+
+        .tabs li {
+            height: 47px;
+            line-height: 47px;
+            border-radius: 2px;
+            margin-right: 0.6em;
+            background-color: #272b34;
+            margin-bottom: 14px;
+        }
+
+        .tabs li {
+            display: block;
+        }
+
+        a,
+        button,
+        input,
+        textarea,
+        .Select-control,
+        .Select-option,
+        li,
+        tr {
+            transition: color 0.3s, background 0.3s, background-color 0.3s;
+        }
+
+        .tabs li a.is-active {
+            background: #d32b42;
+        }
+
+        .tabs li a {
+            border-bottom: none;
+            color: #ffffff;
+            padding: 0 32px;
+            border-radius: 3px;
+        }
+
+        .tabs a {
+            align-items: center;
+            border-bottom-color: #222;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            margin-bottom: -1px;
+            padding: 0.5em 1em;
+            vertical-align: top;
+        }
+
+        a {
+            outline: none;
+        }
+
+        .settings-top>div:not(:first-child) {
+            margin-top: 1em;
+        }
+
+        .command-group-heading {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .module-content .title.is-4 {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 0.5em;
+            align-items: center;
+            margin: 20px 0.3em;
+        }
+
+        .command-group-heading .title.is-4 {
+            margin-top: 0 !important;
+        }
+
+        .title.is-4 {
+            font-size: 1.5rem;
+        }
+
+        .command-group-heading .control {
+            width: auto;
+        }
+
+        a {
+            outline: none;
+        }
+
+        .control {
+            box-sizing: border-box;
+            clear: both;
+            font-size: 1rem;
+            position: relative;
+            text-align: left;
+        }
+
+        .command-group-heading .control .icon {
+            margin-right: 0.3em;
+        }
+
+        .icon.is-link {
+            width: 24px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 16px;
+        }
+
+        span {
+            font-style: inherit;
+            font-weight: inherit;
+        }
+
+        .fa,
+        .fas {
+            font-family: "Font Awesome 5 Pro";
+            font-weight: 900;
+        }
+
+        .fa,
+        .fab,
+        .fal,
+        .far,
+        .fas {
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+
+        .command-group-controls {
+            margin: 0 0 1em;
+        }
+
+        .command-group-controls .group-enable,
+        .command-group-controls .group-disable {
+            width: 223px;
+            height: 47px;
+            font-size: 12px;
+            line-height: 50px;
+            text-transform: uppercase;
+            background: #23262f;
+            border: none;
+            border-radius: 2px;
+            margin-right: 15px;
+            padding: 0;
+            color: #EE6668;
+            text-shadow: none;
+            font-weight: bold;
+            letter-spacing: 2.1px;
+        }
+
+        .command-group-controls .command-settings {
+            margin-right: 1em;
+        }
+
+        .checkbox,
+        .radio {
+            cursor: pointer;
+            display: inline-block;
+            line-height: 1.25;
+            position: relative;
+        }
+
+        input[type=checkbox] {
+            display: none;
+        }
+
+        .button {
+            border-radius: 4px;
+            font-family: 'Maison Neue';
+            padding-top: calc(0.375em + 2px);
+            transition: background 0.3s, background-color 0.3s, color 0.3s;
+        }
+
+        .command-group-controls .group-disable {
+            width: 223px;
+            height: 47px;
+            font-size: 12px;
+            line-height: 50px;
+            text-transform: uppercase;
+            background: #23262f;
+            border: none;
+            border-radius: 2px;
+            margin-right: 15px;
+            padding: 0;
+            color: #EE6668;
+            text-shadow: none;
+            font-weight: bold;
+            letter-spacing: 2.1px;
+        }
+
+        .command-group-controls .button,
+        .command-group-controls .command-settings {
+            margin-right: 1em;
+        }
+
+        .module-toggles {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .module-toggles .control.is-pulled-left {
+            float: none;
+        }
+
+        .control.rich-setting.enabled {
+            padding-top: 1em;
+        }
+
+        .title {
+            color: #fff;
+            font-size: 16px;
+            line-height: 20px;
+            margin-bottom: 1em;
+            overflow: hidden;
+            max-width: 250px;
+            font-weight: 600;
+            line-height: 1.125;
+        }
+
+        .title {
+            word-break: normal;
+        }
+
+        .control {
+            box-sizing: border-box;
+            clear: both;
+            font-size: 1rem;
+            position: relative;
+            text-align: left;
+        }
+
+        .control.rich-module.disabled h4 {
+            color: #b3b3b3
+        }
+
+        .control.rich-module.disabled p.help-text {
+            color: #5E697D
+        }
+
+        .control.rich-module.locked {
+            padding-top: 1em
+        }
+
+        .control.rich-module.locked small {
+            color: #ff7f00
+        }
+
+        .control.rich-module .title {
+            font-size: 16px;
+            line-height: 20px
+        }
+
+        .control.rich-module .controls {
+            margin-bottom: 0
+        }
+
+        @media (max-width: 477px) {
+            .control.rich-module .controls button:last-child {
+                left: 15%
+            }
+        }
+
+        .control.rich-module .controls .module-settings {
+            background: #21232c;
+            border-radius: 3px;
+            height: 28px;
+            font-size: 10px;
+            line-height: 30px;
+            color: #FF6B6B;
+            text-transform: uppercase;
+            border: none;
+            margin-right: 1em;
+            letter-spacing: 0.7px;
+            padding: 0 18px
+        }
+
+        .control.rich-module .controls .module-settings:hover {
+            background: #D6374D;
+            color: #ffffff
+        }
+
+        .control.rich-module .controls .module-settings .icon {
+            height: 28px;
+            line-height: 32px;
+            margin-right: 0.1em
+        }
+
+        .control.rich-command,
+        .control.rich-giveaway,
+        .control.rich-setting {
+            margin-bottom: 20px;
+            margin-right: 20px;
+            border-radius: 5px;
+            width: 31%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            color: #01E6CE;
+            background: #1f222a;
+            padding: 20px;
+            margin-right: 2%;
+            margin-bottom: 24px;
+            border-radius: 5px
+        }
+
+        .control.rich-command>span,
+        .control.rich-giveaway>span,
+        .control.rich-setting>span {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between
+        }
+
+        .control.rich-command p.help-text,
+        .control.rich-giveaway p.help-text,
+        .control.rich-setting p.help-text {
+            font-size: 14px;
+            line-height: 20px;
+            color: #5E697D;
+            margin: 0 0.5em 1em 0;
+            overflow-y: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical
+        }
+
+        .control.rich-command.enabled,
+        .control.rich-giveaway.enabled,
+        .control.rich-setting.enabled {
+            padding-top: 1em
+        }
+
+        .control.rich-command.enabled small,
+        .control.rich-giveaway.enabled small,
+        .control.rich-setting.enabled small {
+            color: #009b54
+        }
+
+        .control.rich-command.disabled,
+        .control.rich-giveaway.disabled,
+        .control.rich-setting.disabled {
+            padding-top: 1em;
+            background: #14151a
+        }
+
+        .control.rich-command.disabled h4,
+        .control.rich-giveaway.disabled h4,
+        .control.rich-setting.disabled h4 {
+            color: #b3b3b3
+        }
+
+        .control.rich-command.disabled p.help-text,
+        .control.rich-giveaway.disabled p.help-text,
+        .control.rich-setting.disabled p.help-text {
+            color: #5E697D
+        }
+
+        .control.rich-command.locked,
+        .control.rich-giveaway.locked,
+        .control.rich-setting.locked {
+            padding-top: 1em
+        }
+
+        .control.rich-command.locked .command-toggle,
+        .control.rich-command.locked .command-toggle>.checkbox,
+        .control.rich-giveaway.locked .command-toggle,
+        .control.rich-giveaway.locked .command-toggle>.checkbox,
+        .control.rich-setting.locked .command-toggle,
+        .control.rich-setting.locked .command-toggle>.checkbox {
+            cursor: not-allowed
+        }
+
+        .control.rich-command.locked small,
+        .control.rich-giveaway.locked small,
+        .control.rich-setting.locked small {
+            color: #009b54
+        }
+
+        .control.rich-command .title,
+        .control.rich-giveaway .title,
+        .control.rich-setting .title {
+            font-size: 16px;
+            line-height: 20px;
+            margin-bottom: 1em;
+            overflow: hidden;
+            max-width: 250px
+        }
+
+        .control.rich-command .controls,
+        .control.rich-giveaway .controls,
+        .control.rich-setting .controls {
+            margin-bottom: 0
+        }
+
+        @media (max-width: 1600px) {
+
+            .control.rich-command,
+            .control.rich-giveaway,
+            .control.rich-setting {
+                width: 47%
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .control.rich-command,
+            .control.rich-giveaway,
+            .control.rich-setting {
+                width: 100%;
+                margin-right: 0
+            }
+        }
+
+        .control.rich-command .command-settings,
+        .control.rich-giveaway .command-settings,
+        .control.rich-setting .command-settings {
+            background: #23262f;
+            border-radius: 3px;
+            height: 28px;
+            width: inherit;
+            font-size: 10px;
+            line-height: 30px;
+            color: #e14c60;
+            text-transform: uppercase;
+            border: none;
+            margin-right: 1em;
+            letter-spacing: 0.7px;
+            padding: 0 18px
+        }
+
+        .control.rich-command .command-settings:hover,
+        .control.rich-giveaway .command-settings:hover,
+        .control.rich-setting .command-settings:hover {
+            background: #D6374D;
+            color: #ffffff
+        }
+
+        .control.rich-command .command-settings .icon,
+        .control.rich-giveaway .command-settings .icon,
+        .control.rich-setting .command-settings .icon {
+            height: 28px;
+            line-height: 32px;
+            margin-right: 0.1em !important
+        }
+
+        .control.rich-command .command-settings label,
+        .control.rich-giveaway .command-settings label,
+        .control.rich-setting .command-settings label {
+            cursor: pointer
+        }
+
+        label {
+    display: inline-block;
+    margin-bottom: -0.25rem;
+}
+
+        @media (max-width: 1200px) {
+            .control:not(.module-toggle) {
+                width: 47%
+            }
+        }
+
+        @media (max-width: 769px) {
+            .control:not(.module-toggle) {
+                width: 97%;
+                display: block !important
+            }
+        }
+
+        .control.rich-setting {
+            width: 97%;
+            margin-right: 0;
+            background: #272b34;
+            flex-direction: row;
+            justify-content: space-between
+        }
+
+        .control.rich-setting .rich-setting-filters {
+            display: inline-block;
+            margin-right: 0.5em
+        }
+
+        .control.rich-setting div>p {
+            margin-bottom: 0.3em !important
+        }
+
+        .control.rich-setting div>p:last-child {
+            margin-bottom: 0 !important
+        }
+
+        .control.rich-setting>div strong {
+            margin-right: 0.3em
+        }
+
+        .page-wrapper .button {
+            text-shadow: 1px 1px rgb(0 0 0 / 20%);
+        }
+
+        a {
+            outline: none;
+        }
+
+        .button {
+            border-radius: 4px;
+            font-family: 'Maison Neue';
+            padding-top: calc(0.375em + 2px);
+            transition: background 0.3s, background-color 0.3s, color 0.3s;
+        }
+
+        .button {
+            background-color: #fff;
+            border-color: #dbdbdb;
+            border-width: 1px;
+            color: #363636;
+            cursor: pointer;
+            justify-content: center;
+            padding-bottom: calc(0.375em - 1px);
+            padding-left: 0.75em;
+            padding-right: 0.75em;
+            padding-top: calc(0.375em - 1px);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .button,
+        .input,
+        .textarea,
+        .select select,
+        .file-cta,
+        .file-name,
+        .pagination-previous,
+        .pagination-next,
+        .pagination-link,
+        .pagination-ellipsis {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            align-items: center;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            box-shadow: none;
+            display: inline-flex;
+            font-size: 1rem;
+            height: 2.25em;
+            justify-content: flex-start;
+            line-height: 1.5;
+            padding-bottom: calc(0.375em - 1px);
+            padding-left: calc(0.625em - 1px);
+            padding-right: calc(0.625em - 1px);
+            padding-top: calc(0.375em - 1px);
+            position: relative;
+            vertical-align: top;
+        }
+
+        .delete,
+        .modal-close,
+        .is-unselectable,
+        .button,
+        .file,
+        .pagination-previous,
+        .pagination-next,
+        .pagination-link,
+        .pagination-ellipsis,
+        .tabs {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .button .icon:first-child:not(:last-child) {
+            margin-left: calc(-0.375em - 1px);
+            margin-right: 0.1875em;
+        }
+
+        .control.rich-command .command-settings .icon,
+        .control.rich-giveaway .command-settings .icon,
+        .control.rich-setting .command-settings .icon {
+            height: 28px;
+            line-height: 32px;
+            margin-right: 0.1em !important;
+        }
+
+        .control.rich-command .command-settings label,
+        .control.rich-giveaway .command-settings label,
+        .control.rich-setting .command-settings label {
+            cursor: pointer;
+        }
+
+        .control.rich-command .command-settings,
+        .control.rich-giveaway .command-settings,
+        .control.rich-setting .command-settings {
+            background: #23262f;
+            border-radius: 3px;
+            height: 28px;
+            width: inherit;
+            font-size: 10px;
+            line-height: 30px;
+            color: #e14c60;
+            text-transform: uppercase;
+            border: none;
+            margin-right: 1em;
+            letter-spacing: 0.7px;
+            padding: 0 18px;
+        }
+
+        .module-commands .search {
+            margin-bottom: 2em
+        }
+
+        .module-commands .search input[type=text] {
+            display: block;
+            width: 97%;
+            padding-left: 1em
+        }
+
+        .module-commands .search ::placeholder {
+            color: #cccccc
+        }
+
+        .module-commands .pagination {
+            justify-content: center
+        }
+
+        .module-commands .pagination li {
+            background: #272b34;
+            border-radius: 4px;
+            height: 30px;
+            width: inherit;
+            font-size: 14px;
+            line-height: 32px;
+            color: #FF6B6B;
+            text-transform: uppercase;
+            border: none;
+            margin-right: 1em;
+            letter-spacing: 0.7px;
+            padding: 0 18px;
+            cursor: pointer
+        }
+
+        @media (max-width: 768px) {
+            .module-commands .pagination li {
+                margin-top: 0.5em
+            }
+        }
+
+        .module-commands .pagination li a {
+            color: inherit;
+            transition: color 0.01s
+        }
+
+        .module-commands .pagination li:hover,
+        .module-commands .pagination li.active {
+            background: #ff5c5c;
+            color: #ffffff
+        }
+
+        .module-commands .pagination li .icon {
+            height: 30px;
+            line-height: 34px;
+            margin-right: 0.1em !important
+        }
+
+        .command-group-heading {
+            display: flex;
+            justify-content: space-between
+        }
+
+        .command-group-heading .control {
+            width: auto
+        }
+
+        .command-group-heading .control .icon {
+            margin-right: 0.3em
+        }
+
+        .command-group-heading .title.is-4 {
+            margin-top: 0 !important
+        }
+
+        .command-group-controls {
+            margin: 0 0 1em
+        }
+
+        .command-group-controls .group-enable,
+        .command-group-controls .group-disable {
+            width: 223px;
+            height: 47px;
+            font-size: 12px;
+            line-height: 50px;
+            text-transform: uppercase;
+            background: #23262f;
+            border: none;
+            border-radius: 2px;
+            margin-right: 15px;
+            padding: 0;
+            color: #EE6668;
+            text-shadow: none;
+            font-weight: bold;
+            letter-spacing: 2.1px
+        }
+
+        @media (max-width: 768px) {
+
+            .command-group-controls .group-enable,
+            .command-group-controls .group-disable {
+                width: 100%;
+                margin-bottom: 1em
+            }
+        }
+
+        .command-group-controls .active {
+            color: white !important;
+            background-color: #EE6668
+        }
+
+        .command-group-controls .button,
+        .command-group-controls .command-settings {
+            margin-right: 1em
+        }
+
+        .command-group-controls .command-settings {
+            display: inline-block;
+            width: auto;
+            text-align: center;
+            margin-bottom: 0;
+            font-size: 16px;
+            line-height: 30px;
+            color: #ddd
+        }
+
+        .command-group-controls .command-settings:hover {
+            color: #336fd5
+        }
+
+        .command-group-controls .command-settings .icon {
+            height: 30px;
+            line-height: 30px
+        }
+
+        div.premium-modal {
+            min-width: 500px !important;
+            height: 275px;
+            padding-bottom: 10px;
+            font-size: 18px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        div.premium-modal img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 75px !important;
+            padding-bottom: 10px
+        }
+
+        div.premium-modal button {
+            display: block;
+            margin-left: auto;
+            margin-right: auto !important;
+            border-radius: 3px
+        }
+
+        @media (max-width: 769px) {
+            div.premium-modal {
+                min-width: 0 !important
+            }
+        }
+
+        div.commands-modal,
+        div.embed-modal {
+            min-width: 800px;
+            background: #0e1015;
+            border-radius: 6px
+        }
+
+        @media (max-width: 769px) {
+
+            div.commands-modal,
+            div.embed-modal {
+                min-width: 0
+            }
+        }
+
+        .commands-modal .title:first-of-type {
+            line-height: 24px;
+            border-bottom: 1px solid #555;
+            padding-bottom: 10px;
+            overflow-wrap: break-word
+        }
+
+        .commands-modal>svg {
+            fill: white
+        }
+
+        .nav-collapse-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px
+        }
+
+        .nav-collapse-title .is-hamburger {
+            padding-top: 0.3em
+        }
+
+        .nav-collapse-title h2 {
+            font-size: 24px
+        }
+
+        .nav-collapse {
+            transition: max-height .217s;
+            margin-top: 0.5em;
+            overflow: hidden;
+            max-height: 1200px
+        }
+
+        .nav-collapse.collapsed {
+            max-height: 0
+        }
+
+        #modules .flex-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap
+        }
+
+        #modules .checkbox:hover {
+            color: white
+        }
+
+        #modules .module-toggle {
+            flex-shrink: 1;
+            width: 32%;
+            background-color: #181a20;
+            padding: 0.7em 1em;
+            margin-right: 0.5em;
+            cursor: pointer;
+            width: 48%;
+            margin: 0.5em 0;
+            border-radius: 5px
+        }
+
+        #modules .module-toggle:hover {
+            background-color: #23262f
+        }
+
+        #modules .module-toggle p {
+            margin-top: 0.5em;
+            padding-left: 2em
+        }
+
+        @media (max-width: 768px) {
+            #commands .control.rich-module {
+                width: 100%;
+                margin-right: 0
+            }
+        }
+
+        #commands .subtab-content,
+        .module-commands {
+            margin: 1em 0;
+            clear: both;
+            vertical-align: top;
+            border-radius: 5px;
+            font-family: 'Maison Neue'
+        }
+
+        #commands .subtab-content.is-active>div,
+        .module-commands.is-active>div {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%
+        }
+
+        #commands .subtab-content .help-text,
+        .module-commands .help-text {
+            margin: 0.5em
+        }
+
+        @media (max-width: 768px) {
+
+            #commands .subtab-content,
+            .module-commands {
+                padding: 18px
+            }
+        }
+
+        .tabs li a.is-active {
+            background: #d32b42;
+        }
+
+        .tabs li a {
+            border-bottom: none;
+            color: #ffffff;
+            padding: 0 32px;
+            border-radius: 3px;
+        }
+
+        .tabs a {
+            align-items: center;
+            border-bottom-color: #222;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            margin-bottom: -1px;
+            padding: 0.5em 1em;
+            vertical-align: top;
+        }
+
+        a {
+            outline: none;
+        }
+
+        a,
+        button,
+        input,
+        textarea,
+        .Select-control,
+        .Select-option,
+        li,
+        tr {
+            transition: color 0.3s, background 0.3s, background-color 0.3s;
+        }
+    </style>
+    <!-- plugins:js -->
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../../assets/vendors/select2/select2.min.js"></script>
+    <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/misc.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../../js/prefix-update.js"></script>
+    <script src="../../js/nickname-update.js"></script>
+    <script src="../../assets/js/file-upload.js"></script>
+    <script src="../../assets/js/typeahead.js"></script>
+    <script src="../../assets/js/select2.js"></script>
+    <!-- End custom js for this page -->
+</body>
+
+</html>

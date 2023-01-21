@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Moderation: Verification - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form id="data1" class="form-horizontal">
+            <h4 name="translate" caption="dashboard_verification1">Anti-raid Verification</h4>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_verification2">Verification Addon protects your server against RAIDs</p><br>
+            <div class=" row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_verification3">Settings</h4>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_verification4">Set the verification level</p>
+                    <div class="input-group">
+                      <select id="modo" name="modo" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <option value="0" <% if(settings.VerificarOpção === 0) { %> selected <%} %>>Disabled</option>
+                        <option value="1" <% if(settings.VerificarOpção === 1) { %> selected <%} %>>Captcha verification</option>
+                        <option value="2" <% if(settings.VerificarOpção === 2) { %> selected <%} %>>Message verification</option>
+                        <option value="3" <% if(settings.VerificarOpção === 3) { %> selected <%} %>>Button verification</option>
+                      </select>
+                    </div>
+                    <p class="text-muted mb-0"><span name="translate" caption="dashboard_verification5">In</span> <code name="translate" caption="dashboard_verification6"> Captcha </code> <span name="translate" caption="dashboard_verification7">mode and</span> <code name="translate" caption="dashboard_verification8"> Message </code> <span name="translate" caption="dashboard_verification9">mode must use</span> <code><%= settings.prefix %>verify</code> <span name="translate" caption="dashboard_verification10">in the selected channel.</span></p>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_verification11">Defines the verification channel</p>
+                    <div class="input-group">
+                      <select id="VFChannel" name="VFChannel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <%- include('../components/am-channels', {ch: ch, var1: settings.VerificarCanal }) %>
+                      </select>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_verification12">Defines the role that the user will receive when verified</p>
+                    <div class="input-group">
+                      <select id="VFRole" name="VFRole" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <%- include('../components/am-roles', {ch: ch, var1: settings.VerificarCargo }) %>
+                      </select>
+                    </div>
+                    <div>
+                    </div>
+                  </div>
+                  <div class="save" id="save" style="z-index: 1040;">
+                    <span><span name="translate" caption="dashboard_verification13">You have unsaved changes. Do you want to save them?</span>
+                      <input type="submit" class="cta" value="Save" name="confirmchange" id="confirmchange" onclick="offNotify();">
+                      <input name="cancel" type="button" class="ctb" value="Cancel" onclick="mudarCor();""></span>
+                                                  </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+                      <script>
+                        const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-right',
+                          showConfirmButton: false,
+                          timer: 5000,
+                          timerProgressBar: true
+                        })
+
+                        function mudarCor(novaCor) {
+                          $(".save").removeClass("changes_true");
+                        }
+
+                        // FECHA O CHANGES_TRUE QUANDO CLICA EM SALVAR
+                        function offNotify(novaCor) {
+                          $(".save").removeClass("changes_true");
+                        }
+
+                        $("#data1").submit(function(e) {
+                          e.preventDefault();
+                          var form = $(this);
+
+                          $.ajax({
+                            type: "POST",
+                            url: '/dashboard/<%= req.params.guildID %>/verification',
+                            data: form.serialize(),
+                            beforeSend: function() {
+                              Toast.fire({
+                                icon: 'warning',
+                                title: 'Saving...'
+                              });
+                            },
+                            success: function(data) {
+                              Toast.fire({
+                                icon: 'success',
+                                title: 'Saved Changes'
+                              });
+                            }
+                          }).fail(function() {
+                            Toast.fire({
+                              icon: 'error',
+                              title: 'An error occurred while saving...'
+                            });
+                          });
+                        });
+                      </script>
+                      <!-- content-wrapper ends -->
+                      <%- include("../../partials/_footer-dashboard.ejs") %>
+                      <!-- partial -->
+                  </div>
+                  <!-- main-panel ends -->
+                </div>
+                <!-- page-body-wrapper ends -->
+              </div>
+              <!-- container-scroller -->
+              <!-- plugins:js -->
+              <script src=" ../../assets/vendors/js/vendor.bundle.base.js"></script>
+              <!-- endinject -->
+              <!-- Plugin js for this page -->
+              <script src="../../assets/vendors/select2/select2.min.js"></script>
+              <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+              <!-- End plugin js for this page -->
+              <!-- inject:js -->
+              <script src="../../assets/js/off-canvas.js"></script>
+              <script src="../../assets/js/hoverable-collapse.js"></script>
+              <script src="../../assets/js/misc.js"></script>
+              <script src="../../assets/js/settings.js"></script>
+              <script src="../../assets/js/todolist.js"></script>
+              <!-- endinject -->
+              <!-- Custom js for this page -->
+              <script src="../../js/verification.js"></script>
+              <script src="../../assets/js/file-upload.js"></script>
+              <script src="../../assets/js/typeahead.js"></script>
+              <script src="../../assets/js/select2.js"></script>
+              <!-- End custom js for this page -->
+</body>
+
+</html>

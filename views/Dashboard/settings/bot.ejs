@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Settings: Bot - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <h4 name="translate" caption="dashboard_bot1">Bot Settings</h4>
+          <p class="text-muted mb-0" name="translate" caption="dashboard_bot2">Customise Hope's Main Settings</p><br>
+          <div class="row ">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title" name="translate" caption="dashboard_bot3">Updates Channel</h4>
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_bot4">Receive instant notifications when Hope receives a new update. And also, you will also receive weekly statistics, such as the number of users joined/left, users banned/kicked/muted, and more!</p>
+                    </div>
+                  </header>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form class="form-inline" id="updatesform">
+                    <div class="input-group">
+                      <select id="updch" name="updch" class="js-example-basic-single">
+                        <% for (const channel of ch.channels) { %>
+                          <% if (channel.type === 0) { %>
+                            <option value="<%= channel.id %>" <% if (settings.updatesChannel === channel.id) {%> selected <% } %>>#<%= channel.name %></option>
+                          <% } %>
+                        <% } %>
+                      </select>
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-primary" type="submit" id="updateCH" name="updateCH"><span name="translate" caption="dashboard_bot5">Update</span></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title" name="translate" caption="dashboard_bot6">Nickname</h4>
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_bot7">Change the bot's nickname in the current guild.</p>
+                    </div>
+                  </header>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form class="form-inline" id="nicknameform">
+                    <div class="input-group">
+                      <input class="form-control" value="<%= guild.bot.name %>" minlength="3" maxlength="20" name="nickname" id="nickname" type="text" placeholder="<%= guild.bot.name %>">
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-primary" type="submit" id="updateNick" name="updateNick"><span name="translate" caption="dashboard_bot5">Update</span></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class=" row ">
+            <div class=" col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title" name="translate" caption="dashboard_bot8">Prefix</h4>
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_bot9">Change the bot's prefix that triggers the bot.</p>
+                    </div>
+                  </header>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form class="form-inline" id="prefixform">
+                    <div class="input-group">
+                      <input class="form-control" minlength="1" maxlength="4" name="prefix" id="prefix" type="text" placeholder="<%= settings.prefix %>">
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-primary" type="submit" id="updatePrefix" name="updatePrefix" name="translate" caption="dashboard_bot5"><span name="translate" caption="dashboard_bot5">Update</span></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class=" row ">
+            <div class=" col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title" name="translate" caption="dashboard_bot10">Language</h4>
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_bot11">Change the default language of Hope in your server.</p>
+                    </div>
+                  </header>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form id="langform">
+                    <div class="input-group">
+                      <select id="lang" name="lang" class="js-example-basic-single">
+                        <option value="en-US" <% if (settings.Language == "en-US") {%> selected <% } %>>English (en-US)</option>
+                        <option value="pt-BR" <% if (settings.Language == "pt-BR") {%> selected <% } %>>Portuguese, Brazilian (pt-BR)</option>
+                        <option value="fr-FR" <% if (settings.Language == "fr-FR") {%> selected <% } %>>French (fr-FR)</option>
+                        <option value="th-TH" <% if (settings.Language == "th-TH") {%> selected <% } %>>Thai (th-TH)</option>
+                        <option value="it-IT" <% if (settings.Language == "it-IT") {%> selected <% } %>>Italian (it-IT)</option>
+                        <option value="de-DE" <% if (settings.Language == "de-DE") {%> selected <% } %>>German (de-DE)</option>
+                        <option value="es-ES" <% if (settings.Language == "es-ES") {%> selected <% } %>>Spanish, Spain (es-ES)</option>
+                        <option value="ru-RU" <% if (settings.Language == "ru-RU") {%> selected <% } %>>Russian (ru-RU)</option>
+                        <option value="zh-CN" <% if (settings.Language == "zh-CN") {%> selected <% } %>>Chinese Simplified (zh-CN)</option>
+                        <option value="ko-KO" <% if (settings.Language == "ko-KO") {%> selected <% } %>>Korean (ko-KO)</option>
+                        <option value="pl-PL" <% if (settings.Language == "pl-PL") {%> selected <% } %>>Polish (pl-PL)</option>
+                        <option value="ja-JA" <% if (settings.Language == "ja-JA") {%> selected <% } %>>Japanese (ja-JA)</option>
+                        <option value="nl-NL" <% if (settings.Language == "nl-NL") {%> selected <% } %>>Dutch (nl-NL)</option>
+                      </select>
+                      <div class="input-group-append">
+                        <button class="btn btn-sm btn-primary" type="submit" id="updateLang" name="updateLang" name="translate" caption="dashboard_bot5"><span name="translate" caption="dashboard_bot5">Update</span></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row ">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title"><span name="translate" caption="dashboard_bot12">Anti Pollution</span> <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;" name="translate" caption="dashboard_bot13">premium</code></h4>
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_bot14">Avoid a pollution of bot messages in your channels.</p>
+                    </div>
+                  </header>
+
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form id="antiform">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <% if(settings.ModerationClearToggle == true) {%>
+                        <input name="ad" id="ad" type="checkbox" class="form-check-input" <% if (premium !== "Premium Server") { %> disabled <% } %> checked> Auto delete
+                        commands </label>
+                      <% } else { %>
+                      <input name="ad" id="ad" type="checkbox" class="form-check-input" <% if (premium !== "Premium Server") { %> disabled <% } %>> Auto delete
+                      commands </label>
+                      <% } %>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <% if(settings.ModerationClearReplyToggle == true) {%>
+                        <input name="adr" id="adr" type="checkbox" class="form-check-input" <% if (premium !== "Premium Server") { %> disabled <% } %> checked> Auto delete replys
+                      </label>
+                      <% } else { %>
+                      <input name="adr" id="adr" type="checkbox" class="form-check-input" <% if (premium !== "Premium Server") { %> disabled <% } %>> Auto delete replys
+                      </label>
+                      <% } %>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          const ToastPrefix = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true
+          })
+
+          $("#updatesform").submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+
+            $.ajax({
+              type: "POST",
+              url: '/dashboard/<%= req.params.guildID %>/bot',
+              data: form.serialize(),
+              beforeSend: function() {
+                ToastPrefix.fire({
+                  icon: 'warning',
+                  title: 'Saving...'
+                });
+              },
+              success: function(data) {
+                ToastPrefix.fire({
+                  icon: 'success',
+                  title: 'Updates channel updated successfully!'
+                });
+              }
+            }).fail(function() {
+              ToastPrefix.fire({
+                icon: 'error',
+                title: 'An error occurred while saving',
+                text: 'A log was generated and sent to support!'
+              });
+            });
+          });
+
+          $("#nicknameform").submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+
+            $.ajax({
+              type: "POST",
+              url: '/dashboard/<%= req.params.guildID %>/bot',
+              data: form.serialize(),
+              beforeSend: function() {
+                ToastPrefix.fire({
+                  icon: 'warning',
+                  title: 'Saving...'
+                });
+              },
+              success: function(data) {
+                ToastPrefix.fire({
+                  icon: 'success',
+                  title: 'Hope\'s nickname successfully updated!'
+                });
+              }
+            }).fail(function() {
+              ToastPrefix.fire({
+                icon: 'error',
+                title: 'An error occurred while saving',
+                text: 'A log was generated and sent to support!'
+              });
+            });
+          });
+
+          $("#prefixform").submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+
+            $.ajax({
+              type: "POST",
+              url: '/dashboard/<%= req.params.guildID %>/bot',
+              data: form.serialize(),
+              beforeSend: function() {
+                ToastPrefix.fire({
+                  icon: 'warning',
+                  title: 'Saving...'
+                });
+              },
+              success: function(data) {
+                ToastPrefix.fire({
+                  icon: 'success',
+                  title: 'Prefix changed successfully!'
+                });
+              }
+            }).fail(function() {
+              ToastPrefix.fire({
+                icon: 'error',
+                title: 'An error occurred while saving',
+                text: 'A log was generated and sent to support!'
+              });
+            });
+          });
+
+          $("#langform").submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+
+            $.ajax({
+              type: "POST",
+              url: '/dashboard/<%= req.params.guildID %>/bot',
+              data: form.serialize(),
+              beforeSend: function() {
+                ToastPrefix.fire({
+                  icon: 'warning',
+                  title: 'Saving...'
+                });
+              },
+              success: function(data) {
+                ToastPrefix.fire({
+                  icon: 'success',
+                  title: 'Language successfully changed!'
+                });
+              }
+            }).fail(function() {
+              ToastPrefix.fire({
+                icon: 'error',
+                title: 'An error occurred while saving',
+                text: 'A log was generated and sent to support!'
+              });
+            });
+          });
+
+          $('input[type="checkbox"]').on({
+            keydown: function(e) {
+              if (e.which === 32) return false;
+            },
+            change: function(e) {
+              this.value = this.value.replace(/\s/g, '');
+              // console.log('detectado')
+              
+                e.preventDefault();
+                var form = $(this);
+                var id = form[0].id;
+                var dados = { data: [ id, form[0].checked ] };
+
+                $.ajax({
+                  type: "POST",
+                  url: '/dashboard/<%= req.params.guildID %>/bot/antipollution',
+                  data: dados,
+                  beforeSend: function() {
+                    ToastPrefix.fire({
+                      icon: 'warning',
+                      title: 'Saving...'
+                    });
+                  },
+                  success: function(data) {
+                    ToastPrefix.fire({
+                      icon: 'success',
+                      title: 'Anti pollution successfully updated!'
+                    });
+                  }
+                }).fail(function() {
+                  ToastPrefix.fire({
+                    icon: 'error',
+                    title: 'An error occurred while saving',
+                    text: 'A log was generated and sent to support!'
+                  });
+              });
+            },
+          });
+        </script>
+        <!-- content-wrapper ends -->
+        <%- include("../../partials/_footer-dashboard.ejs") %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src=" ../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../../assets/vendors/jquery-validation/jquery.validate.min.js"></script>
+  <script src="../../assets/vendors/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script src="../../assets/js/form-validation.js"></script>
+  <script src="../../assets/js/bt-maxLength.js"></script>
+  <!-- <script src="../../js/bot.js"></script> -->
+  <script src="../../assets/js/file-upload.js"></script>
+  <script src="../../assets/js/typeahead.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

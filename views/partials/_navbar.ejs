@@ -1,0 +1,874 @@
+<% if (user.avatar) {
+    avatar = "http://cdn.discordapp.com/avatars/" + req.user.id + "/" + user.avatar + ".png?size=128";
+  } else {
+    avatar = "http://cdn.glitch.com/82fe990a-7942-42e3-9790-39807ccdb9f6%2Ficon-404.png?v=1602412158188";
+}  %>
+
+<script type="text/javascript">
+  var preload = document.createElement('div');
+  preload.className = "preloader";
+  preload.innerHTML = '</div><div class="spinner"></div>';
+  document.body.appendChild(preload);
+  window.addEventListener('load', function() {
+    preload.className += ' fade';
+    setTimeout(function() {
+      preload.style.display = 'none';
+    }, 600);
+  })
+</script>
+<script src="../../../js/theme.js"></script>
+<div id="themeDiv">
+  <link href="../../../assets/css/theme-dark.css" rel="stylesheet" id="theme" />
+</div>
+<nav class="navbar p-0 fixed-top d-flex flex-row">
+  <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+    <a class="navbar-brand brand-logo-mini" href="/dashboard/<%= guild.guild.id %>/home"><img src="../../h-mini.png" alt="logo" /></a>
+  </div>
+  <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+      <span class="mdi mdi-menu"></span>
+    </button>
+    <ul class="navbar-nav w-100">
+      <li class="nav-item w-100">
+        <!-- search form -->
+        <input type="text" class="form-control" placeholder="Search..." id="myInput" onkeyup="filterFunction()">
+        <div id="input-search">
+          <div class="dropdown-menu show" aria-labelledby="dropdownMenuButton6" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(344px, 14px, 0px);">
+            <h6 class="dropdown-header" name="translate" caption="dashboard_navbar1">Results:</h6>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/bot"> Bot </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/guild"> Guild </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/leaderboard"> Leaderboard </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-anime"> Auto-Anime </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-birthdays"> Auto-Birthdays </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-twitch"> Auto-Twitch </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-youtube"> Auto-Youtube </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/welcome"> Welcome </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/reactionroles"> Reaction Roles </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/autorole"> Auto Role </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/ticket"> Ticket </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/giveaway"> Giveaway </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/levels"> Levels </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/logging"> Logging </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/commands"> Commands </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/automod"> Auto Mod </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/autoresponse"> Auto-Response </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/autonick"> Auto-Nick </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/verification"> Verification </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/automessage"> Auto-Message </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/sticky"> Sticky </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/reputation"> Reputation </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/suggestions"> Suggestions </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/applications"> Applications </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/statistics"> Statistics </a>
+            <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/embeds"> Embeds </a>
+            <a class="dropdown-item" href="/support"> Support </a>
+            <div class="dropdown-divider"></div>
+          </div>
+        </div>
+        <div id="input-searcha" class="dropdown-content" style="display: none;">
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/bot"> Bot </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/guild"> Guild </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/leaderboard"> Leaderboard </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-anime"> Auto-Anime </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-birthdays"> Auto-Birthdays </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-twitch"> Auto-Twitch </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-youtube"> Auto-Youtube </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/auto-reddit"> Auto-Reddit </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/welcome"> Welcome </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/reactionroles"> Reaction Roles </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/autorole"> Auto Role </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/ticket"> Ticket </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/giveaway"> Giveaway </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/levels"> Levels </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/logging"> Logging </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/automod"> Auto Mod </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/moderation"> Moderation </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/autoresponse"> Auto-Response </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/autonick"> Auto-Nick </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/verification"> Verification </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/automessage"> Auto-Message </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/sticky"> Sticky </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/reputation"> Reputation </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/suggestions"> Suggestions </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/applications"> Applications </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/statistics"> Statistics </a>
+          <a class="dropdown-item" href="/dashboard/<%= guild.guild.id %>/embeds"> Embeds </a>
+          <a href="/support"> Support </a>
+        </div>
+
+        <style>
+          .sidebar-search-open .sidebar-search-results {
+            display: inline-block;
+          }
+
+          .sidebar-search-results {
+            position: relative;
+            display: none;
+            width: 40.5%;
+          }
+
+          .sidebar-search-results .list-group {
+            position: absolute;
+            width: 483px;
+            z-index: 1039;
+          }
+
+          .list-group {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            padding-left: 0;
+            margin-bottom: 0;
+            border-radius: 0.25rem;
+          }
+
+          .sidebar-search-results .list-group>.list-group-item:first-child {
+            margin-top: 0;
+            border-top: 0;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            text-decoration: none;
+            color: #ffffffde;
+          }
+
+          .sidebar-search-results .list-group>.list-group-item {
+            padding: 0.375rem 0.75rem;
+          }
+
+          .sidebar a {
+            color: #c2c7d0;
+          }
+
+          .list-group-item {
+            background-color: #000000;
+            border-color: #2c2e33;
+          }
+
+          .sidebar-search-results .search-title {
+            margin-bottom: -0.1rem;
+          }
+
+          .text-light {
+            color: #f8f9fa !important;
+          }
+
+          .list-group-item .search-path {
+            color: #adb5bd;
+          }
+
+          .sidebar-search-results .search-path {
+            font-size: 80%;
+          }
+        </style>
+        <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script>
+          $(document).ready(function() {
+            var div;
+            div = document.getElementById("input-search");
+            div.style.display = "none";
+          });
+
+          $(document).ready(function() {
+            $("#myInput").keyup(function() {
+              var inputVal = $(this).val();
+              var div;
+              div = document.getElementById("input-search");
+              if (inputVal === "" || inputVal === null) div.style.display = "none";
+            });
+          });
+
+          function filterFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            div = document.getElementById("input-search");
+            a = div.getElementsByTagName("a");
+
+            for (i = 0; i < a.length; i++) {
+              txtValue = a[i].textContent || a[i].innerText;
+              const searchValue = filter;
+              if (searchValue.length < '3') {
+                var div;
+                div = document.getElementById("input-search");
+                div.style.display = "none";
+                return
+              }
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "block";
+                div.style.display = "block";
+              } else {
+                a[i].style.display = "none";
+              }
+            }
+          }
+        </script>
+        <!-- /.search form -->
+      </li>
+    </ul>
+    <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item dropdown d-none d-lg-block">
+        <a class="nav-link btn btn-success create-new-button" id="createbuttonDropdown" data-toggle="dropdown" aria-expanded="false" href="#" name="translate" caption="servers_navbar1">+ SUBMIT</a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="createbuttonDropdown">
+          <h6 class="p-3 mb-0" name="translate" caption="servers_navbar2">Submit a:</h6>
+          <div class="dropdown-divider"></div>
+          <a href="#report-bug" class="dropdown-item preview-item">
+            <div class="preview-thumbnail">
+              <div class="preview-icon bg-dark rounded-circle">
+                <i class="mdi mdi-bug text-primary"></i>
+              </div>
+            </div>
+            <div class="preview-item-content">
+              <p class="preview-subject ellipsis mb-1" name="translate" caption="servers_navbar3">Bug</p>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#share-feedback" class="dropdown-item preview-item">
+            <div class="preview-thumbnail">
+              <div class="preview-icon bg-dark rounded-circle">
+                <i class="mdi mdi-format-float-right text-info"></i>
+              </div>
+            </div>
+            <div class="preview-item-content">
+              <p class="preview-subject ellipsis mb-1" name="translate" caption="servers_navbar4">Feedback</p>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#become-partner" class="dropdown-item preview-item">
+            <div class="preview-thumbnail">
+              <div class="preview-icon bg-dark rounded-circle">
+                <i class="mdi mdi-account-check text-danger"></i>
+              </div>
+            </div>
+            <div class="preview-item-content">
+              <p class="preview-subject ellipsis mb-1" name="translate" caption="servers_navbar5">Partnership</p>
+            </div>
+          </a>
+        </div>
+      </li>
+      <!-- <div id="bug" class="modal-window">
+        <div>
+          <a href="#" title="Close" class="modal-close" name="translate" caption="modal_bug1">Close</a>
+          <p>abc</p>
+        </div>
+      </div> -->
+      <style>
+        .modal-window {
+          position: fixed;
+          background-color: rgb(0 0 0 / 82%);
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 1030;
+          visibility: hidden;
+          opacity: 0;
+          pointer-events: none;
+          transition: all 0.3s;
+          overflow: auto;
+        }
+
+        .modal-window:target {
+          visibility: visible;
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .modal-window>div {
+          width: 800px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          padding: 2em;
+          background: #13151b;
+        }
+
+        @media (max-width: 768px) {
+          .modal-window>div {
+            width: 800px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em;
+            background: #13151b;
+          }
+        }
+
+        @media (max-width: 543px) {
+          .modal-window>div {
+            width: 350px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em;
+            background: #13151b;
+          }
+        }
+
+        @media (max-width: 490px) {
+          .modal-window>div {
+            width: 350px;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em;
+            background: #13151b;
+          }
+        }
+
+        .modal-window header {
+          font-weight: bold;
+        }
+
+        .modal-window h1 {
+          font-size: 150%;
+          margin: 0 0 15px;
+        }
+
+        .modal-close {
+          color: #aaa;
+          line-height: 50px;
+          font-size: 80%;
+          position: absolute;
+          right: 0;
+          text-align: center;
+          top: 0;
+          width: 70px;
+          text-decoration: none;
+        }
+
+        .modal-close:hover {
+          color: rgb(255, 255, 255);
+        }
+
+        .modal-window>div {
+          border-radius: 1rem;
+        }
+
+        .modal-window div:not(:last-of-type) {
+          margin-bottom: 15px;
+        }
+      </style>
+      <li class="nav-item dropdown border-left">
+        <a class="nav-link count-indicator dropdown-toggle" id="themeSelect" onclick="changeTheme()" title="Switch to dark theme" style="cursor:pointer;">{{OPTION}}</a>
+      </li>
+      <style>
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #eeeeee;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          z-index: 1000;
+          float: left;
+          font-size: 1rem;
+          color: #212529;
+          text-align: left;
+          list-style: none;
+          background-clip: padding-box;
+          min-width: 160px;
+          border: none;
+          border-radius: 2px;
+          -webkit-box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 10%);
+          box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 10%);
+          padding: 0.625rem 0;
+          z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+      </style>
+      <div class="dropdown">
+        <a class="nav-link" href="#"><img src="/svg/translate-white.svg" style="width: 24px;" /></a>
+        <div class="dropdown-content">
+          <a id="eng_button" style="display: flex; flex-direction: row; padding: 0.5rem 1rem;color: inherit;text-decoration: none;"><img src="https://cdn-icons-png.flaticon.com/512/330/330459.png" style="width: 40px; padding-right: 9px;" /> English</a>
+          <a id="br_button" style="display: flex; flex-direction: row; padding: 0.5rem 1rem;color: inherit;text-decoration: none;"><img src="https://cdn-icons-png.flaticon.com/512/330/330430.png" style="width: 40px; padding-right: 9px;" /> Português</a>
+        </div>
+      </div>
+      <li class="nav-item dropdown">
+        <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+          <div class="navbar-profile">
+            <div class="count-indicator">
+              <img class="img-xs rounded-circle " src="<%= avatar %>" alt="">
+              <div class="avatar-wrapper">
+                <span class="indicator-wrapper">
+                  <i class="icon mobile-online"></i>
+                </span>
+              </div>
+            </div>
+            <p class="mb-0 d-none d-sm-block navbar-profile-name"><%= req.user.username %></p>
+            <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
+          <div class=" dropdown-header noti-title">
+            <h6 class="text-overflow m-0" style="font-size: 0.625rem;" name="translate" caption="servers_navbar6">Welcome!</h6>
+          </div>
+          <a href="/" class="dropdown-item">
+            <i class="mdi mdi-home"></i>
+            <span name="translate" caption="servers_navbar7">Home</span>
+          </a>
+          <a href="/api/v2/me" class="dropdown-item">
+            <i class="mdi mdi-database"></i>
+            <span name="translate" caption="servers_navbar8">My data</span>
+          </a>
+          <a href="/support" class="dropdown-item">
+            <i class="mdi mdi-help"></i>
+            <span name="translate" caption="servers_navbar9">Support</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="/logout" class="dropdown-item">
+            <i class="mdi mdi-logout"></i>
+            <span name="translate" caption="servers_navbar10">Logout</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+      <span class="mdi mdi-format-line-spacing"></span>
+    </button>
+  </div>
+</nav>
+
+<form class="form-inline" id="bug">
+  <div id="report-bug" class="modal-window">
+    <div>
+      <a href="#" title="Close" class="modal-close" name="translate" caption="modal_bug1">Close</a>
+      <h4 name="translate" caption="modal_bug2">Report a Bug</h4><button id="reportbug" name="reportbug" type="submit" class="btn btn-outline-info float-right btn-fw"><span name="translate" caption="modal_bug3"> Report </span></button>
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <div class="row">
+        <div class="col">
+          <p class="text-muted mb-0" name="translate" caption="modal_bug4">Issue/Title</p>
+          <div id="the-basics">
+            <input class="form-control" type="text" placeholder="The name for the bug" id="issue" name="issue">
+          </div>
+        </div>
+        <div class="col">
+          <p class="text-muted mb-0" name="translate" caption="modal_bug5">Action Performed</p>
+          <div id="the-basics">
+            <input class="form-control" type="text" placeholder="The action that resulted in the bug" id="action" name="action">
+          </div>
+        </div>
+        <div class="col">
+          <p class="text-muted mb-0" name="translate" caption="modal_bug6">Actual Result</p>
+          <div id="the-basics">
+            <input class="form-control" type="text" placeholder="How the software actually performed" id="result" name="result">
+          </div>
+        </div>
+        <div class="col">
+          <p class="text-muted mb-0" name="translate" caption="modal_bug7">Error Message</p>
+          <div id="the-basics">
+            <textarea class="form-control" name="bugmessage" id="bugmessage" rows="2" placeholder="What error message appeared (if applicable)."></textarea>
+          </div>
+        </div>
+        <div class="col">
+          <p class="text-muted mb-0" name="translate" caption="modal_bug8">Frequency of the bug</p>
+          <div id="the-basics">
+            <input class="form-control" type="text" placeholder="Every time, hardly ever, occasionally, once" id="frequency" name="frequency">
+          </div>
+        </div>
+        <div class="col">
+          <p class="text-muted mb-0" name="translate" caption="modal_bug9">Priority of the bug</p>
+          <div id="bloodhound">
+            <input class="form-control" type="text" placeholder="Low, medium, high, critical" id="priority" name="priority">
+          </div>
+        </div>
+      </div>
+      <small name="translate" caption="modal_bug10">Notes</small><br>
+      <code name="translate" caption="modal_bug11">Resposta</code><span name="translate" caption="modal_bug12"> - Você receberá uma resposta em até 48 horas pelo seu Direct Messages no Discord através da Hope. Certifique-se de manter seu Direct desbloqueado.</span><br>
+      <code name="translate" caption="modal_bug13">Fake/Abusy</code><span name="translate" caption="modal_bug14"> - Falsos reports, ou abuso deste sistema resultará em banimento permanentemente do uso de qualquer recurso da Hope. Esteja ciente de suas ações!</span><br>
+    </div>
+  </div>
+</form>
+
+<form class="form-inline" id="feedback">
+  <div id="share-feedback" class="modal-window">
+    <div>
+      <a href="#" title="Close" class="modal-close" name="translate" caption="modal_bug1">Close</a>
+      <h4 name="translate" caption="modal_feedback1">Share a Feedback</h4><button id="sharefeedback" name="sharefeedback" type="submit" class="btn btn-outline-info float-right btn-fw"><span name="translate" caption="modal_feedback2"> Share </span></button>
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <link rel="stylesheet" href="../../assets/vendors/jquery-bar-rating/bars-movie.css">
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <p class="text-muted mb-0" name="translate" caption="modal_feedback3"> What was your first impression of the Hope</p>
+      <textarea class="form-control" name="feedimpression" id="feedimpression" rows="2" placeholder="What error message appeared (if applicable)." style="width: 100%;"></textarea>
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <p class="text-muted mb-0" name="translate" caption="modal_feedback4"> How would you rate the features of the Hope relative to the quality?</p>
+      <div id="the-basics" style="width: 250px;">
+        <select id="example-movie" name="rating" autocomplete="off" style="display: none;" style="width: 100%;">
+          <option value="Bad"><span name="translate" caption="modal_feedback5">Bad</span></option>
+          <option value="Mediocre"><span name="translate" caption="modal_feedback6">Mediocre</span></option>
+          <option value="Good" selected="selected"><span name="translate" caption="modal_feedback7">Good</span></option>
+          <option value="Awesome"><span name="translate" caption="modal_feedback8">Awesome</span></option>
+        </select>
+      </div>
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <p class="text-muted mb-0" name="translate" caption="modal_feedback9"> What would make Hope better?</p>
+      <textarea class="form-control" name="feedsuggestion" id="feedsuggestion" rows="2" placeholder="What error message appeared (if applicable)." style="width: 100%;"></textarea>
+    </div>
+  </div>
+</form>
+
+<form class="form-inline" id="partnership">
+  <div id="become-partner" class="modal-window">
+    <div>
+      <a href="#" title="Close" class="modal-close" name="translate" caption="modal_bug1">Close</a>
+      <h4 name="translate" caption="modal_partnership1">Become a Partner</h4><button id="submitpartnership" name="submitpartnership" type="submit" class="btn btn-outline-info float-right btn-fw"><span name="translate" caption="modal_partnership2"> Submit </span></button>
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <p class="text-muted mb-0" name="translate" caption="modal_partnership3"> Nome do projeto</p>
+      <input class="form-control" type="text" id="projectname" name="projectname" style="width: 100%;">
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <p class="text-muted mb-0" name="translate" caption="modal_partnership4"> Tipo de projeto</p>
+      <div class="control is-flex" style="display: inline-flex;">
+        <div class="col-sm-4">
+          <div class="form-check">
+            <label class="form-check-label" style="padding-right: 40px;">
+              <input type="radio" class="form-check-input" name="projectType" id="discordType" onclick="checkTypes()" value="Discord Server"> Discord Server </label>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-check">
+            <label class="form-check-label" style="padding-right: 160px;">
+              <input type="radio" class="form-check-input" name="projectType" id="websiteType" onclick="checkTypes()" value="Website"> Website </label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-check">
+            <label class="form-check-label" style="padding-right: 190px;">
+              <input type="radio" class="form-check-input" name="projectType" id="dscBotType" onclick="checkTypes()" value="Discord Bot"> Discord Bot </label>
+          </div>
+        </div>
+      </div>
+      <div id="discordderver" style="display: none;">
+        <p class="text-muted mb-0" name="translate" caption="modal_partnership8"> Quantos membros há em seu servidor?</p>
+        <input class="form-control" type="number" min="50" max="250000" name="countmembers" id="countmembers" style="width: 100%;">
+      </div>
+      <div id="website" style="display: none;">
+        <p class="text-muted mb-0" name="translate" caption="modal_partnership9"> Quantas visitas únicas diarias seu site recebe?</p>
+        <input class="form-control" type="number" min="50" max="*" name="dailyvisits" id="dailyvisits" style="width: 100%;">
+      </div>
+      <div id="partnerbot" style="display: none;">
+        <p class="text-muted mb-0" name="translate" caption="modal_partnership10"> Seu bot está em quantos servidores?</p>
+        <input class="form-control" type="number" min="50" max="250000" name="countserversbot" name="countserversbot" style="width: 100%;">
+        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+        <p class="text-muted mb-0" name="translate" caption="modal_partnership11"> Quantos usuarios seu bot possui no total?</p>
+        <input class="form-control" type="number" min="50" max="250000" name="countusersbot" id="countusersbot" style="width: 100%;">
+      </div>
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <p class="text-muted mb-0" name="translate" caption="modal_partnership12"> Link do projeto</p>
+      <textarea class="form-control" name="projectlink" id="projectlink" rows="2" style="width: 100%;"></textarea>
+      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+      <p class="text-muted mb-0" name="translate" caption="modal_partnership13"> Principal forma de contato</p>
+      <textarea class="form-control" name="contacttype" id="contacttype" rows="2" style="width: 100%;"></textarea>
+    </div>
+  </div>
+</form>
+
+<script>
+  function checkTypes() {
+    var checkBox = document.getElementById("discordType");
+    var div = document.getElementById("discordderver");
+    var checkBox1 = document.getElementById("websiteType");
+    var div1 = document.getElementById("website");
+    var checkBox2 = document.getElementById("dscBotType");
+    var div2 = document.getElementById("partnerbot");
+    if (checkBox.checked == true) {
+      div.style.display = "block";
+      div1.style.display = "none";
+      div2.style.display = "none";
+    } else if (checkBox1.checked == true) {
+      div.style.display = "none";
+      div1.style.display = "block";
+      div2.style.display = "none";
+    } else if (checkBox2.checked == true) {
+      div.style.display = "none";
+      div1.style.display = "none";
+      div2.style.display = "block";
+    }
+  }
+</script>
+
+<script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+<link rel="stylesheet" href="../../assets/vendors/font-awesome-4.7/css/font-awesome.min.css" />
+<script src="../../assets/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+<script src="../../js/evalute-stars.js"></script>
+
+<script>
+  const ToastSubmit = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true
+  })
+
+  $("#bug").submit(function(e) {
+    e.preventDefault();
+    var form = $(this);
+
+    $.ajax({
+      type: "POST",
+      url: '/dashboard/<%= req.params.guildID %>/bug',
+      data: form.serialize(),
+      beforeSend: function() {
+        ToastSubmit.fire({
+          icon: 'warning',
+          title: 'Saving...'
+        });
+      },
+      success: function(data) {
+        ToastSubmit.fire({
+          icon: 'success',
+          title: 'Bug successfully reported!'
+        });
+      }
+    }).fail(function() {
+      ToastSubmit.fire({
+        icon: 'error',
+        title: 'An error occurred while saving',
+        text: 'A log was generated and sent to the support server'
+      });
+    });
+  });
+
+  $("#feedback").submit(function(e) {
+    e.preventDefault();
+    var form = $(this);
+
+    $.ajax({
+      type: "POST",
+      url: '/dashboard/<%= req.params.guildID %>/feedback',
+      data: form.serialize(),
+      beforeSend: function() {
+        ToastSubmit.fire({
+          icon: 'warning',
+          title: 'Saving...'
+        });
+      },
+      success: function(data) {
+        ToastSubmit.fire({
+          icon: 'success',
+          title: 'Feedback shared successfully!'
+        });
+      }
+    }).fail(function() {
+      ToastSubmit.fire({
+        icon: 'error',
+        title: 'An error occurred while saving',
+        text: 'A log was generated and sent to the support server'
+      });
+    });
+  });
+
+  $("#partnership").submit(function(e) {
+    e.preventDefault();
+    var form = $(this);
+
+    $.ajax({
+      type: "POST",
+      url: '/dashboard/<%= req.params.guildID %>/partnership',
+      data: form.serialize(),
+      beforeSend: function() {
+        ToastSubmit.fire({
+          icon: 'warning',
+          title: 'Saving...'
+        });
+      },
+      success: function(data) {
+        ToastSubmit.fire({
+          icon: 'success',
+          title: 'Partnership request sent successfully!'
+        });
+      }
+    }).fail(function() {
+      ToastSubmit.fire({
+        icon: 'error',
+        title: 'An error occurred while saving',
+        text: 'A log was generated and sent to the support server'
+      });
+    });
+  });
+</script>
+<style>
+  :root {
+    --online: #38e654;
+    --offline: #747f8d;
+    --afk: #faa61a;
+    --dnd: #ff3a3b;
+    --background: #13151b;
+  }
+
+  .statusindicator {
+    display: block;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    border: 0.23rem solid var(--background);
+  }
+
+  .statusindicator.online {
+    background-color: var(--online);
+  }
+
+  .statusindicator.offline {
+    background-color: var(--offline);
+  }
+
+  .statusindicator.dnd {
+    background-color: var(--dnd);
+  }
+
+  .statusindicator.afk {
+    background-color: var(--afk);
+  }
+
+  .statusindicator.mobile {
+    border-radius: 0;
+  }
+
+  .statusindicator.mobile.online {
+    fill: var(--online);
+  }
+
+  .statusindicator.mobile.afk {
+    fill: var(--afk);
+  }
+
+  .statusindicator.mobile.dnd {
+    fill: var(--dnd);
+  }
+
+  .statusindicator {
+    position: relative;
+    bottom: 0.75rem;
+    left: 1.3rem;
+  }
+
+  .avatar-wrapper {
+    border: 0.23rem solid var(--background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .avatar-wrapper .indicator {
+    border: none;
+    top: 3px;
+    left: 0.2px;
+    height: 15px;
+    width: 15px;
+    margin-bottom: 1px;
+  }
+
+  .statusindicator-wrapper {
+    background: var(--background);
+    height: auto;
+    border-radius: 5px;
+
+    position: relative;
+    top: -15px;
+    left: 15px;
+  }
+
+  i.icon.mobile-idle {
+    background-image: url(https://hopebot.top/assets/images/status/idle.png);
+    top: 25px;
+    left: 26px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-size: contain;
+    top: 21px;
+    left: 21px;
+    width: 16px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    border: 0.23rem solid var(--background);
+  }
+
+  i.icon.mobile-online {
+    background-image: url(https://hopebot.top/assets/images/status/online.png);
+    top: 25px;
+    left: 26px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-size: contain;
+    top: 21px;
+    left: 21px;
+    width: 16px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    border: 0.23rem solid var(--background);
+  }
+
+  i.icon.mobile-dnd {
+    background-image: url(https://hopebot.top/assets/images/status/dnd.png);
+    top: 25px;
+    left: 26px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-size: contain;
+    top: 21px;
+    left: 21px;
+    width: 16px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    border: 0.23rem solid var(--background);
+  }
+
+  i.icon.mobile-invisible {
+    background-image: url(https://hopebot.top/assets/images/status/invisible.png);
+    top: 25px;
+    left: 26px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    background-size: contain;
+    top: 21px;
+    left: 21px;
+    width: 16px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    border: 0.23rem solid var(--background);
+  }
+</style>
+<script>
+  if (getCookie('theme') === 'light') {
+    document.getElementById('themeDiv').innerHTML = '<link href="./../../assets/css/theme-light.css" rel="stylesheet" id="theme"/>';
+    document.getElementById('themeSelect').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg>';
+    $("#themeSelect").attr('title', 'Switch to dark theme');
+  } else {
+    document.getElementById('themeDiv').innerHTML = '<link href="../../../assets/css/theme-dark.css" rel="stylesheet" id="theme"/>';
+    document.getElementById('themeSelect').innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="4" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" /></svg>';
+    $("#themeSelect").attr('title', 'Switch to light theme');
+  }
+</script>
+<script src="../../js/translate-manager.js"></script>

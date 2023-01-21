@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Utilities: Sticky Message - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/welcome.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <% if (error != '') { %>
+          <script>
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 10000,
+              timerProgressBar: true
+            })
+
+            Toast.fire({
+              icon: 'error',
+              title: '<%= error %>'
+            });
+          </script>
+          <% }  %>
+          <% if(success != ''){ %>
+          <script>
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 10000,
+              timerProgressBar: true
+            })
+
+            Toast.fire({
+              icon: 'success',
+              title: '<%= success %>'
+            });
+          </script>
+          <% } %>
+          <h4><span name="translate" caption="dashboard_sticky1">Sticky Messages</span> <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;" name="translate" caption="dashboard_autoanime4">free/premium</code></h4>
+          <p class="text-muted mb-0" name="translate" caption="dashboard_sticky2">Persistent messages in any Discord channel</p><br>
+          <div class="row ">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_sticky3">Sticky channel</h4>
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_sticky4">Define the channel where will have the sticky message.<br>
+                        </p>
+                      </div>
+                    </header>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <form id="stickychannel">
+                    <div class="input-group">
+                      <select name="channel" id="channel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <%- include('../components/channels', {ch: ch, var1: stickyDB.channelID, var2: stickyDB.enabled }) %>
+                      </select>
+                    </div>
+                    </form>
+                    <p class="text-muted mb-0"><span name="translate" caption="dashboard_sticky5">If you want to disable this addon, just select the</span> <code>#Disabled</code> <span name="translate" caption="dashboard_sticky6">channel</span></p>
+                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                        <form id="stickycount">
+                        <h4 class="card-title" name="translate" caption="dashboard_sticky7">Sticky count</h4>
+                          <p class="text-muted mb-0" name="translate" caption="dashboard_sticky8">Define the message limit for resending the sticky message.<br>
+                        <div class="input-group">
+                          <input type="range" id="GiveawayRange" name="GiveawayRange" min="5" max="60" value="<%- stickyDB.msgCount %>" style="position: relative;
+            display: inline-block;
+            width:483px;
+            max-width:483px;
+            min-width: 0;
+            font-size: 16px;
+            padding: 4px 11px;
+            line-height: 1.5715;
+            transition: all .3s;
+            flex: auto;
+            min-width: 1px;
+            height: auto;
+            background-color: hsl(222deg 10% 16%);
+                color: white;
+                outline: none;
+                border-radius: 6px;
+                overflow: hidden;
+                text-decoration: none;
+                white-space: nowrap;
+                -moz-transition: 0.25s;
+                -o-transition: 0.25s;
+                transition: 0.25s;
+                -webkit-backface-visibility: hidden;
+            border: 0;" oninput="amount.value=GiveawayRange.value">
+                          <output id="amount" name="amount" for="GiveawayRange" style="color: #f1f1f1; margin-left: 10px;"><%- stickyDB.msgCount %></output>
+                        </div>   
+                    </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_sticky9"> Sticky settings </h4>
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_sticky10"> Customize the sticky message</p>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <div class="col-md-10 offset-md-1" style="color: white">
+                      <div class="card-deck">
+                        <div class="card">
+                          <div class="card-block">
+                            <div class="row form-group">
+                              <div class="col-md-3">
+                                <form id="author-icon">
+                                <input name="author_icon" value="<%= stickyDB.embed.author.icon %>" style="background-color: #000000; color: white" type="text" placeholder="Author Icon" class="form-control" maxlength="200" id="author_icon1">
+                              </form>
+                              </div>
+
+                              <div class="col-md-6">
+                                <form id="author-name">
+                                <input name="author_name" value="<%= stickyDB.embed.author.name %>" style="background-color: #000000; color: white" type="text" placeholder="Author Name" class="form-control" maxlength="256" id="author_name1">
+                                  </form>
+                              </div>
+
+
+                              <div class="col-md-3">
+                                <form id="author-url">
+                                <input name="author_url" value="<%= stickyDB.embed.author.url %>" style="background-color: #000000; color: white" type="text" placeholder="Author URL" class="form-control" maxlength="256" id="author_url1">
+                                  </form>
+                              </div>
+                            </div>
+
+                            <div class="row form-group">
+                              <div class="col-md-9">
+                                <form id="title">
+                                <input value="<%= stickyDB.embed.title || '__***📌 Sticky message: Read before typing!***__' %>" name="embedTitle" style="background-color: #000000; color: white" type="text" placeholder="Embed Title" class="form-control" maxlength="200" id="title1">
+                              </form>
+                              </div>
+                              <div class="col-md-3">
+                                <form id="titleURL">
+                                <input value="<%= stickyDB.embed.titleURL %>" name="embedTitleURL" style="background-color: #000000; color: white" type="text" placeholder="Embed Title Url" class="form-control" maxlength="200" id="url1">
+                              </form>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <form id="description">
+                              <div class="col-md-12"><textarea name="embedDescription" value="<%= stickyDB.embed.description || 'This is some sticky content!' %>" placeholder="Embed Description" style="background-color: #000000; color: white" rows="3" wrap="soft" class="col-12 form-control" maxlength="2048" type="text" id="description1"><%= stickyDB.embed.description || 'This is some sticky content!' %></textarea><br></div>
+                            </form>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <form id="thumbnail">
+                                <input value="<%= stickyDB.embed.thumbnail %>" name="embedThumbnail" id="thumb1" style="background-color: #000000; color: white" class="form-control" maxlength="200" type="text" placeholder="Embed Thumbnail Url">
+                              </form>
+
+                              </div>
+
+                              <div class="col-md-3">
+                                <form id="footer-icon">
+                                <% if (settings.premium == "true") {  %>
+                                    <input id="footerIcon1" value="<%= stickyDB.embed.footerIcon || 'https://i.imgur.com/HyxPiGq.png' %>" name="embedFooterIcon" style="background-color: #000000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Icon">
+                                <% } else { %>
+                                <input id="footerIcon1" value="<%= stickyDB.embed.footerIcon || 'https://i.imgur.com/HyxPiGq.png' %>" name="leave_embedFooterIcon" style="background-color: #000000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Icon" disabled>
+                                <% } %>
+                              </form>
+                              </div>
+
+                              <div class="col-md-3">
+                                <form id="footer">
+                                <% if (settings.premium == "true") { %>
+                                <input id="footer1" value="<%= stickyDB.embed.footer || 'Powered by hopebot.top' %>" name="embedFooter" style="background-color: #000000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Text">
+                                <% } else { %>
+                                <input id="footer1" value="<%= stickyDB.embed.footer || 'Powered by hopebot.top' %>" name="embedFooter" style="background-color: #000000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Text" disabled>
+                                <% } %>
+                              </form>
+                              </div>
+
+                            </div>
+
+                            <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                            <div class="col-md-6">
+                              <form id="image">
+                              <input value="<%= stickyDB.embed.image %>" name="embedImage" id="image1" style="background-color: #000000; color: white;right: 12px;" class="form-control" maxlength="200" type="text" placeholder="Embed Image Url">
+                            </form>
+                            </div>
+
+                            <br>
+                            <p>Timestamp</p>
+                            <div class="col-sm-5">
+                              <form id="timestamp">
+                              <div class="form-check">
+                                <% if (stickyDB.embed.timestamp == true) { %>
+                                <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input" name="timestamp" id="leave_timestamp" value="time" onclick="Stamp()" checked> Toggle <i class="input-helper"></i></label>
+                                <% } else { %>
+                                <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input" name="timestamp" id="leave_timestamp" value="time" onclick="Stamp()"> Toggle <i class="input-helper"></i></label>
+                                <% } %>
+                              </div>
+                            </form>
+                            </div>
+                            <br>
+                            <form id="color">
+                            <input class="form-control" value="<%= stickyDB.embed.color %>" name="embedColor" style="background-color: #000000; color: white" id="color1" type="color">
+                          </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title" name="translate" caption="dashboard_sticky11">PREVIEW</h4>
+                <div class="container">
+                  <div id="embedColor1" id="embedColor1" class="embed markup" style="border-color: <%= stickyDB.embed.color %>">
+                    <div class="embedGrid">
+                      <div class="embedAuthor embedMargin" style="display: flex;">
+                        <img id="embedAuthorIcon1" name="embedAuthorIcon1" class="embedAuthorIcon" src="<%= stickyDB.embed.author.icon || 'https://unsplash.it/100' %>">
+                        <a id="embedAuthorName1" name="embedAuthorName1" class="embedAuthorNameLink embedLink embedAuthorName" href="<%= stickyDB.embed.author.url || 'https://hopebot.top' %>" target="_blank"><%= stickyDB.embed.author.name || 'Author Name' %></a>
+                      </div>
+                      <div id="embedTitle1" name="embedTitle1" class="embedTitle embedMargin" style="display: unset;"><a class="anchor" target="_blank" href="<%= stickyDB.embed.titleURL || 'https://hopebot.top' %>"><%= stickyDB.embed.title || 'Title' %></a></div>
+                      <div id="embedDescription1" name="embedDescription1" class="embedDescription embedMargin" style="display: unset;"><%= stickyDB.embed.description || 'Description...' %></div>
+                      <img id="embedImage1" name="embedImage1" class="imageWrapper clickable embedMedia embedImage" src="<%= stickyDB.embed.image || 'https://unsplash.it/380/200' %>" style="display: block;">
+                      <img id="embedThumb1" name="embedThumb1" class="imageWrapper clickable embedThumbnail" src="<%= stickyDB.embed.thumbnail || 'https://unsplash.it/200' %>" style="display: block;">
+                      <div id="embedFooter1" name="embedFooter1" class="embedFooter embedMargin" style="display: flex;">
+                        <img id="embedFooterIcon1" name="embedFooterIcon1" class="embedFooterIcon" src="<%= stickyDB.embed.footerIcon || 'https://i.imgur.com/HyxPiGq.png' %>">
+                        <span class="embedFooterText">
+                          <%= stickyDB.embed.footer || 'Powered by hopebot.top' %>
+                          <span id="embedStamp1" name="embedStamp1" class="embedFooterSeparator" style="display: none;">• Today at 8:22 AM</span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+          <style>
+            :root {
+              --switch-off: var(--danger);
+              --switch-on: var(--success);
+              --switch-icon-selected: var(--text-default);
+              --switch-width: 60px;
+              --switch-slider-size: 26px;
+            }
+
+            .server-list.regular.showcase {
+              justify-content: flex-start;
+            }
+
+            .server-list.regular {
+              flex-wrap: wrap;
+              justify-content: center;
+            }
+
+            .server-list {
+              display: flex;
+              padding: 10px;
+              flex-wrap: nowrap;
+              align-items: center;
+              justify-content: flex-start;
+              transition: 300ms;
+              width: 100%;
+              height: 100%;
+              padding-left: 14px;
+              padding-right: 14px;
+              padding-top: 90px;
+              margin: auto;
+              overflow-y: auto;
+              scrollbar-width: none;
+              -ms-overflow-style: none;
+            }
+
+            .server-list {
+              max-width: 1352px;
+            }
+
+            .server-list.regular .server-list-item-wrapper {
+              margin-top: 20px;
+              margin-bottom: 60px;
+              margin-left: 6px;
+              margin-right: 6px;
+              height: 300px;
+              width: calc(33% - 12px);
+              min-width: 300px;
+            }
+
+            .server-list .server-list-item-wrapper {
+              transition: 300ms;
+              display: flex;
+              flex-direction: column;
+              background-position: center center;
+              background-size: cover;
+              background-repeat: no-repeat;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card {
+              background: #181a20;
+              border-radius: 4px;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+              align-items: flex-start;
+              padding: 0px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-list-card-header {
+              margin-bottom: -20px;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card .server-list-card-header {
+              display: flex;
+              width: 100%;
+              margin-bottom: 10px;
+              min-height: 120px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-list-card-header .server-list-item-icon {
+              height: 96px;
+              width: 96px;
+              margin-top: -55px;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card .server-list-card-header .server-list-item-icon {
+              width: 100%;
+              margin-right: 8px;
+              margin-left: 20px;
+              border-radius: 90px;
+              border: 7px solid #0e1015;
+              box-sizing: content-box;
+              background-position: center;
+              background-size: contain;
+              height: 96px;
+              width: 96px;
+              margin-top: -64px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-list-card-header .regular-join-wrapper {
+              display: flex;
+              flex-direction: row;
+              align-items: flex-start;
+              flex: 1;
+              justify-content: flex-end;
+              padding-top: 15px;
+              padding-right: 10px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-list-card-header .regular-join-wrapper .server-join-regular {
+              width: 100px;
+            }
+
+            .button.is-rounded {
+              border-radius: 3px;
+            }
+
+            .button.is-info {
+              margin-right: 0.5em;
+              border-radius: 4px;
+              background-color: #dd364d;
+            }
+
+            .page-wrapper .button {
+              text-shadow: 1px 1px rgb(0 0 0 / 20%);
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-name {
+              margin-top: -34px;
+              min-height: 36px;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card .server-name {
+              font-size: 26px;
+              font-weight: 500;
+              margin-bottom: 10px;
+              margin-left: 18px;
+              margin-right: 10px;
+              overflow: hidden;
+              word-break: break-all;
+              text-overflow: ellipsis;
+              max-width: 93%;
+              white-space: nowrap;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card .server-member-count {
+              background-color: #2e323d;
+              border-radius: 2px;
+              padding: 5px 12px;
+              margin-left: 18px;
+              padding-right: 10px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-description {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+              flex: 1;
+              align-items: center;
+              width: 100%;
+              max-width: calc(100% - 28px);
+              margin-top: 20px;
+              margin-left: 18px;
+              margin-right: 10px;
+              margin-bottom: 23px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-description .server-description-content-wrapper {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+              align-items: center;
+              flex: 1;
+              overflow-y: hidden;
+              margin-bottom: 9px;
+              width: 100%;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-description .server-description-content-wrapper p {
+              font-size: 0.9rem;
+              color: #6B7E91;
+            }
+
+            .switch {
+              position: relative;
+              display: inline-block;
+              min-width: var(--switch-width);
+              cursor: pointer;
+            }
+
+            .switch.disabled {
+              opacity: 1;
+              cursor: no-drop;
+            }
+
+            .switch input {
+              visibility: hidden;
+              width: 0;
+              height: 0;
+            }
+
+            .switch input:checked+.slider {
+              background-color: var(--switch-on);
+            }
+
+            .switch input:checked+.slider:before,
+            .switch input:checked+.slider .icon {
+              transform: translateX(var(--switch-slider-size));
+            }
+
+            .switch input:checked+.slider .off {
+              opacity: 0;
+              transform: scale(0) translateX(var(--switch-slider-size));
+            }
+
+            .switch input:checked+.slider .on {
+              opacity: 1;
+              transform: scale(1) translateX(var(--switch-slider-size));
+            }
+
+            .switch input:disabled+.slider {
+              opacity: 0.3;
+              cursor: no-drop;
+            }
+
+            .switch .label~.slider {
+              top: -5px;
+            }
+
+            .switch .slider {
+              position: absolute;
+              cursor: pointer;
+              width: var(--switch-width);
+              height: 34px;
+              right: 0;
+              top: 0;
+              display: block;
+              background-color: #72767c;
+              transition: 0.4s;
+              border-radius: 34px;
+            }
+
+            .switch .slider .icon {
+              position: absolute;
+              transition: 0.4s;
+              --size: 15px;
+              top: 9.5px;
+              left: 9.5px;
+            }
+
+            .switch .slider .off {
+              color: var(--background-inactive);
+              transform: none;
+            }
+
+            .switch .slider .on {
+              opacity: 0;
+              color: var(--switch-on);
+              transform: scale(0);
+            }
+
+            .switch .slider:before {
+              border-radius: 50%;
+              position: absolute;
+              content: "";
+              height: var(--switch-slider-size);
+              width: var(--switch-slider-size);
+              left: 4px;
+              bottom: 4px;
+              background-color: white;
+              -webkit-transition: 0.4s;
+              transition: 0.4s;
+            }
+
+            .radio-switch {
+              border: 1px solid var(--background-tertiary);
+              border-radius: 4px;
+              height: 28px;
+              width: 98px;
+              display: grid;
+              grid-auto-flow: column;
+              overflow: hidden;
+            }
+
+            .radio-switch label {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: var(--background-primary);
+            }
+
+            .radio-switch label:hover {
+              background: var(--background-hover);
+              cursor: pointer;
+            }
+
+            .radio-switch label.deny .icon {
+              color: var(--switch-off);
+            }
+
+            .radio-switch label.deny.selected {
+              background: var(--danger);
+            }
+
+            .radio-switch label.passthrough.selected {
+              background: var(--background-shade);
+            }
+
+            .radio-switch label.allow .icon {
+              color: var(--switch-on);
+            }
+
+            .radio-switch label.allow.selected {
+              background: var(--success);
+            }
+
+            .radio-switch label.selected .icon {
+              color: var(--switch-icon-selected);
+            }
+
+            .radio-switch label .icon {
+              --size: 14px;
+            }
+
+            .radio-switch label input {
+              visibility: hidden;
+              width: 0;
+              height: 0;
+              margin: 0;
+            }
+          </style>
+        </div>
+        <!-- content-wrapper ends -->
+        <%- include("../../partials/_footer-dashboard.ejs") %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src=" ../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../../assets/js/file-upload.js"></script>
+  <script src="../../assets/js/typeahead.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <script src="../../js/sticky.js"></script>
+  <script src="../../js/prefix-update.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

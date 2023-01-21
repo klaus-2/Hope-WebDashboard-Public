@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Utilities: Auto-Message - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form id="data1" class="form-horizontal">
+            <h4 name="translate" caption="dashboard_automsg1">Auto-Message</h4>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_automsg2">This addon will send a message every X messages on a specific channel.</p><br>
+            <div class=" row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_automsg3">Settings</h4>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_automsg4">Channel to Post</p>
+                    <div class="input-group">
+                      <select id="AutoMessageChannel" name="AutoMessageChannel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <%- include('../components/channels', {ch: ch, var1: settings.AutoMessageChannel, var2: settings.AutoMessageToggle }) %>
+                      </select>
+                    </div>
+                    <p class=" text-muted mb-0"><span name="translate" caption="dashboard_automsg5">If you want to disable this addon, just select the</span> <code>#Disabled</code> <span name="translate" caption="dashboard_automsg7">channel</span></p>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_automsg8">Set the interval between each message</p>
+                    <div class="input-group">
+                      <input type="range" id="AutoMessageCount" name="AutoMessageCount" min="1" max="1000" value="<%= settings.AutoMessageCount %>" style="color: #99ddfd; border: 0;" oninput="amount.value=AutoMessageCount.value">
+                      <output id="amount" name="amount" for="AutoMessageCount" style="color: #f1f1f1; margin-left: 10px;"><%= settings.AutoMessageCount %></output>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_automsg9">Message to Sent</p>
+                    <textarea class="form-control" id="AutoMessageText" name="AutoMessageText" rows="4" placeholder="<%= settings.AutoMessage %>" minlength="3" maxlength="1024"><%= settings.AutoMessage %></textarea>
+                    <div>
+                    </div>
+                  </div>
+                  <div class="save" id="save">
+                    <span><span name="translate" caption="dashboard_automsg10">You have unsaved changes. Do you want to save them?</span>
+                      <input type="submit" class="cta" value="Save" name="confirmchange" id="confirmchange" onclick="offNotify();">
+                      <input name="cancel" type="button" class="ctb" value="Cancel" onclick="mudarCor();""></span>
+                    </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+                      <script>
+                        const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-right',
+                          showConfirmButton: false,
+                          timer: 5000,
+                          timerProgressBar: true
+                        })
+
+                        $("input[type='range']").change(function() {
+                          $(".save").addClass("changes_true");
+                        });
+
+                        var char_text = document.getElementById("AutoMessageText");
+                        char_text.oninput = function() {
+                          $(".save").addClass("changes_true");
+                        };
+
+                        // DETECTA MUDANÇAS EM TODOS SELECT DA PAGINA
+                        $('select').on({
+                          keydown: function(e) {
+                            if (e.which === 32)
+                              return false;
+                          },
+                          change: function() {
+                            this.value = this.value.replace(/\s/g, "");
+                            // alert("mudanças detectadas");
+                            //document.getElementById("save").style.bottom = "30px"
+                            $(".save").addClass("changes_true");
+                          }
+                        });
+
+                        function mudarCor(novaCor) {
+                          var originalNick = document.getElementById("AutoMessageText").getAttribute('value');
+                          document.getElementById("AutoMessageText").value = originalNick;
+                          $(".save").removeClass("changes_true");
+                        }
+
+                        // FECHA O CHANGES_TRUE QUANDO CLICA EM SALVAR
+                        function offNotify(novaCor) {
+                          $(".save").removeClass("changes_true");
+                        }
+
+                        $("#data1").submit(function(e) {
+                          e.preventDefault();
+                          var form = $(this);
+
+                          $.ajax({
+                            type: "POST",
+                            url: '/dashboard/<%= req.params.guildID %>/automessage',
+                            data: form.serialize(),
+                            beforeSend: function() {
+                              Toast.fire({
+                                icon: 'warning',
+                                title: 'Saving...'
+                              });
+                            },
+                            success: function(data) {
+                              Toast.fire({
+                                icon: 'success',
+                                title: 'Saved Changes'
+                              });
+                            }
+                          }).fail(function() {
+                            Toast.fire({
+                              icon: 'error',
+                              title: 'An error occurred while saving...'
+                            });
+                          });
+                        });
+                      </script>
+                      <!-- content-wrapper ends -->
+                      <%- include("../../partials/_footer-dashboard.ejs") %>
+                      <!-- partial -->
+                  </div>
+                  <!-- main-panel ends -->
+                </div>
+                <!-- page-body-wrapper ends -->
+              </div>
+              <!-- container-scroller -->
+              <!-- plugins:js -->
+              <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+              <!-- endinject -->
+              <!-- Plugin js for this page -->
+              <script src="../../assets/vendors/select2/select2.min.js"></script>
+              <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+              <!-- End plugin js for this page -->
+              <!-- inject:js -->
+              <script src="../../assets/js/off-canvas.js"></script>
+              <script src="../../assets/js/hoverable-collapse.js"></script>
+              <script src="../../assets/js/misc.js"></script>
+              <script src="../../assets/js/settings.js"></script>
+              <script src="../../assets/js/todolist.js"></script>
+              <!-- endinject -->
+              <!-- Custom js for this page -->
+              <script src="../../assets/js/file-upload.js"></script>
+              <script src="../../assets/js/typeahead.js"></script>
+              <script src="../../assets/js/select2.js"></script>
+              <!-- End custom js for this page -->
+</body>
+
+</html>

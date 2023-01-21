@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Server management: Ticket - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/welcome.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <% if (error != '') { %>
+          <script>
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 15000,
+              timerProgressBar: true
+            })
+
+            Toast.fire({
+              icon: 'error',
+              title: '<%= error %>'
+            });
+          </script>
+          <% }  %>
+          <% if(success != ''){ %>
+          <script>
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 15000,
+              timerProgressBar: true
+            })
+
+            Toast.fire({
+              icon: 'success',
+              title: '<%= success %>'
+            });
+          </script>
+          <% } %>
+
+          <form method="POST" action="/dashboard/<%= guild.guild.id %>/ticket">
+            <div class="clearfix">
+              <span>Ticket <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;" name="translate" caption="dashboard_autoanime4">free/premium</code></span>
+              <button type="submit" name="resetTicket" id="resetTicket" class="btn btn-outline-danger float-right btn-fw"><span name="translate" caption="dashboard_ticket1">Reset database</span></button>
+            </div>
+          </form>
+
+          <p class="text-muted mb-0" name="translate" caption="dashboard_ticket2">Create welcome messages with various options.</p>
+          <br>
+          <div class=" row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <form id="ticketsettings">
+                    <h4 style="display: flex; justify-content: space-between;"><span name="translate" caption="dashboard_ticket3">Ticket Settings</span>
+                      <div class="control module-toggle">
+                        <label class="switch">
+                          <% if(ticket.ticketToggle == true) { %>
+                          <input name="toggle" id="toggle" type="checkbox" checked>
+                          <span class="slider">
+                            <i class="icon times off"></i>
+                            <i class="icon check on"></i>
+                          </span>
+                          <% } else { %>
+                          <input name="toggle" id="toggle" type="checkbox">
+                          <span class="slider">
+                            <i class="icon times off"></i>
+                            <i class="icon check on"></i>
+                            <% } %>
+                          </span>
+                        </label>
+                      </div>
+                    </h4>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_ticket4">Ticket Logs Channel</p>
+                    <div class="input-group">
+                      <select id="ticketLogsChannel" name="ticketLogsChannel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <% for (const channel of ch.channels) { %>
+                        <% if (channel.type === 0 && channel.id !== ticket.ticketModlogID) { %>
+                        <option value="<%= channel.id %>">#<%= channel.name %></option>
+                        <% } else if (channel.type === 0 && channel.id == ticket.ticketModlogID) { %>
+                        <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+                        <% } %>
+                        <% } %>
+                      </select>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_ticket5">Ticket Category</p>
+                    <div class="input-group">
+                      <select id="ticketCategory" name="ticketCategory" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <% for (const channel of ch.channels) { %>
+                        <% if (channel.type === 4 && channel.id !== ticket.categoryID) { %>
+                        <option value="<%= channel.id %>">#<%= channel.name %></option>
+                        <% } else if (channel.type === 4 && channel.id == ticket.categoryID) { %>
+                        <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+                        <% } %>
+                        <% } %>
+                      </select>
+                    </div>
+                    <p class="text-muted mb-0"><span name="translate" caption="dashboard_ticket6">If you want to disable this addon, just select the</span> <code>#Disabled</code> <span name="translate" caption="dashboard_ticket7">channel</span></p>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_ticket8">Ticket Support Role</p>
+                    <div class="input-group">
+                      <select id="ticketSupportRole" name="ticketSupportRole" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <% for (const role of rr.roles) { %>
+                        <% if (role.id !== ticket.supportRoleID && role.name !== "@everyone" && !role.managed) { %>
+                        <option value="<%= role.id %>">@<%= role.name %></option>
+                        <% } else if (role.id == ticket.supportRoleID) { %>
+                        <option value="<%= role.id %>" selected>@<%= role.name %></option>
+                        <% } %>
+                        <% } %>
+                      </select>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_ticket9">Ticket Limit per user (1 - 5)</p>
+                    <div class="fill-max">
+                      <span class="react-numeric-input">
+                        <input type="number" name="ticketLimit" id="ticketLimit" value="<%= ticket.maxTicket %>" min="1" max="5" pattern=".*" style="background-color: #000000; box-shadow: rgb(72 75 81 / 15%) 0px 1px 0px 0px inset; border-radius: 4px;  color: #fff; height: 46px; line-height: 46px; font-size: 16px; color: #fff; border-radius: 5px; outline: none; border: 1px solid rgb(44 46 51); width: 190px; padding-left: 0.5em;"></span>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_ticket10">Channel name type</p>
+                    <% if(ticket.ticketNameType == "1"){ %>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="nameType" id="1" value="1" checked> Type 1 - User ID (Ex: ticket-62281565) <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="nameType" id="1" value="2"> Type 2 - Counter (Ex: ticket-31) <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                    <% } else { %>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="nameType" id="1" value="1"> Type 1 - User ID (Ex: ticket-62281565) <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="nameType" id="1" value="2" checked=""> Type 2 - Counter (Ex: ticket-31) <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                    <% } %>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_ticket11">Ticket Options</p>
+                    <div>
+                      <% if(ticket.ticketPing == true) { %>
+
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" name="ticketEveryone" id="ticketEveryone" class="form-check-input" checked> Ping
+                          @everyone </label>
+                      </div>
+                      <% } else { %>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" name="ticketEveryone" id="ticketEveryone" class="form-check-input"> Ping
+                          @everyone </label>
+                      </div>
+                      <% } %>
+                      <% if(ticket.ticketClose == true) { %>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" name="ticketClose" id="ticketClose" class="form-check-input" checked> Allow Users
+                          to Close ticket </label>
+                      </div>
+
+                      <% } else { %>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" name="ticketClose" id="ticketClose" class="form-check-input"> Allow Users
+                          to Close ticket </label>
+                      </div>
+                      <% } %>
+
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <div style="display: flex; align-content: stretch; justify-content: center;">
+                        <button name="open" id="open" type="button" value="Open" class="btn btn-secondary float-center btn-lg"><span name="translate" caption="dashboard_ticket12">Edit Ticket Room Message</span></button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            </form>
+            <script>
+              function myFunction2() {
+                var checkBox = document.getElementById("switch7");
+                // var text = document.getElementById("card-body");
+                var text1 = document.getElementById("card-body1");
+                if (checkBox.checked == true) {
+                  // text.style.display = "none";
+                  text1.style.display = "block";
+
+                } else {
+                  // text.style.display = "block";
+                  text1.style.display = "none";
+                }
+              }
+              //yessir
+            </script>
+
+            <style>
+              .control {
+                box-sizing: border-box;
+                clear: both;
+                font-size: 1rem;
+                position: relative;
+                text-align: left;
+              }
+
+              .is-flex {
+                display: flex !important;
+              }
+
+              @media (max-width: 768px) {
+                .is-flex {
+                  display: flex !important;
+                }
+              }
+
+              @media (max-width: 543px) {
+                .is-flex {
+                  display: flex !important;
+                }
+              }
+
+              @media (max-width: 490px) {
+                .is-flex {
+                  display: block !important;
+                }
+              }
+
+              .module-settings .rich-toggle {
+                display: flex;
+                align-items: center;
+                margin: 0.5em;
+              }
+
+              .control {
+                box-sizing: border-box;
+                clear: both;
+                font-size: 1rem;
+                position: relative;
+                text-align: left;
+              }
+
+              .rich-toggle {
+                flex-shrink: 1;
+                width: 32%;
+                background-color: #181a20;
+                padding: 0.7em 1em;
+                margin-right: 0.5em;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+                border-radius: 5px;
+                width: calc(33% - 1em);
+              }
+
+              .settings-content .control input,
+              .page-server .automod-toggles .control input,
+              .page-server .actionlog-toggles .control input,
+              .embed-builder-controls .control input,
+              .view-command .control input {
+                background: #000;
+                color: #fff;
+                border: none;
+              }
+
+              .settings-content .rich-toggle input[type=checkbox]:checked+label,
+              .page-server .automod-toggles .rich-toggle input[type=checkbox]:checked+label,
+              .page-server .actionlog-toggles .rich-toggle input[type=checkbox]:checked+label,
+              .embed-builder-controls .rich-toggle input[type=checkbox]:checked+label,
+              .view-command .rich-toggle input[type=checkbox]:checked+label {
+                font-weight: bold;
+              }
+            </style>
+            <style>
+              :root {
+                --switch-off: var(--danger);
+                --switch-on: var(--success);
+                --switch-icon-selected: var(--text-default);
+                --switch-width: 60px;
+                --switch-slider-size: 26px;
+              }
+
+              .button.is-rounded {
+                border-radius: 3px;
+              }
+
+              .button.is-info {
+                margin-right: 0.5em;
+                border-radius: 4px;
+                background-color: #dd364d;
+              }
+
+              .page-wrapper .button {
+                text-shadow: 1px 1px rgb(0 0 0 / 20%);
+              }
+
+              .switch {
+                position: relative;
+                display: inline-block;
+                min-width: var(--switch-width);
+                cursor: pointer;
+              }
+
+              .switch.disabled {
+                opacity: 1;
+                cursor: no-drop;
+              }
+
+              .switch input {
+                visibility: hidden;
+                width: 0;
+                height: 0;
+              }
+
+              .switch input:checked+.slider {
+                background-color: var(--switch-on);
+              }
+
+              .switch input:checked+.slider:before,
+              .switch input:checked+.slider .icon {
+                transform: translateX(var(--switch-slider-size));
+              }
+
+              .switch input:checked+.slider .off {
+                opacity: 0;
+                transform: scale(0) translateX(var(--switch-slider-size));
+              }
+
+              .switch input:checked+.slider .on {
+                opacity: 1;
+                transform: scale(1) translateX(var(--switch-slider-size));
+              }
+
+              .switch input:disabled+.slider {
+                opacity: 0.3;
+                cursor: no-drop;
+              }
+
+              .switch .label~.slider {
+                top: -5px;
+              }
+
+              .switch .slider {
+                position: absolute;
+                cursor: pointer;
+                width: var(--switch-width);
+                height: 34px;
+                right: 0;
+                top: 0;
+                display: block;
+                background-color: #72767c;
+                transition: 0.4s;
+                border-radius: 34px;
+              }
+
+              .switch .slider .icon {
+                position: absolute;
+                transition: 0.4s;
+                --size: 15px;
+                top: 9.5px;
+                left: 9.5px;
+              }
+
+              .switch .slider .off {
+                color: var(--background-inactive);
+                transform: none;
+              }
+
+              .switch .slider .on {
+                opacity: 0;
+                color: var(--switch-on);
+                transform: scale(0);
+              }
+
+              .switch .slider:before {
+                border-radius: 50%;
+                position: absolute;
+                content: "";
+                height: var(--switch-slider-size);
+                width: var(--switch-slider-size);
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: 0.4s;
+                transition: 0.4s;
+              }
+
+              .radio-switch {
+                border: 1px solid var(--background-tertiary);
+                border-radius: 4px;
+                height: 28px;
+                width: 98px;
+                display: grid;
+                grid-auto-flow: column;
+                overflow: hidden;
+              }
+
+              .radio-switch label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: var(--background-primary);
+              }
+
+              .radio-switch label:hover {
+                background: var(--background-hover);
+                cursor: pointer;
+              }
+
+              .radio-switch label.deny .icon {
+                color: var(--switch-off);
+              }
+
+              .radio-switch label.deny.selected {
+                background: var(--danger);
+              }
+
+              .radio-switch label.passthrough.selected {
+                background: var(--background-shade);
+              }
+
+              .radio-switch label.allow .icon {
+                color: var(--switch-on);
+              }
+
+              .radio-switch label.allow.selected {
+                background: var(--success);
+              }
+
+              .radio-switch label.selected .icon {
+                color: var(--switch-icon-selected);
+              }
+
+              .radio-switch label .icon {
+                --size: 14px;
+              }
+
+              .radio-switch label input {
+                visibility: hidden;
+                width: 0;
+                height: 0;
+                margin: 0;
+              }
+            </style>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_ticket13">Ticket Reaction Settings</h4>
+                  <div class="server-list-wrapper regular showcase ">
+                    <div class="server-list regular showcase ">
+                      <div class="server-list-item-wrapper" style="border-color: rgb(32, 32, 32);">
+                        <div class="server-list-card">
+                          <form method="POST" action="/dashboard/<%= guild.guild.id %>/ticketreaction">
+                            <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                            <p class="text-muted mb-0" name="translate" caption="dashboard_ticket14">Message Type</p>
+                            <div class="control is-flex">
+                              <div class="col-sm-4">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="msgType" id="switch" onclick="myFunction()" value="newmessage" checked> New message </label>
+                                </div>
+                              </div>
+                              <div class="col-sm-5">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="msgType" id="switch1" onclick="myFunction1()" value="existingmessage"> Existing
+                                    message </label>
+                                </div>
+                              </div>
+                            </div>
+                            <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                            <div class="newmessage" id="newmessage">
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <p class="text-muted mb-0" name="translate" caption="dashboard_ticket15"> Ticket Reaction Channel
+                              </p>
+                              <div class="input-group">
+                                <select id="ReactChannel" name="ReactChannel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                                  <% for (const channel of ch.channels) { %>
+                                  <% if (channel.type === 0 && channel.id !== ticket.ticketReactChannel) { %>
+                                  <option value="<%= channel.id %>">#<%= channel.name %></option>
+                                  <% } else if (channel.type === 0 && channel.id == ticket.ticketReactChannel) { %>
+                                  <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+                                  <% } %>
+                                  <% } %>
+                                </select>
+                              </div>
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <p class="text-muted mb-0" name="translate" caption="dashboard_ticket16">Reaction type</p>
+                              <div>
+                                <div class="control is-flex">
+                                  <div class="col-sm-4">
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="rType" id="switch3" value="1" onclick="myFunction3()" checked> Type 1 -
+                                        Reaction
+                                        Emoji </label>
+                                    </div>
+                                  </div>
+                                  <% if (settings.isPremium == "false") { %>
+                                  <div class="col-sm-5">
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="rType" id="switch4" onclick="myFunction4()" value="2" disabled> Type 2 - Reaction Button </label>
+                                      <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;">premium</code>
+                                    </div>
+                                  </div>
+                                  <% } else { %>
+                                  <div class="col-sm-5">
+                                    <div class="form-check">
+                                      <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="rType" id="switch4" onclick="myFunction4()" value="2"> Type 2 - Reaction Button </label>
+                                      <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;">premium</code>
+                                    </div>
+                                  </div>
+                                  <% } %>
+                                </div>
+                                <input id="selectemoji" name="selectemoji" type="hidden" value="smiling face with sunglasses">
+                                <input id="selectemojiCustom" name="selectemojiCustom" type="hidden" value=":😎:smiling face with sunglasses">
+                                <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                                <p class="text-muted mb-0" name="translate" caption="dashboard_ticket17"> Ticket Reaction Emoji </p>
+                                <div class="input-group">
+                                  <button type="button" id="trigger" name="trigger" class="emoji-button empty" value="😎">😎</button>
+                                </div>
+
+                                <style>
+                                  #selection {
+                                    display: flex;
+                                    align-items: center;
+                                    flex-direction: row;
+                                  }
+
+                                  #selection-outer {
+                                    border: 1px solid #ccc;
+                                    border-radius: 5px;
+                                    background: #eee;
+                                    padding: 0.5rem;
+                                    width: 360px;
+                                    margin-top: 2rem;
+                                    transition: opacity 200ms;
+                                  }
+
+                                  #selection-outer.empty {
+                                    opacity: 0;
+                                  }
+
+                                  #selection-emoji {
+                                    font-family: 'Segoe UI Emoji', 'Segoe UI Symbol', 'Segoe UI',
+                                      'Apple Color Emoji', 'Twemoji Mozilla', 'Noto Color Emoji', 'EmojiOne Color',
+                                      'Android Emoji';
+                                    font-size: 3rem;
+                                    margin-right: 1rem;
+                                    border-radius: 5px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    width: 4rem;
+                                    height: 4rem;
+                                    border: 1px solid #999;
+                                    background: #fff;
+                                  }
+
+                                  #trigger {
+                                    font-size: 2rem;
+                                    border-radius: 5px;
+                                    border: 1px solid #2c2e33;
+                                    background: #000;
+                                    color: #fff;
+                                    cursor: pointer;
+                                  }
+
+                                  #trigger1 {
+                                    font-size: 2rem;
+                                    border-radius: 5px;
+                                    border: 1px solid #2c2e33;
+                                    background: #000;
+                                    color: #fff;
+                                    cursor: pointer;
+                                  }
+                                </style>
+                              </div>
+                              <div class="rrlabel" id="rrlabel" style="display: none;">
+                                <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                                <p class="text-muted mb-0" name="translate" caption="dashboard_ticket18"> Reaction Button Label </p>
+                                <input style="min-width: 180px;  max-width: 300px; background-color: hsl(222deg 10% 16%); color: white; border-radius: 5px; " class="form-control" type="GUILD_TEXT" name="reactionButtonText" id="reactionButtonText" placeholder="reactionButtonText" maxlength="50">
+                              </div>
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <div style="    display: flex;
+                            align-content: stretch;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            justify-content: space-evenly;">
+                                <button name="open1" id="open1" type="button" value="Open" class="btn btn-secondary float-center btn-lg"><span name="translate" caption="dashboard_ticketedit">Edit Ticket Interaction Message</span></button>
+                                <button type="submit" class="btn btn-dark float-center btn-lg" name="sendNew" id="sendNew"><span name="translate" caption="dashboard_ticketcreate">Create Ticket Interaction Message</span></button>
+                              </div>
+                            </div>
+                            <div class="existingmessage" id="existingmessage" style="display: none;">
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <h4><span name="translate" caption="dashboard_ticket19">Custom Message Reaction</span> <code name="translate" caption="dashboard_ticket20">new</code></h4>
+                              <p class="text-muted mb-0" name="translate" caption="dashboard_ticket21">This Feature allows users to open a ticket by reacting to a message of your choice.</p>
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <p class="text-muted mb-0" name="translate" caption="dashboard_ticket22"> Ticket Reaction Channel </p>
+                              <div class="input-group">
+                                <select id="exChannel" name="exChannel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                                  <% for (const channel of ch.channels) { %>
+                                  <% if (channel.type === 0 && channel.id !== ticket.ticketReactChannel) { %>
+                                  <option value="<%= channel.id %>">#<%= channel.name %></option>
+                                  <% } else if (channel.type === 0 && channel.id == ticket.ticketReactChannel) { %>
+                                  <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+                                  <% } %>
+                                  <% } %>
+                                </select>
+                              </div>
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <p class="text-muted mb-0" name="translate" caption="dashboard_ticket23"> Message ID </p>
+                              <div class="input-group">
+                                <input style="min-width: 180px;  max-width: 300px; background-color: hsl(222deg 10% 16%); color: white; border-radius: 5px; " class="form-control" type="GUILD_TEXT" name="messageID" placeholder="message ID">
+                              </div>
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <p class="text-muted mb-0" name="translate" caption="dashboard_ticket24"> Ticket Reaction </p>
+                              <div>
+                                <input id="selectemoji1" name="selectemoji1" type="hidden" value="smiling face with sunglasses">
+                                <input id="selectemojiCustom1" name="selectemojiCustom1" type="hidden" value=":😎:smiling face with sunglasses">
+                                <div class="input-group">
+                                  <button type="button" id="trigger1" name="trigger1" class="emoji-button empty" value="😎">😎</button>
+                                </div>
+                                <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                                <button type="submit" class="btn btn-danger btn-lg" name="sendExist" id="sendExist" style="background: #3586ff;
+                            border-color: #181a20;"><span name="translate" caption="dashboard_ticket25">Send Reaction</span></button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <style>
+                          .bgon {
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            display: flex;
+                            z-index: 2000;
+                            padding: 1.2rem;
+                            position: fixed;
+                            background: rgba(0, 0, 0, 0.75);
+                            overflow-y: auto;
+                            overflow-x: hidden;
+                            align-items: flex-start;
+                            justify-content: center;
+                          }
+                        </style>
+                        <form id="ticketRoomMessage">
+                          <div id="modal" class="bgoff">
+                            <div class="savee" style="background: #0e1015;">
+                              <input name="close" type="button" class="ctb" value="Close" onclick="mudarCor();"" style=" background: red; border-radius: 7px; margin-bottom: 8px;">
+                              <div style=" width: 100%; height: 820px; border-radius: 6px;">
+                                <div class="col-md-10 offset-md-1" style="color: white">
+                                  <div class="card-deck" style="padding: 50px;">
+                                    <div class="card" style="background-color: hsl(222deg 14% 11% / 0%);">
+                                      <label style="text-align: left;padding-bottom: 16px;" name="translate" caption="dashboard_ticket26">* All fields are optional</label>
+                                      <div class="card-block">
+                                        <div class="row form-group">
+                                          <div class="col-md-3">
+                                            <label class="label">Author Icon</label>
+                                            <input name="author_icon" value="<%- ticket.embedticket.author.icon %>" style="background-color: #000; color: white" type="text" placeholder="Author Icon" class="form-control" maxlength="200" id="author_icon">
+                                          </div>
+
+                                          <div class="col-md-6">
+                                            <label class="label">Author Name</label>
+                                            <input name="author_name" value="<%- ticket.embedticket.author.name %>" style="background-color: #000; color: white" type="text" placeholder="Author Name" class="form-control" maxlength="256" id="author_name">
+                                          </div>
+
+
+                                          <div class="col-md-3">
+                                            <label class="label">Author URL</label>
+                                            <input name="author_url" value="<%- ticket.embedticket.author.url %>" style="background-color: #000; color: white" type="text" placeholder="Author URL" class="form-control" maxlength="256" id="author_url">
+                                          </div>
+                                        </div>
+
+                                        <div class="row form-group">
+                                          <div class="col-md-9">
+                                            <label class="label">Title</label>
+                                            <input value="<%- ticket.embedticket.title %>" name="embedTitle" style="background-color: #000; color: white" type="text" placeholder="Embed Title" class="form-control" maxlength="200" id="title">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="label">Title URL</label>
+                                            <input value="<%- ticket.embedticket.titleURL %>" name="embedTitleURL" style="background-color: #000; color: white" type="text" placeholder="Embed Title Url" class="form-control" maxlength="200" id="url">
+                                          </div>
+                                        </div>
+
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <label class="label">Description</label>
+                                            <textarea name="embedDescription" value="<%- ticket.embedticket.description %>" placeholder="Embed Description" style="background-color: #000; color: white" rows="3" wrap="soft" class="col-12 form-control" maxlength="2048" type="text" id="embedDescription"><%- ticket.embedticket.description %></textarea><br>
+                                          </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <label class="label">Thumbnail</label>
+                                            <input value="<%- ticket.embedticket.thumbnail %>" name="embedThumbnail" id="thumb" style="background-color: #000; color: white" class="form-control" maxlength="200" type="text" placeholder="Embed Thumbnail Url">
+
+
+                                          </div>
+
+                                          <div class="col-md-3">
+                                            <label class="label">Footer Icon</label>
+                                            <input id="footerIcon" value="<%- ticket.embedticket.footerIcon %>" name="footerIcon" style="background-color: #000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Icon">
+                                          </div>
+
+                                          <div class="col-md-3">
+                                            <label class="label">Footer</label>
+                                            <input id="footer" value="<%- ticket.embedticket.footer %>" name="embedFooter" style="background-color: #000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Text">
+                                          </div>
+
+                                        </div>
+                                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                                        <div class="row">
+
+                                          <div class="col-md-6">
+                                            <label class="label">Image</label>
+                                            <input value="<%- ticket.embedticket.image %>" name="embedImage" id="embedImage" style="background-color: #000; color: white;right: 12px;" class="form-control" maxlength="200" type="text" placeholder="Embed Image Url">
+                                          </div>
+
+                                          <div class="col-md-6">
+                                            <label class="label">Color</label>
+                                            <input class="form-control" value="<%- ticket.embedticket.color || '#000000' %>" name="embedColor" style="background-color: #000; color: white" id="embedColor" type="color">
+                                          </div>
+                                        </div>
+
+                                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                                        <div class="col-md-6">
+                                          <label class="label" style="display: flex;">Timestamp</label>
+                                          <div class="form-check">
+                                            <% if (ticket.embedticket.timestamp === true) { %>
+                                            <label class="form-check-label" style="    display: flex;">
+                                              <input type="checkbox" class="form-check-input" name="timestamp" id="timestamp" value="time" onclick="Stamp()" checked> Toggle <i class="input-helper"></i></label>
+                                            <% } else { %>
+                                            <label class="form-check-label">
+                                              <input type="checkbox" class="form-check-input" name="timestamp" id="timestamp" value="time" onclick="Stamp()"> Toggle <i class="input-helper"></i></label>
+                                            <% } %>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <h4 class="card-title" name="translate" caption="dashboard_ticket27">Preview</h4>
+                                <div class="container" style="justify-content: space-around;">
+                                  <div id="embedColorPreview" id="embedColorPreview" class="embed markup" style="border-color: #ff0000;">
+                                    <div class="embedGrid">
+                                      <div class="embedAuthor embedMargin" style="display: flex;">
+                                        <img id="embedAuthorIconPreview" name="embedAuthorIconPreview" class="embedAuthorIcon" src="https://unsplash.it/100">
+                                        <a id="embedAuthorNamePreview" name="embedAuthorNamePreview" class="embedAuthorNameLink embedLink embedAuthorName" href="https://hopebot.top" target="_blank"></a>
+                                      </div>
+                                      <div class="embedTitle embedMargin" style="display: unset;"><a id="embedTitlePreview" name="embedTitlePreview" class="anchor" target="_blank" href="https://hopebot.top"></a></div>
+                                      <div id="embedDescriptionPreview" name="embedDescriptionPreview" class="embedDescription embedMargin" style="display: unset;"></div>
+                                      <img id="embedImagePreview" name="embedImagePreview" class="imageWrapper clickable embedMedia embedImage" src="https://you.com/proxy?url=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.NJcSfmocdvqoBzwLj3jtPAHaEK%26w%3D690%26c%3D7%26pid%3DApi%26p%3D0" style="display: block;">
+                                      <img id="embedThumbPreview" name="embedThumbPreview" class="imageWrapper clickable embedThumbnail" src="https://unsplash.it/200" style="display: block;">
+                                      <div class="embedFooter embedMargin" style="display: flex;">
+                                        <img id="embedFooterIconPreview" name="embedFooterIconPreview" class="embedFooterIcon" src="https://unsplash.it/100">
+                                        <span id="embedFooterPreview" name="embedFooterPreview" class="embedFooterText">
+                                          Footer Text</span>
+                                        <span id="embedStamp" name="embedStamp" class="embedFooterSeparator" style="display: none;">• Today at 8:22 AM</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="control" style="    margin: 1em 0.5em 0;    box-sizing: border-box;
+                            clear: both;
+                            font-size: 1rem;
+                            position: relative;
+                            text-align: inherit;">
+                                  <div class="help-text"><strong name="translate" caption="dashboard_ticket28">Variables:</strong>
+                                    <ul style="    list-style: none;">
+                                      <li><code>{streamTitle}</code><span name="translate" caption="dashboard_ticket29">- The title of the stream</span></li>
+                                      <li><code>{streamLink}</code><span name="translate" caption="dashboard_ticket30">- The URL to the stream</span></li>
+                                      <li><code>{game}</code><span name="translate" caption="dashboard_ticket31">- The name of the game the streamer is currently playing</span></li>
+                                      <li><code>{streamer}</code><span name="translate" caption="dashboard_ticket32">- The display name of the streamer</span></li>
+                                      <li><code>{streamerAvatar}</code><span name="translate" caption="dashboard_ticket33">- The avatar of the streamer</span></li>
+                                      <li><code>{streamPreview}</code><span name="translate" caption="dashboard_ticket34">- A preview image of the stream</span></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+
+                        <form id="ticketInteractionMessage">
+                          <div id="modal" class="bgoff">
+                            <div class="savee1" style="background: #0e1015;">
+                              <input name="close" type="button" class="ctb" value="Close" onclick="mudarCor1();"" style=" background: red; border-radius: 7px; margin-bottom: 8px;">
+                              <div style=" width: 100%; height: 820px; border-radius: 6px;">
+                                <div class="col-md-10 offset-md-1" style="color: white">
+                                  <div class="card-deck" style="padding: 50px;">
+                                    <div class="card" style="background-color: hsl(222deg 14% 11% / 0%);">
+                                      <label style="text-align: left;padding-bottom: 16px;" name="translate" caption="dashboard_ticket35">* All fields are optional</label>
+                                      <div class="card-block">
+                                        <div class="row form-group">
+                                          <div class="col-md-3">
+                                            <label class="label">Author Icon</label>
+                                            <input name="author_icon1" value="<%- ticket.ticketembed.author.icon %>" style="background-color: #000; color: white" type="text" placeholder="Author Icon" class="form-control" maxlength="200" id="author_icon1">
+                                          </div>
+
+                                          <div class="col-md-6">
+                                            <label class="label">Author Name</label>
+                                            <input name="author_name1" value="<%- ticket.ticketembed.author.name %>" style="background-color: #000; color: white" type="text" placeholder="Author Name" class="form-control" maxlength="256" id="author_name1">
+                                          </div>
+
+
+                                          <div class="col-md-3">
+                                            <label class="label">Author URL</label>
+                                            <input name="author_url1" value="<%- ticket.ticketembed.author.url %>" style="background-color: #000; color: white" type="text" placeholder="Author URL" class="form-control" maxlength="256" id="author_url1">
+                                          </div>
+                                        </div>
+
+                                        <div class="row form-group">
+                                          <div class="col-md-9">
+                                            <label class="label">Title</label>
+                                            <input value="<%- ticket.ticketembed.title %>" name="embedTitle1" style="background-color: #000; color: white" type="text" placeholder="Embed Title" class="form-control" maxlength="200" id="title1">
+                                          </div>
+                                          <div class="col-md-3">
+                                            <label class="label">Title URL</label>
+                                            <input value="<%- ticket.ticketembed.titleURL %>" name="embedTitleURL1" style="background-color: #000; color: white" type="text" placeholder="Embed Title Url" class="form-control" maxlength="200" id="url1">
+                                          </div>
+                                        </div>
+
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <label class="label">Description</label>
+                                            <textarea name="embedDescription1" value="<%- ticket.ticketembed.description %>" placeholder="Embed Description" style="background-color: #000; color: white" rows="3" wrap="soft" class="col-12 form-control" maxlength="2048" type="text" id="embedDescription1"><%- ticket.ticketembed.description %></textarea><br>
+                                          </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                            <label class="label">Thumbnail</label>
+                                            <input value="<%- ticket.ticketembed.thumbnail %>" name="embedThumbnail1" id="thumb1" style="background-color: #000; color: white" class="form-control" maxlength="200" type="text" placeholder="Embed Thumbnail Url">
+
+
+                                          </div>
+
+                                          <div class="col-md-3">
+                                            <label class="label">Footer Icon</label>
+                                            <input id="footerIcon1" value="<%- ticket.ticketembed.footerIcon %>" name="footerIcon1" style="background-color: #000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Icon">
+                                          </div>
+
+                                          <div class="col-md-3">
+                                            <label class="label">Footer</label>
+                                            <input id="footer1" value="<%- ticket.ticketembed.footer %>" name="embedFooter1" style="background-color: #000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Text">
+                                          </div>
+
+                                        </div>
+                                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                                        <div class="row">
+
+                                          <div class="col-md-6">
+                                            <label class="label">Image</label>
+                                            <input value="<%- ticket.ticketembed.image %>" name="embedImage1" id="embedImage1" style="background-color: #000; color: white;right: 12px;" class="form-control" maxlength="200" type="text" placeholder="Embed Image Url">
+                                          </div>
+
+                                          <div class="col-md-6">
+                                            <label class="label">Color</label>
+                                            <input class="form-control" value="<%- ticket.ticketembed.color || '#000000' %>" name="embedColor1" style="background-color: #000; color: white" id="embedColor1" type="color">
+                                          </div>
+                                        </div>
+
+                                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                                        <div class="col-md-6">
+                                          <label class="label" style="display: flex;">Timestamp</label>
+                                          <div class="form-check">
+                                            <% if (ticket.ticketembed.timestamp === true) { %>
+                                            <label class="form-check-label" style="    display: flex;">
+                                              <input type="checkbox" class="form-check-input" name="timestamp1" id="timestamp1" value="time" onclick="Stamp1()" checked> Toggle <i class="input-helper"></i></label>
+                                            <% } else { %>
+                                            <label class="form-check-label">
+                                              <input type="checkbox" class="form-check-input" name="timestamp1" id="timestamp1" value="time" onclick="Stamp1()"> Toggle <i class="input-helper"></i></label>
+                                            <% } %>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <h4 class="card-title" name="translate" caption="dashboard_ticket27">Preview</h4>
+                                <div class="container" style="justify-content: space-around;">
+                                  <div id="embedColorPreview1" id="embedColorPreview1" class="embed markup" style="border-color: #ff0000;">
+                                    <div class="embedGrid">
+                                      <div class="embedAuthor embedMargin" style="display: flex;">
+                                        <img id="embedAuthorIconPreview1" name="embedAuthorIconPreview1" class="embedAuthorIcon" src="https://unsplash.it/100">
+                                        <a id="embedAuthorNamePreview1" name="embedAuthorNamePreview1" class="embedAuthorNameLink embedLink embedAuthorName" href="https://hopebot.top" target="_blank"></a>
+                                      </div>
+                                      <div class="embedTitle embedMargin" style="display: unset;"><a id="embedTitlePreview1" name="embedTitlePreview1" class="anchor" target="_blank" href="https://hopebot.top"></a></div>
+                                      <div id="embedDescriptionPreview1" name="embedDescriptionPreview1" class="embedDescription embedMargin" style="display: unset;"></div>
+                                      <img id="embedImagePreview1" name="embedImagePreview1" class="imageWrapper clickable embedMedia embedImage" src="https://you.com/proxy?url=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.NJcSfmocdvqoBzwLj3jtPAHaEK%26w%3D690%26c%3D7%26pid%3DApi%26p%3D0" style="display: block;">
+                                      <img id="embedThumbPreview1" name="embedThumbPreview1" class="imageWrapper clickable embedThumbnail" src="https://unsplash.it/200" style="display: block;">
+                                      <div class="embedFooter embedMargin" style="display: flex;">
+                                        <img id="embedFooterIconPreview1" name="embedFooterIconPreview1" class="embedFooterIcon" src="https://unsplash.it/100">
+                                        <span id="embedFooterPreview1" name="embedFooterPreview1" class="embedFooterText">
+                                          Footer Text</span>
+                                        <span id="embedStamp1" name="embedStamp1" class="embedFooterSeparator" style="display: none;">• Today at 8:22 AM</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="control" style="    margin: 1em 0.5em 0;    box-sizing: border-box;
+                            clear: both;
+                            font-size: 1rem;
+                            position: relative;
+                            text-align: inherit;">
+                                  <div class="help-text"><strong name="translate" caption="dashboard_ticket28">Variables:</strong>
+                                    <ul style="    list-style: none;">
+                                      <li><code>{streamTitle}</code><span name="translate" caption="dashboard_ticket29">- The title of the stream</span></li>
+                                      <li><code>{streamLink}</code><span name="translate" caption="dashboard_ticket30">- The URL to the stream</span></li>
+                                      <li><code>{game}</code><span name="translate" caption="dashboard_ticket31">- The name of the game the streamer is currently playing</span></li>
+                                      <li><code>{streamer}</code><span name="translate" caption="dashboard_ticket32">- The display name of the streamer</span></li>
+                                      <li><code>{streamerAvatar}</code><span name="translate" caption="dashboard_ticket33">- The avatar of the streamer</span></li>
+                                      <li><code>{streamPreview}</code><span name="translate" caption="dashboard_ticket34">- A preview image of the stream</span></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" style="font-size: 12px; line-height: 14px; letter-spacing: 2.1px; text-transform: uppercase; border-bottom: none;" name="translate" caption="dashboard_ticket36">VARIABLE REFERENCE</h4>
+                  <p style="font-size: 12px; line-height: 20px; color: #8793AA; letter-spacing: -0.2px;" name="translate" caption="dashboard_ticket37">You can use these variables in the message boxes above.</p>
+                  <b>
+                    <p style="color: white;font-size: .875em;font-weight: normal;"><span name="translate" caption="dashboard_ticket38">Variables:</span><br>
+                      <code>{user}</code><span name="translate" caption="dashboard_ticket39"> - The mention of the user calling the command. Eg:</span> <code name="translate" caption="dashboard_ticket40">Hello {user}!</code><br>
+                      <code>{avatar}</code><span name="translate" caption="dashboard_ticket41"> - The avatar of the user. Eg:</span> <code name="translate" caption="dashboard_ticket42">Have a look at {username} avatar! {avatar}</code><br>
+                      <code>{username}</code><span name="translate" caption="dashboard_ticket43">  - The username of the user. Eg:</span>  <code name="translate" caption="dashboard_ticket44">Hello {username}!</code><br>
+                      <code>{server}</code><span name="translate" caption="dashboard_ticket45">  - The server name</span><br>
+                      <code>{channel}</code><span name="translate" caption="dashboard_ticket46">  - The channel name</span><br>
+                      <code>{@user}</code><span name="translate" caption="dashboard_ticket47">  - Mention a user by their username (not nickname), replace</span> <code name="translate" caption="dashboard_ticket48">user</code> <span name="translate" caption="dashboard_ticket49"> with username. Eg:</span> <code>{@Nooblance}</code><br>
+                      <code>{&role}</code><span name="translate" caption="dashboard_ticket50">  - Mention a role by name, replace role with the role name. Eg:</span> <code name="translate" caption="dashboard_ticket51">{&Gamers}, We're streaming now!</code><br>
+                      <code>{#channel}</code><span name="translate" caption="dashboard_ticket52">  - A channel link, replace channel with the name of the channel you want to link. Eg:</span> <code name="translate" caption="dashboard_ticket53">Use {#testing} for all bot testing.</code><br>
+                                                        <code>{everyone}</code> - @everyone<br>
+                                                        <code>{here}</code> - @here
+                                                    </p>
+                                                </b>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- content-wrapper ends -->
+                        <%- include("../../partials/_footer-dashboard.ejs") %>
+                            <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <script>
+        function myFunction() {
+            var checkBox = document.getElementById("switch");
+            var text = document.getElementById("existingmessage");
+            var text1 = document.getElementById("newmessage");
+            var frameOpen = document.getElementById("open1");
+            if (checkBox.checked == true) {
+                text.style.display = "none";
+                text1.style.display = "block";
+                frameOpen.style.display = "block";
+
+            } else {
+                text.style.display = "block";
+                text1.style.display = "none";
+                frameOpen.style.display = "none";
+            }
+        }
+        // yessir
+    </script>
+    <script>
+        function myFunction1() {
+            var checkBox = document.getElementById("switch1");
+            var frameOpen = document.getElementById("open1");
+            var text = document.getElementById("existingmessage");
+            var text1 = document.getElementById("newmessage");
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+                text1.style.display = "none";
+                frameOpen.style.display = "none";
+
+            } else {
+                text.style.display = "none";
+                text1.style.display = "block";
+                frameOpen.style.display = "block";
+            }
+        }
+        // yessir
+    </script>
+    <script>
+        function myFunction3() {
+            var checkBox = document.getElementById("switch3");
+            var text = document.getElementById("rrlabel");
+            // var text1 = document.getElementById("newmessage");
+            if (checkBox.checked == true) {
+                text.style.display = "none";
+                // text1.style.display = "none";
+
+            } else {
+                text.style.display = "block";
+                // text1.style.display = "block";
+            }
+        }
+                        // yessir
+    </script>
+    <script>
+        function myFunction4() {
+            var checkBox = document.getElementById("switch4");
+            var text = document.getElementById("rrlabel");
+            // var text1 = document.getElementById("newmessage");
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+                // text1.style.display = "none";
+
+            } else {
+                text.style.display = "none";
+                // text1.style.display = "block";
+            }
+        }
+                        // yessir
+    </script>
+
+    <style>
+        .control {
+            box-sizing: border-box;
+            clear: both;
+            font-size: 1rem;
+            position: relative;
+            text-align: left;
+        }
+
+        .is-flex {
+            display: flex !important;
+        }
+
+        @media (max-width: 768px) {
+            .is-flex {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 543px) {
+            .is-flex {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 490px) {
+            .is-flex {
+                display: block !important;
+            }
+        }
+
+        .module-settings .rich-toggle {
+            display: flex;
+            align-items: center;
+            margin: 0.5em;
+        }
+
+        .control {
+            box-sizing: border-box;
+            clear: both;
+            font-size: 1rem;
+            position: relative;
+            text-align: left;
+        }
+
+        .rich-toggle {
+            flex-shrink: 1;
+            width: 32%;
+            background-color: #181a20;
+            padding: 0.7em 1em;
+            margin-right: 0.5em;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 5px;
+            width: calc(33% - 1em);
+        }
+
+        .settings-content .control input,
+        .page-server .automod-toggles .control input,
+        .page-server .actionlog-toggles .control input,
+        .embed-builder-controls .control input,
+        .view-command .control input {
+            background: #000;
+            color: #fff;
+            border: none;
+        }
+
+        .settings-content .rich-toggle input[type=checkbox]:checked+label,
+        .page-server .automod-toggles .rich-toggle input[type=checkbox]:checked+label,
+        .page-server .actionlog-toggles .rich-toggle input[type=checkbox]:checked+label,
+        .embed-builder-controls .rich-toggle input[type=checkbox]:checked+label,
+        .view-command .rich-toggle input[type=checkbox]:checked+label {
+            font-weight: bold;
+        }
+    </style>
+    <!-- container-scroller -->
+    <style>
+        .c011 {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            z-index: 3000;
+            padding: 1.2rem;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.75);
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .c014 {
+            top: 34px;
+            right: 35px;
+            /* bottom: 20px; */
+            cursor: pointer;
+            position: absolute;
+            height: 30px;
+            width: 50px;
+        }
+
+        .savee {
+            position: fixed;
+            bottom: -1400px;
+            z-index: 999;
+            background: #13151b;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            /* padding: 30px 40px; */
+            border-radius: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 700;
+            transition: .2s all ease-in-out;
+        }
+
+        .savee .cta {
+            margin-left: 20px;
+        }
+
+        .savee.changes_truee {
+            top: 0;
+            /* left: 0; */
+            /* right: 0; */
+            bottom: 0;
+            /* display: flex; */
+            z-index: 3000;
+            padding: 1.2rem;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.75);
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 1500px;
+            height: 100%;
+        }
+
+        .savee1 {
+            position: fixed;
+            bottom: -1400px;
+            z-index: 999;
+            background: #13151b;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            /* padding: 30px 40px; */
+            border-radius: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 700;
+            transition: .2s all ease-in-out;
+        }
+
+        .savee1 .cta {
+            margin-left: 20px;
+        }
+
+        .savee1.changes_truee {
+            top: 0;
+            /* left: 0; */
+            /* right: 0; */
+            bottom: 0;
+            /* display: flex; */
+            z-index: 3000;
+            padding: 1.2rem;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.75);
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 1500px;
+            height: 100%;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // abrir
+        $(document).ready(function () {
+            $("#open").click(function () {
+                $(".savee").addClass("changes_truee");
+                $("#modal").addClass("bgon");
+            });
+
+            $("#open1").click(function () {
+                $(".savee1").addClass("changes_truee");
+                $("#modal").addClass("bgon");
+            });
+        });
+
+        // fechar
+        function mudarCor(novaCor) {
+            $(".savee").removeClass("changes_truee");
+            $("#modal").removeClass("bgon");
+        }
+
+        function mudarCor1(novaCor) {
+            $(".savee1").removeClass("changes_truee");
+            $("#modal").removeClass("bgon");
+        }
+    </script>
+    <!-- plugins:js -->
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="https://unpkg.com/picmo@latest/dist/umd/index.js"></script>
+    <script src="https://unpkg.com/@picmo/popup-picker@latest/dist/umd/index.js"></script>
+    <script src="https://unpkg.com/@picmo/renderer-twemoji@latest/dist/umd/index.js"></script>
+    <script>
+      // Ticket {Strings}
+      var authorIcon = "<%= ticket.embedticket.author.icon %>";
+      var authorName = "<%= ticket.embedticket.author.name %>";
+      var authorUrl = "<%= ticket.embedticket.author.url %>";
+      var embedTitle = "<%= ticket.embedticket.title %>";
+      var embedTitleUrl = "<%= ticket.embedticket.titleURL %>";
+      var description = "<%- ticket.embedticket.description %>";
+      var embedThumb = "<%= ticket.embedticket.thumbnail %>";
+      var embedFooter = "<%= ticket.embedticket.footer %>";
+      var embedFooterIcon = "<%= ticket.embedticket.footerIcon %>";
+      var embedColor = "<%= ticket.embedticket.color %>";
+      var embedImage = "<%= ticket.embedticket.image %>";
+      // Second
+      var authorIcon1 = "<%= ticket.ticketembed.author.icon %>";
+      var authorName1 = "<%= ticket.ticketembed.author.name %>";
+      var authorUrl1 = "<%= ticket.ticketembed.author.url %>";
+      var embedTitle1 = "<%= ticket.ticketembed.title %>";
+      var embedTitleUrl1 = "<%= ticket.ticketembed.titleURL %>";
+      var description1 = "<%- ticket.ticketembed.description %>";
+      var embedThumb1 = "<%= ticket.ticketembed.thumbnail %>";
+      var embedFooter1 = "<%= ticket.ticketembed.footer %>";
+      var embedFooterIcon1 = "<%= ticket.ticketembed.footerIcon %>";
+      var embedColor1 = "<%= ticket.ticketembed.color %>";
+      var embedImage1 = "<%= ticket.ticketembed.image %>";
+    </script>
+    <script data-data="<%= JSON.stringify(emotes) %>">
+      const data = JSON.parse(document.currentScript.dataset.data);
+      // console.log(data)
+  </script>
+    <script>
+      const { autoTheme, lightTheme, darkTheme } = picmo;
+      const { createPopup } = picmoPopup;
+      const { TwemojiRenderer } = picmoTwemoji;
+      document.addEventListener('DOMContentLoaded', () => {
+  const selectionContainer = document.querySelector('#selection-outer');
+  const emoji = document.querySelector('#selection-emoji');
+  // const name = document.querySelector('#selection-name');
+  const trigger = document.querySelector('#trigger');
+  const selectemoji = document.querySelector('#selectemoji');
+  const selectemojiCustom = document.querySelector('#selectemojiCustom');
+
+  const picker = createPopup({
+    categories: ['food-drink', 'recents', 'custom', 'smileys-emotion', 'people-body', 'activities', 'animals-nature', 'flags', 'objects', 'symbols', 'travel-places'],
+    renderer: new TwemojiRenderer(),
+    autoFocus: 'emojis',
+    animate: true,
+    theme: autoTheme,
+    custom: data,
+    emojiSize: '1.8rem',
+    initialCategory: 'recents',
+    showPreview: false,
+  }, {
+    referenceElement: trigger,
+    triggerElement: trigger,
+    position: 'right-end'
+  });
+
+  trigger.addEventListener('click', () => {
+    picker.toggle();
+  });
+
+  picker.addEventListener('emoji:select', (selection) => {
+    trigger.innerHTML = selection.emoji;
+    selectemoji.value = selection.label;
+    selectemojiCustom.value = `:${selection.emoji}:${selection.label}`;
+    // name.textContent = selection.label;
+
+    // selectionContainer.classList.remove('empty');
+  });
+});
+    </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+const selectionContainer1 = document.querySelector('#selection-outer1');
+const emoji1 = document.querySelector('#selection-emoji1');
+// const name = document.querySelector('#selection-name');
+const trigger1 = document.querySelector('#trigger1');
+const selectemoji1 = document.querySelector('#selectemoji1');
+const selectemojiCustom1 = document.querySelector('#selectemojiCustom1');
+
+const picker1 = createPopup({
+categories: ['food-drink', 'recents', 'custom', 'smileys-emotion', 'people-body', 'activities', 'animals-nature', 'flags', 'objects', 'symbols', 'travel-places'],
+renderer: new TwemojiRenderer(),
+autoFocus: 'emojis',
+animate: true,
+theme: autoTheme,
+custom: data,
+emojiSize: '1.8rem',
+initialCategory: 'recents',
+showPreview: false,
+}, {
+referenceElement: trigger1,
+triggerElement: trigger1,
+position: 'right-end'
+});
+
+trigger1.addEventListener('click', () => {
+picker1.toggle();
+});
+
+picker1.addEventListener('emoji:select', (selection) => {
+trigger1.innerHTML = selection.emoji;
+selectemoji1.value = selection.label;
+selectemojiCustom1.value = `:${selection.emoji}:${selection.label}`;
+// name.textContent = selection.label;
+
+// selectionContainer.classList.remove('empty');
+});
+});
+</script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../../assets/vendors/select2/select2.min.js"></script>
+    <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/misc.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../../assets/js/file-upload.js"></script>
+    <script src="../../js/ticket.js"></script>
+    <script src="../../assets/js/typeahead.js"></script>
+    <script src="../../assets/js/select2.js"></script>
+    <!-- End custom js for this page -->
+</body>
+
+</html>

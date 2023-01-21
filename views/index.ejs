@@ -1,0 +1,1130 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<!--
+
+  ██░ ██  ▒█████   ██▓███   ▓█████      ▄▄▄▄    ▒█████  ▄▄▄█████▓
+▒▓██░ ██ ▒██▒  ██▒▓██░  ██  ▓█   ▀     ▓█████▄ ▒██▒  ██▒▓  ██▒ ▓▒
+░▒██▀▀██ ▒██░  ██▒▓██░ ██▓▒ ▒███       ▒██▒ ▄██▒██░  ██▒▒ ▓██░ ▒░
+ ░▓█ ░██ ▒██   ██░▒██▄█▓▒ ▒ ▒▓█  ▄     ▒██░█▀  ▒██   ██░░ ▓██▓ ░ 
+ ░▓█▒░██▓░ ████▓▒░▒██▒ ░  ░▒░▒████    ▒░▓█  ▀█▓░ ████▓▒░  ▒██▒ ░ 
+  ▒ ░░▒░▒░ ▒░▒░▒░ ▒▓▒░ ░  ░░░░ ▒░     ░░▒▓███▀▒░ ▒░▒░▒░   ▒ ░░   
+  ▒ ░▒░ ░  ░ ▒ ▒░ ░▒ ░     ░ ░ ░      ░▒░▒   ░   ░ ▒ ▒░     ░    
+  ░  ░░ ░░ ░ ░ ▒  ░░           ░        ░    ░ ░ ░ ░ ▒    ░      
+  ░  ░  ░    ░ ░           ░   ░      ░ ░          ░ ░           
+
+-->
+
+<head>
+  <%- include('./partials/_seo.ejs') %>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Title  -->
+  <title>Hope 🌺 - The bot you didn&#39;t know you needed</title>
+
+  <!-- Favicon  -->
+  <link rel="icon" href="assets/website/img/favicon.png">
+
+  <!-- ***** All CSS Files ***** -->
+  <link data-style="custom-background" rel="stylesheet" href="../../assets/css/inicio-bg.css" />
+  <link data-style="dsc" rel="stylesheet" href="../../css/dsc.css" />
+  <link data-style="counter" rel="stylesheet" href="../../css/contador.css" />
+  <link data-style="premium" rel="stylesheet" href="../../css/card-premium.css" />
+  <link rel="stylesheet" href="assets/website/js/Cookie Consent/cookieconsent.min.css">
+
+  <!-- Style css -->
+  <link rel="stylesheet" href="assets/website/css/style.css">
+  <script src="../../admin/vendors/typed.js/typed.js" integrity="sha512-ggJ7yQCnXifbDXFFfyNhegaNXkkPMP+0cxMDobX6pABvU4zrqD+NMXxrGoAK9iANboRjpR4ajwWHCCfJXJFpJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <noscript>
+    <div class="no-js">
+      To view the page please enable javascript in your browser
+    </div>
+  </noscript>
+</head>
+
+<!-- Counter -->
+<input style="display: none" type="text" value="<%= totalUsers %>" id="size">
+<input style="display: none" type="text" value="<%= totalServers %>" id="size2">
+
+<body>
+  <div class="main">
+    <!-- ***** Header Start ***** -->
+    <%- include('./partials/_header.ejs') %>
+    <!-- ***** Header End ***** -->
+
+    <!-- ***** Welcome Area Start ***** -->
+    <section class="background sm" style="min-height: 100vh;background-image: url(assets/images/bg.png),linear-gradient(#3e3e3e69,#0e1015);
+        animation: background-scroll 60s linear infinite;
+        overflow: hidden;background-repeat: round;background-size: 15%;">
+      <div class="container">
+        <div class="row-features-top">
+          <div class="col-12 col-md-6 col-lg-7">
+            <div class="intro d-flex justify-content-between align-items-end m-0">
+              <div class="intro-content">
+                <span name="translate" caption="bot_name">Hope</span>
+              </div>
+            </div>
+            <div class="intro-btn" style="position: absolute;">
+              <span class="font-counter-text" name="translate" caption="counter_1">Serving</span>
+              <span class="font-counter"><b id="odometer" class="odometer"><%= totalUsers %></b> </span>
+              <span class="font-counter-text" name="translate" caption="counter_2"> members in </span>
+              <span class="font-counter"><b id="odometer2" class="odometer"><%= totalServers %> </b></span>
+              <span class="font-counter-text" name="translate" caption="counter_3"> servers.</span>
+            </div>
+            <span style="color: var(--white-color);margin-top: 1.5rem!important;margin-bottom: 1.5rem;font-size: var(--h1-size);font-weight: var(--h1-weight);line-height: 1.2;font-family: var(--primary-font);-ms-word-wrap: break-word;word-wrap: break-word;" name="translate" caption="slogan">The bot you didn't know you</span><span class="slogan" style="color: var(--white-color);margin-top: 1.5rem!important;margin-bottom: 1.5rem;font-size: var(--h1-size);font-weight: var(--h1-weight);line-height: 1.2;font-family: var(--primary-font);-ms-word-wrap: break-word;word-wrap: break-word;"></span>
+            <script>
+              if (localStorage.getItem('currentLanguage') === 'en-US') {
+                var typed = new Typed('.slogan', {
+                  strings: ["needed", "loved", "existed"],
+                  typeSpeed: 60,
+                  smartBackspace: true,
+                  backDelay: 700,
+                  loop: true,
+                  loopCount: Infinity,
+                  fadeOut: false,
+                  fadeOutClass: 'typed-fade-out',
+                  fadeOutDelay: 500,
+                  showCursor: false,
+                  cursorChar: '|',
+                  autoInsertCss: true,
+                });
+              } else if (localStorage.getItem('currentLanguage') === 'pt-BR') {
+                var typed = new Typed('.slogan', {
+                  strings: ["precisava", "amava", "existia"],
+                  typeSpeed: 60,
+                  smartBackspace: true,
+                  backDelay: 700,
+                  loop: true,
+                  loopCount: Infinity,
+                  fadeOut: false,
+                  fadeOutClass: 'typed-fade-out',
+                  fadeOutDelay: 500,
+                  showCursor: false,
+                  cursorChar: '|',
+                  autoInsertCss: true,
+                });
+              } else {
+                var typed = new Typed('.slogan', {
+                  strings: ["needed", "loved", "existed"],
+                  typeSpeed: 60,
+                  smartBackspace: true,
+                  backDelay: 700,
+                  loop: true,
+                  loopCount: Infinity,
+                  fadeOut: false,
+                  fadeOutClass: 'typed-fade-out',
+                  fadeOutDelay: 500,
+                  showCursor: false,
+                  cursorChar: '|',
+                  autoInsertCss: true,
+                });
+              }
+            </script>
+            <p style="font-size: 1.2rem;" name="translate" caption="shortdesc">Get livestream notifications, moderate your server, use custom commands and triggers to make the impossible possible, and a lot more.</p>
+            <!-- Buttons -->
+            <div class="button-group">
+              <a class="btn btn-bordered-white" href="/invite" name="translate" caption="add"><i class="fa-solid fa-circle-plus mr-2"></i>ADD TO DISCORD+</a>
+              <span name="translate" caption="or">or</span>
+              <a class="btn btn-bordered-white" href="/vote" name="translate" caption="vote"><i class="fa-solid fa-check-to-slot mr-2"></i>Vote</a>
+              <span name="translate" caption="perks">for free perks.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Welcome Area End ***** -->
+    <div class="shape-1 bottom overflow-hidden" style="position: absolute; bottom: 0; left: 0; right: 0; overflow: hidden!important;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200">
+        <path fill="var(--primary-bg-color)" fill-opacity="1" d="M0,32L48,48C96,64,192,96,288,122.7C384,149,480,171,576,170.7C672,171,768,149,864,144C960,139,1056,149,1152,133.3C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+        </path>
+      </svg>
+    </div>
+    <!-- ***** Partner/About Start ***** -->
+    <section class="live-auctions-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Intro -->
+            <div class="intro d-flex justify-content-between align-items-end m-0">
+              <div class="intro-content">
+                <span name="translate" caption="partner-title">Partners</span>
+              </div>
+              <div class="intro-btn">
+                <a class="btn content-btn" href="/blog/become-a-partner" name="translate" caption="partner-desc">Become a Partner</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="auctions-slides">
+          <div class="swiper-container slider-mid items">
+            <div class="swiper-wrapper">
+              <!-- Single Slide -->
+              <div class="swiper-slide item">
+                <div class="card">
+                  <div class="image-over">
+                    <a href="https://discord.gg/CsFkSkMGK5">
+                      <img class="card-img-top" src="https://i.imgur.com/q8jBJiI.png" alt="">
+                    </a>
+                  </div>
+                  <!-- Card Caption -->
+                  <div class="card-caption col-12 p-0">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="countdown-times mb-3">
+                        <div class='countdown d-flex justify-content-center' data-date="2021-12-09"></div>
+                      </div>
+                      <a href="#">
+                        <h5 class="mb-0" name="translate" caption="partner-desc">Become a Partner</h5>
+                      </a>
+                      <a class="seller d-flex align-items-center my-3" href="#">
+                        <img class="avatar-sm rounded-circle" src="klaus.jpg" alt="">
+                        <span class="ml-2">Klaus#1565</span>
+                      </a>
+                      <div class="card-bottom d-flex justify-content-between">
+                        <a href="#">
+                          <span class="mb-0">Discord</span>
+                        </a>
+                        <a href="#">
+                          <span class="mb-0">Website</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Single Slide -->
+              <div class="swiper-slide item">
+                <div class="card">
+                  <div class="image-over">
+                    <a href="#">
+                      <img class="card-img-top" src="https://i.imgur.com/q8jBJiI.png" alt="">
+                    </a>
+                  </div>
+                  <!-- Card Caption -->
+                  <div class="card-caption col-12 p-0">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="countdown-times mb-3">
+                        <div class='countdown d-flex justify-content-center' data-date="2021-10-05"></div>
+                      </div>
+                      <a href="#">
+                        <h5 class="mb-0" name="translate" caption="partner-desc">Become a Partner</h5>
+                      </a>
+                      <a class="seller d-flex align-items-center my-3" href="#">
+                        <img class="avatar-sm rounded-circle" src="klaus.jpg" alt="">
+                        <span class="ml-2">Klaus#1565</span>
+                      </a>
+                      <div class="card-bottom d-flex justify-content-between">
+                        <a href="#">
+                          <span class="mb-0">Discord</span>
+                        </a>
+                        <a href="#">
+                          <span class="mb-0">Website</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Single Slide -->
+              <div class="swiper-slide item">
+                <div class="card">
+                  <div class="image-over">
+                    <a href="#">
+                      <img class="inline-photo show-on-scroll is-visible card-img-top" src="https://i.imgur.com/q8jBJiI.png" alt="">
+                    </a>
+                  </div>
+                  <!-- Card Caption -->
+                  <div class="card-caption col-12 p-0">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="countdown-times mb-3">
+                        <div class='countdown d-flex justify-content-center' data-date="2021-09-15"></div>
+                      </div>
+                      <a href="#">
+                        <h5 class="mb-0" name="translate" caption="partner-desc">Become a Partner</h5>
+                      </a>
+                      <a class="seller d-flex align-items-center my-3" href="#">
+                        <img class="avatar-sm rounded-circle" src="klaus.jpg" alt="">
+                        <span class="ml-2">Klaus#1565</span>
+                      </a>
+                      <div class="card-bottom d-flex justify-content-between">
+                        <a href="#">
+                          <span class="mb-0">Discord</span>
+                        </a>
+                        <a href="#">
+                          <span class="mb-0">Website</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Single Slide -->
+              <div class="swiper-slide item">
+                <div class="card">
+                  <div class="image-over">
+                    <a href="#">
+                      <img class="card-img-top" src="https://i.imgur.com/q8jBJiI.png" alt="">
+                    </a>
+                  </div>
+                  <!-- Card Caption -->
+                  <div class="card-caption col-12 p-0">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="countdown-times mb-3">
+                        <div class='countdown d-flex justify-content-center' data-date="2021-12-29"></div>
+                      </div>
+                      <a href="#">
+                        <h5 class="mb-0" name="translate" caption="partner-desc">Become a Partner</h5>
+                      </a>
+                      <a class="seller d-flex align-items-center my-3" href="#">
+                        <img class="avatar-sm rounded-circle" src="klaus.jpg" alt="">
+                        <span class="ml-2">Klaus#1565</span>
+                      </a>
+                      <div class="card-bottom d-flex justify-content-between">
+                        <a href="#">
+                          <span class="mb-0">Discord</span>
+                        </a>
+                        <a href="#">
+                          <span class="mb-0">Website</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Single Slide -->
+              <div class="swiper-slide item">
+                <div class="card">
+                  <div class="image-over">
+                    <a href="#">
+                      <img class="card-img-top" src="https://i.imgur.com/q8jBJiI.png" alt="">
+                    </a>
+                  </div>
+                  <!-- Card Caption -->
+                  <div class="card-caption col-12 p-0">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="countdown-times mb-3">
+                        <div class='countdown d-flex justify-content-center' data-date="2022-01-24"></div>
+                      </div>
+                      <a href="#">
+                        <h5 class="mb-0" name="translate" caption="partner-desc">Become a Partner</h5>
+                      </a>
+                      <a class="seller d-flex align-items-center my-3" href="#">
+                        <img class="avatar-sm rounded-circle" src="klaus.jpg" alt="">
+                        <span class="ml-2">Klaus#1565</span>
+                      </a>
+                      <div class="card-bottom d-flex justify-content-between">
+                        <a href="#">
+                          <span class="mb-0">Discord</span>
+                        </a>
+                        <a href="#">
+                          <span class="mb-0">Website</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Single Slide -->
+              <div class="swiper-slide item">
+                <div class="card">
+                  <div class="image-over">
+                    <a href="#">
+                      <img class="card-img-top" src="https://i.imgur.com/q8jBJiI.png" alt="">
+                    </a>
+                  </div>
+                  <!-- Card Caption -->
+                  <div class="card-caption col-12 p-0">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="countdown-times mb-3">
+                        <div class='countdown d-flex justify-content-center' data-date="2022-03-30"></div>
+                      </div>
+                      <a href="#">
+                        <h5 class="mb-0" name="translate" caption="partner-desc">Become a Partner</h5>
+                      </a>
+                      <a class="seller d-flex align-items-center my-3" href="#">
+                        <img class="avatar-sm rounded-circle" src="klaus.jpg" alt="">
+                        <span class="ml-2">Klaus#1565</span>
+                      </a>
+                      <div class="card-bottom d-flex justify-content-between">
+                        <a href="#">
+                          <span class="mb-0">Discord</span>
+                        </a>
+                        <a href="#">
+                          <span class="mb-0">Website</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="live-auctions-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Intro -->
+            <div class="intro d-flex justify-content-between align-items-end m-0">
+              <div class="intro-content">
+                <span name="translate" caption="section_1">WHY HOPE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo" id="demo">
+          <div class="discord-app-mount">
+            <div class="discord-app">
+              <div class="app-buttons">Discard</div>
+              <div class="guilds">
+                <div class="guild selected" style="background-image: url(../../assets/website/img/guildicon.png);"></div>
+                <div class="guild"></div>
+                <a href="/invite">
+                  <div class="guild guild-add"></div>
+                </a>
+              </div>
+              <div class="channels">
+                <div class="header">DawnForge Support Server</div>
+                <div class="channel-wrapper"></div>
+                <div class="user"></div>
+              </div>
+              <div class="chat">
+                <div class="header">Hope Bot</div>
+                <div class="messages-wrapper">
+                  <div class="messages"></div>
+                </div>
+                <div class="input-wrapper">
+                  <div class="input" style="border-color: #dbdbdb00 !important;">
+                    <textarea placeholder="Message #general" disabled></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="why-hope" style="display: none;text-align: center;" name="translate" caption="section1_desc1">Hope is a powerful bot to make your server attractive, fun, and moderate.<span>
+            <br>
+            <span name="translate" caption="section1_desc2">Hope includes a powerful and vast moderation system that helps you control and keep everything in order on your server. Say goodbye to trolls, say goodbye to spammers, say goodbye to pervates with Hope's automatic moderation system!</span>
+            <br>
+            <span name="translate" caption="section1_desc3">This isn't all Hope can offer you. Hope also manages to announce new broadcasts on Twitch and Youtube (Live and Videos), as well as subreddit posts on Reddit. Make your server an attractive place with Hope!</span>
+            <br>
+            <span name="translate" caption="section1_desc4">Do you think that's all? No! Hope is also able to announce birthdays of the day on a specific channel with its Birthdays addon.</span>
+            <br>
+            <span name="translate" caption="section1_desc5">Oh! How about an advanced suggestion system? Of course Hope has one! Allow members of your server to leave suggestions and vote for a specific channel with Hope.</span>
+            <br>
+            <span name="translate" caption="section1_desc6">It's a lot of good stuff, right? Did I mention the advanced Ticket system? Well, I guess I better stop here and let you find out all this for yourself, right?</span>
+      </div>
+    </section>
+
+    <!-- ***** Partner/About Area End ***** -->
+
+    <!-- ***** Premium Area Start ***** -->
+    <section id="plan-selector" class="center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Intro -->
+            <div class="intro d-flex justify-content-between align-items-end m-0">
+              <div class="intro-content">
+                <span name="translate" caption="section_2">Premium Plans</span>
+              </div>
+              <div class="intro-btn">
+                <a class="btn content-btn text-left" href="/premium" name="translate" caption="section2_desc1">Check out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul topparent="section" class="grid-list three-column mobile-one-column middle">
+          <li class="grid-item center both-ends card inline-photo show-on-scroll is-visible" style="background-image:url(assets/images/plan2.png);background-color: #16151a00;">
+            <p class="medium" name="translate" caption="section2_desc2">PREMIUM "MONTHLY" PLAN</p>
+            <h3 name="translate" caption="section2_desc3">$ 5/month*</h3>
+            <p class="medium" name="translate" caption="section2_desc4">Sign up for a monthly plan to experience the benefits of Hope's premium features.</p><a href="https://www.patreon.com/join/hopebot/checkout?rid=8167905" class="medium primary backgroundColorOverride" data-gv2-element="element" data-gv2-key="button" data-gv2-name="standalone_cta" data-gv2-type="button" data-analytics="click" data-analytics-name="Hope Monthly" data-testid="standalone_cta_section" style="background:linear-gradient(135deg,#4434b8,#4434b8);color: #ffffff;"><span name="translate" caption="section2_desc5">SIGN UP</span></a>
+          </li>
+          <li class="grid-item center both-ends card inline-photo show-on-scroll is-visible" style="background-image:url(assets/images/plan1.png);background-color: #16151a00;">
+            <p class="medium" name="translate" caption="section2_desc6">PREMIUM "LIFETIME" PLAN</p>
+            <h3 name="translate" caption="section2_desc7">$ 80</h3>
+            <p class="medium" name="translate" caption="section2_desc8">With the lifetime plan, you can enjoy Hope's premium features forever, for one single affordable price.</p><a href="https://www.patreon.com/join/hopebot/checkout?rid=8167907" class="medium primary" data-gv2-element="element" data-gv2-key="button" data-gv2-name="bundle_cta" data-gv2-type="button" data-analytics="click" data-analytics-name="Hope Life" data-testid="bundle_cta_section" style="color: #ffffff;"><span name="translate" caption="section2_desc9">SUBSCRIBE NOW</span></a>
+          </li>
+          <li class="grid-item center both-ends card inline-photo show-on-scroll is-visible" style="background-image:url(assets/images/plan2.png);background-color: #16151a00;">
+            <p class="medium" name="translate" caption="section2_desc10">PREMIUM "YEARLY" PLAN</p>
+            <h3 name="translate" caption="section2_desc11">$ 50/year*</h3>
+            <p class="medium" name="translate" caption="section2_desc12">Enjoy a full year for one promotional price and take advantage of Hope's premium features.</p><a href="https://www.patreon.com/join/hopebot/checkout?rid=8167906" class="medium primary backgroundColorOverride" data-gv2-element="element" data-gv2-key="button" data-gv2-name="mlp_link" data-gv2-type="button" data-analytics="click" data-analytics-name="Hope Annual" data-testid="mlp_link_section" style="background:linear-gradient(135deg,#4434b8,#4434b8);color: #ffffff;"><span name="translate" caption="section2_desc5">SIGN UP</span></a>
+          </li>
+        </ul>
+        <p class="footnote">*<a href="/premium" name="translate" caption="section2_desc13">Click here</a> <span name="translate" caption="section2_desc14">and check out all the premium benefits you can unlock.</span>
+        </p>
+      </div>
+    </section>
+    <!-- ***** Premium Area End ***** -->
+
+    <section>
+      <div class="container bouncing">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-8">
+            <div class="mb-5">
+              <h2 class="mb-0">
+                <span class="font-w-4 d-block" name="translate" caption="section3_desc1">We do it all,</span> <span name="translate" caption="section3_desc2"> other bots don't have to.</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="d-flex justify-content-between">
+              <div class="me-3">
+                <div class="f-icon-s p-3 rounded" data-bg-color="#d0faec">
+                  <i class="flaticon-dashboard">
+                  </i>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-2" name="translate" caption="section3_desc3">Dashboard</h5>
+                <p class="mb-0" name="translate" caption="section3_desc4">Our easy to use dashboard includes all of our Hope's configuration in one centralized place.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
+            <div class="d-flex justify-content-between">
+              <div class="me-3">
+                <div class="f-icon-s p-3 rounded" data-bg-color="#ffeff8">
+                  <i class="flaticon-relationship">
+                  </i>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-2" name="translate" caption="section3_desc5">Management</h5>
+                <p class="mb-0" name="translate" caption="section3_desc6">Take control of your guild! Hope Bot makes it very simple to give your server the attention to detail it needs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-5 mt-lg-0">
+            <div class="d-flex justify-content-between">
+              <div class="me-3">
+                <div class="f-icon-s p-3 rounded" data-bg-color="#d3f6fe">
+                  <i class="flaticon-solution">
+                  </i>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-2" name="translate" caption="section3_desc7">Auto Moderation</h5>
+                <p class="mb-0" name="translate" caption="section3_desc8">Hope's Auto Moderation System is ideal for small, and large servers! With our easy to use panel, you can protect and moderate your server without the need for any commands!</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-5">
+            <div class="d-flex justify-content-between">
+              <div class="me-3">
+                <div class="f-icon-s p-3 rounded" data-bg-color="#fff5d9">
+                  <i class="flaticon-system">
+                  </i>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-2" name="translate" caption="section3_desc9">Music</h5>
+                <p class="mb-0" name="translate" caption="section3_desc10">Hope Bot has a very nicely designed music section focused on quality. You can play music in your guild without interuptions, or issues with quality.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-5">
+            <div class="d-flex justify-content-between">
+              <div class="me-3">
+                <div class="f-icon-s p-3 rounded" data-bg-color="#fdf9ee">
+                  <i class="flaticon-friendship">
+                  </i>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-2" name="translate" caption="section3_desc11">User Friendly</h5>
+                <p class="mb-0" name="translate" caption="section3_desc12">Every interation with Hope is made with easy, to help the user easily and efficiently preform their daily server duties.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-5">
+            <div class="d-flex justify-content-between">
+              <div class="me-3">
+                <div class="f-icon-s p-3 rounded" data-bg-color="#e5f5f5">
+                  <i class="flaticon-call-center-1">
+                  </i>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-2" name="translate" caption="section3_desc13">Quick Support</h5>
+                <p class="mb-0" name="translate" caption="section3_desc14">DawnForge maintains Hope Bot, and is very eager to help you with any questions or feedback you may have!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <link data-style="auto-animes" rel="stylesheet" href="../../assets/css/inicio-embed.css" />
+
+    <div class="even-wrapper wobbly-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Intro -->
+            <div class="intro d-flex justify-content-between align-items-end m-0">
+              <div class="intro-content">
+                <span name="translate" caption="section_4">Automated social media notifications</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="media-body">
+        </div>
+        <p class="ttv-text" name="translate" caption="section4_desc1">Letting your fans know you've submitted something new is boring and tiresome.... You want to use your time to be productive and make bigger and better content for your fans but much of the time is spent just reminding your fans that new content is out, as some social networks think they know more about what their fans like and want to receive than their own fans do...</p>
+        <p class="ttv-text" name="translate" caption="section4_desc2">Avoid such problems, I myself will check your YouTube channel, Twitch channel, Twitter, RSS feeds and various other places to see if you have made anything new! Focus on your progress, I'll take care of the notifying your fans part.</p>
+        <style>
+          .left {
+            -webkit-transform: scale(1) perspective(1000px) rotateX(23deg) rotateY(23deg) rotate(-9.8deg) translateX(20px) translateY(-150px);
+            transform: scale(1) perspective(1000px) rotateX(23deg) rotateY(23deg) rotate(-9.8deg) translateX(20px) translateY(-150px)
+          }
+
+          .left:hover {
+            -webkit-transform: scale(1) perspective(0) rotateX(0) rotateY(0) rotate(0) translateX(0) translateY(-135px);
+            transform: scale(1) perspective(0) rotateX(0) rotateY(0) rotate(0) translateX(0) translateY(-135px)
+          }
+
+          .right {
+            -webkit-transform: scale(1) perspective(1000px) rotateX(23deg) rotateY(-23deg) rotate(15deg) translateX(-45px) translateY(-150px);
+            transform: scale(1) perspective(1000px) rotateX(23deg) rotateY(-23deg) rotate(15deg) translateX(-45px) translateY(-150px)
+          }
+
+          .right:hover {
+            -webkit-transform: scale(1) perspective(0) rotateX(0) rotateY(0) rotate(0) translateX(0) translateY(-135px);
+            transform: scale(1) perspective(0) rotateX(0) rotateY(0) rotate(0) translateX(0) translateY(-135px)
+          }
+        </style>
+        <section class="sidealign side-by-side text-container-left" style="display: grid; justify-items: center;padding: 30px;">
+          <% if (StreamData.data.length == 0 || !StreamData.data.length) { %>
+          <div class="embedsitent left" style="width: 580px;">
+            <div class="embedsitent-primary-container" style="display: flex; width: 65%; justify-content: space-between;">
+              <div class="embedsitent-secondary-container" />
+              <div class="embedsitent-author">
+                <span class="embedsitent-author-name" style="font-size: 1rem; font-weight: 600; display: inline-block;">🔴</span>
+                <span class="embedsitent-author-name text link" style="font-size: 1rem; font-weight: 600; display: inline-block;" name="translate" caption="twitch_embedsite1">Gaules is offline</span>
+              </div>
+              <span class="embedsitent-title">
+                <p class="adj-font-size">ESL Pro League - !vote - Siga @gaules nas redes sociais</p>
+              </span>
+              <div class="embedsitent-fields-container">
+                <div class="embedsitent-fields-container inline">
+                  <div class="embedsitent-field">
+                    <span class="embedsitent-field-title" name="translate" caption="twitch_embedsite2">Playing:</span>
+                    <span class="embedsitent-field-content" style="font-size: 14px;">Counter-Strike: Global Offensive</span>
+                  </div>
+                  <div class="embedsitent-field">
+                    <span class="embedsitent-field-title" name="translate" caption="twitch_embedsite3">Viewers:</span>
+                    <span class="embedsitent-field-content" style="font-size: 14px;">116,622</span>
+                  </div>
+                  <div class="embedsitent-field">
+                    <span class="embedsitent-field-title" name="translate" caption="twitch_embedsite4">Started</span>
+                    <span class="embedsitent-field-content" style="font-size: 14px;width: 70px;" name="translate" caption="twitch_embedsite5">a hour ago</span>
+                  </div>
+                </div>
+                <div class="embedsitent-field">
+                  <span class="embedsitent-field-title">Twitch:</span>
+                  <span class="embedsitent-field-content text link" name="translate" caption="twitch_embedsite6">Watch stream</span>
+                </div>
+                <div class="embedsitent-field">
+                  <span class="embedsitent-field-title">Discord:</span>
+                  <span class="embedsitent-field-content text link" name="translate" caption="twitch_embedsite7">Join here</span>
+                </div>
+              </div>
+            </div>
+            <img style="width: 600px;" src="https://static-cdn.jtvnw.net/jtv_user_pictures/gaules-profile_image-9298dca608632101-150x150.jpeg" class="embedsitent-thumpnail inline-photo show-on-scroll is-visible"></img>
+          </div>
+          <img style="width: 600px;" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_gaules-640x360.jpg?cacheBypass=<%= (Math.random()).toString() %>" class="embedsitent-image inline-photo show-on-scroll is-visible"></img>
+          <div class="embedsitent-footer">
+            <span class="embedsitent-footer-text">Powered by hopebot.top</span>
+          </div>
+          <% } else { %>
+          <% const viewers = StreamData.data[0].viewer_count; %>
+          <div class="embedsitent left" style="width: 580px;">
+            <div class="embedsitent-primary-container" style="display: flex; width: 65%; justify-content: space-between;">
+              <div class="embedsitent-secondary-container" />
+              <div class="embedsitent-author">
+                <span class="embedsitent-author-name" style="font-size: 1rem; font-weight: 600; display: inline-block;">🟢</span>
+                <span class="embedsitent-author-name text link" style="font-size: 1rem; font-weight: 600; display: inline-block;" name="translate" caption="twitch_embedsite8">Gaules is now live</span>
+              </div>
+              <span class="embedsitent-title">
+                <p class="adj-font-size"><%- StreamData.data[0].title || 'No title' %></p>
+              </span>
+              <div class="embedsitent-fields-container">
+                <div class="embedsitent-fields-container inline">
+                  <div class="embedsitent-field">
+                    <span class="embedsitent-field-title" name="translate" caption="twitch_embedsite2">Playing:</span>
+                    <span class="embedsitent-field-content" style="font-size: 14px;"><%- StreamData.data[0].game_name || 'No game' %></span>
+                  </div>
+                  <div class="embedsitent-field">
+                    <span class="embedsitent-field-title" name="translate" caption="twitch_embedsite3">Viewers:</span>
+                    <span class="embedsitent-field-content" style="font-size: 14px;"><%- viewers.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %></span>
+                  </div>
+                  <div class="embedsitent-field">
+                    <span class="embedsitent-field-title" name="translate" caption="twitch_embedsite4">Started</span>
+                    <span class="embedsitent-field-content" style="font-size: 14px;width: 70px;"><%- moment(new Date(StreamData.data[0].started_at).getTime()).fromNow() %></span>
+                  </div>
+                </div>
+                <div class="embedsitent-field">
+                  <span class="embedsitent-field-title">Twitch:</span>
+                  <span class="embedsitent-field-content text link"><a href="https://www.twitch.tv/<%- StreamData.data[0].user_login %>" name="translate" caption="twitch_embedsite6"> Watch stream</a></span>
+                </div>
+                <div class="embedsitent-field">
+                  <span class="embedsitent-field-title">Discord:</span>
+                  <span class="embedsitent-field-content text link" name="translate" caption="twitch_embedsite7">Join here</span>
+                </div>
+              </div>
+            </div>
+            <img style="width: 600px;" src="<%- ChannelData.thumbnail_url %>" class="embedsitent-thumpnail inline-photo show-on-scroll is-visible"></img>
+          </div>
+          <img style="width: 600px;" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_<%- StreamData.data[0].user_login %>-640x360.jpg?cacheBypass=<%- (Math.random()).toString() %>" class="embedsitent-image inline-photo show-on-scroll is-visible"></img>
+          <div class="embedsitent-footer">
+            <span class="embedsitent-footer-text">Powered by hopebot.top</span>
+          </div>
+          <% } %>
+      </div>
+      </section>
+    </div>
+
+    <!-- ***** Top Guilds Area Start ***** -->
+    <section class="popular-collections-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Intro -->
+            <div class="intro d-flex justify-content-between align-items-end m-0">
+              <div class="intro-content">
+                <span name="translate" caption="section_5">Top Guilds</span>
+                <h3 class="mt-3 mb-0" name="translate" caption="section5_desc1">Biggest servers</h3>
+              </div>
+              <div class="intro-btn">
+                <a class="btn content-btn text-left" href="/public-servers" name="translate" caption="section5_desc2">Explore More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row items">
+          <% for (const guild of serversData) { %>
+          <div class="col-12 col-sm-6 col-lg-3 item">
+            <div class="card no-hover text-center">
+              <div class="image-over">
+                <% if (guild.splash) { %>
+                <a href="<% if (guild.vanityURLCode) { %>https://discord.gg/<%- guild.vanityURLCode %><% } else { %>#<% } %>">
+                  <img class="card-img-top inline-photo show-on-scroll is-visible" onerror="imgError(this);" src="https://cdn.discordapp.com/banners/<%- guild.id %>/<%- guild.banner %>.webp" alt="">
+                </a>
+                <% } else { %>
+                <a href="#">
+                  <img class="card-img-top inline-photo show-on-scroll is-visible" onerror="imgError(this);" src="https://preview.redd.it/4zh2hgl46cp51.png?width=3325&format=png&auto=webp&s=b9123bff12e1d5b86248d27a059104b4c92e05b5" alt="">
+                </a>
+                <% } %>
+                <!-- Seller -->
+                <a class="seller" href="#">
+                  <% if (guild.icon) { %>
+                  <div class="seller-thumb avatar-lg">
+                    <img class="rounded-circle inline-photo show-on-scroll is-visible" onerror="imgError(this);" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.webp?size=1024" alt="">
+                  </div>
+                  <% } else { %>
+                  <div class="seller-thumb avatar-lg">
+                    <img class="rounded-circle inline-photo show-on-scroll is-visible" onerror="imgError(this);" src="https://ui-avatars.com/api/?name=<%= guild.name %>&background=5865f2&color=fff" alt="">
+                  </div>
+                  <% } %>
+                </a>
+              </div>
+              <!-- Card Caption -->
+              <div class="card-caption col-12 p-0">
+                <!-- Card Body -->
+                <div class="card-body mt-4">
+                  <% if (guild.vanityURLCode) { %>
+                  <a href="https://discord.gg/<%- guild.vanityURLCode %>">
+                    <h5 class="mb-2"><%= guild.name %></h5>
+                  </a>
+                  <% } else { %>
+                  <a href="#">
+                    <h5 class="mb-2"><%= guild.name %></h5>
+                  </a>
+                  <% } %>
+                  <% if (guild.description) { %>
+                  <span><%= guild.description %></span>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Top Guilds Area End ***** -->
+  </div>
+  </div>
+
+  <section class="center" data-gv2-element="container" data-gv2-key="mlp_body" data-gv2-type="mlp_body" data-gv2-index="3" data-analytics-section="body:Section - MLP - 4 Column Grid - Hope :3">
+    <div class="container">
+      <ul topparent="section" class="grid-list three-column mobile-one-column middle">
+        <li class="grid-item center">
+          <picture class="lazy inline-photo show-on-scroll is-visible">
+            <source media="(min-width: 1025px)" data-srcset="assets/images/auto-mod-banner.png">
+            <img class="inline-photo show-on-scroll is-visible" data-src="auto-mod-banner.png" width="1739" height="191" alt="Hope AutoMOD" src="assets/images/auto-mod-banner.png" style="    box-shadow: 1em 1em 2em 0.25em rgb(0 0 0 / 20%);
+            margin: 2em auto;
+            max-width: 600px;
+            width: 100%;"></source>
+          </picture>
+        </li>
+      </ul>
+      <p class="medium" name="translate" caption="section6_desc1">Automatically protect your server against trolls, spam, mass mentions, and give your mods the best tools to moderate!
+      </p>
+      <ul topparent="section" class="grid-list four-column mobile-two-column middle">
+        <li class="grid-item center">
+          <picture class="sm-160 md-160 lg-160 lazy">
+            <source media="(min-width: 1025px)" data-srcset="assets/images/anti-alt.png">
+            <img class="lazy auto-mod-img inline-photo show-on-scroll is-visible" data-src="anti-alt.png" width="400" height="400" alt="LaLiga" src="assets/images/anti-alt.png"></source>
+          </picture>
+        </li>
+        <li class="grid-item center">
+          <picture class="sm-160 md-160 lg-160 lazy">
+            <source media="(min-width: 1025px)" data-srcset="anti-badwords.png">
+            <img class="lazy auto-mod-img inline-photo show-on-scroll is-visible" data-src="anti-badwords.png" width="400" height="400" src="assets/images/anti-badwords.png"></source>
+          </picture>
+        </li>
+        <li class="grid-item center">
+          <picture class="sm-160 md-160 lg-160 lazy">
+            <source media="(min-width: 1025px)" data-srcset="anti-caps.png">
+            <img class="lazy auto-mod-img inline-photo show-on-scroll is-visible" data-src="anti-caps.png" width="400" height="400" alt="NFL" src="assets/images/anti-caps.png"></source>
+          </picture>
+        </li>
+        <li class="grid-item center">
+          <picture class="sm-160 md-160 lg-160 lazy">
+            <source media="(min-width: 1025px)" data-srcset="assets/images/anti-dehoisting.png">
+            <img class="lazy auto-mod-img inline-photo show-on-scroll is-visible" data-src="anti-dehoisting.png" width="400" height="400" alt="MotoGP" src="assets/images/anti-dehoisting.png"></source>
+          </picture>
+        </li>
+        <li class="grid-item center">
+          <picture class="sm-160 md-160 lg-160 lazy">
+            <source media="(min-width: 1025px)" data-srcset="assets/images/anti-everyone.png">
+            <img class="lazy auto-mod-img inline-photo show-on-scroll is-visible" data-src="anti-everyone.png" width="400" height="400" alt="Conmebol Libertadores" src="assets/images/anti-everyone.png"></source>
+          </picture>
+        </li>
+        <li class="grid-item center">
+          <picture class="sm-160 md-160 lg-160 lazy">
+            <source media="(min-width: 1025px)" data-srcset="assets/images/anti-externallinks.png">
+            <img class="lazy auto-mod-img inline-photo show-on-scroll is-visible" data-src="anti-externallinks.png" width="400" height="400" alt="Ligue 1" src="assets/images/anti-externallinks.png""></source>
+                </picture>
+              </li>
+              <li class=" grid-item center">
+            <picture class="sm-160 md-160 lg-160 lazy">
+              <source media="(min-width: 1025px)" data-srcset="assets/images/anti-invites.png">
+              <img class="lazy auto-mod-img inline-photo show-on-scroll is-visible" data-src="anti-invites.png" width="400" height="400" alt="AFA" src="assets/images/anti-invites.png"></source>
+            </picture>
+        </li>
+        <li class="grid-item center">
+          <picture class="sm-160 md-160 lg-160 lazy">
+            <source media="(min-width: 1025px)" data-srcset="assets/images/moremodules.png">
+            <img class="lazy auto-mod-img inline-photo show-on-scroll is-visible" data-src="moremodules.png" width="400" height="400" alt="NBA" src="assets/images/moremodules.png"></source>
+          </picture>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sidealign side-by-side text-container-left" data-gv2-element="container" data-gv2-key="mlp_body" data-gv2-type="mlp_body" data-gv2-index="5" data-analytics-section="body:Side Align - 4 Columns - EMBEDsite IP:5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Intro -->
+          <div class="intro d-flex justify-content-between align-items-end m-0">
+            <div class="intro-content">
+              <span name="translate" caption="section_7">Track Animes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="auto-animes">
+        <div class="embedsite right">
+          <div class="embedsite-primary-container">
+            <div class="embedsite-secondary-container">
+              <span class="embedsite-title">
+                <b name="translate" caption="section7_desc1">Hope Auto-Animes</b>
+              </span>
+              <span class="embedsite-description"><span name="translate" caption="section7_desc2">Episode </span><b name="translate" caption="section7_desc3">1000</b> <span name="translate" caption="section7_desc4">of</span> <a src="https://anilist.co/anime/21"><b>ONE PIECE</b></a> <span name="translate" caption="section7_desc5">has just aired.</span><br>
+                <span name="translate" caption="section7_desc6">Watch:</span> <a src="http://www.crunchyroll.com/one-piece">Crunchyroll</a> • <a src="http://www.funimation.com/shows/one-piece">Funimation</a> • <a src="http://www.hulu.com/one-piece">Hulu</a> • <a src="https://www.netflix.com/title/80107103">Netflix</a><br>
+                <br>
+                <span name="translate" caption="section7_desc7">Visit:</span> <a src="http://www.toei-anim.co.jp/tv/onep/">Official Site</a> • <a src="https://vrv.co/series/GRMG8ZQZR/One-Piece">VRV</a> • <a src="https://tubitv.com/series/300006454/one-piece">Tubi TV</a> • <a src="https://www.iq.com/album/one-piece-1999-1bk9icvr331?lang=en_us">Official Site</a> • <a src="https://www.bilibili.tv/play/37976">Official Site</a><br>
+                <br>
+                <span name="translate" caption="section7_desc8">It may take some time to appear on the above service(s).</span></span>
+            </div>
+            <img src="//s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx21-tXMN3Y20PIL9.jpg" class="embedsite-thumpnail inline-photo show-on-scroll is-visible">
+          </div>
+          <div class="embedsite-footer">
+            <span class="embedsite-footer-text" name="translate" caption="section7_desc9">Format: TV • Duration: 24 minutes • Studio: Toei Animation </span>
+            <span class="embedsite-timestamp" name="translate" caption="section7_desc10">11/20/2021</span>
+          </div>
+        </div>
+        <div class="text-container" aria-label="">
+          <br>
+          <p class="medium txtanime" name="translate" caption="section7_desc11">Are you an anime fan? one moment... What? A BIG ANIME FAN? should I say, an otaku? So you can be happy that Hope can notify you whenever your favorite anime of the season has its episode aired, automatically and in real time.</p>
+          <br>
+          <p class="medium txtanime" name="translate" caption="section7_desc12">All right... and if you still have doubts about where to watch the episode, just relax, Hope lists all the official places you can watch it. You liked it, huh?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ***** Explore Area Start ***** -->
+  <section class="explore-area load-more p-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Intro -->
+          <div class="intro d-flex justify-content-between align-items-end m-0">
+            <div class="intro-content">
+              <span name="translate" caption="section_8">Public Servers</span>
+            </div>
+            <div class="intro-btn">
+              <a class="btn content-btn" href="/public-servers" name="translate" caption="section8_desc1">View All</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row items">
+        <% for (const server of pServers) { %>
+        <div class="col-12 col-sm-6 col-lg-3 item">
+          <div class="card">
+            <div class="image-over">
+              <a href="/public-servers/<%- server.guildID %>">
+                <img class="card-img-top inline-photo show-on-scroll is-visible" onerror="imgError(this);" src="https://cdn.discordapp.com/icons/<%= server.guildID %>/<%= server.guildIcon %>.webp?size=1024" alt="">
+              </a>
+            </div>
+            <!-- Card Caption -->
+            <div class="card-caption col-12 p-0">
+              <!-- Card Body -->
+              <div class="card-body">
+                <a href="/public-servers/<%- server.guildID %>">
+                  <h5 class="mb-0"><%= server.guildName %></h5>
+                </a>
+                <div class="seller d-flex align-items-center my-3">
+                  <span><%- server.description %></span>
+                </div>
+                <div class="card-bottom d-flex justify-content-between">
+                  <span><%- server.categories[0] %></span>
+                  <span><%- server.categories[1] %></span>
+                </div>
+                <div class="col-12 text-center">
+                  <a class="btn btn-bordered-white btn-smaller mt-3" href="/public-servers/<%- server.guildID %>" name="translate" caption="section8_desc2">View</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <a id="load-btn" class="btn btn-bordered-white mt-5" href="#" name="translate" caption="load_more">Load More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ***** Explore Area End ***** -->
+
+  <!-- ***** Work Area Start ***** -->
+  <section class="work-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Intro -->
+          <div class="intro mb-4">
+            <div class="intro-content">
+              <span name="translate" caption="section_9">That's not all!</span>
+              <h3 class="mt-3 mb-0" name="translate" caption="section9_desc1">Hope also has</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row items">
+        <div class="col-12 col-sm-6 col-lg-3 item">
+          <!-- Single Work -->
+          <div class="single-work">
+            <picture class="device lazy">
+              <source media="(min-width: 1025px)" data-srcset="birthdays.png">
+              <img class="lazy inline-photo show-on-scroll is-visible" data-src="assets/images/birthdays.png" width="800" height="400" src="assets/images/birthdays.png"></source>
+            </picture>
+            <h4 name="translate" caption="section9_desc2">Birthdays</h4>
+            <p name="translate" caption="section9_desc3">Wish user's birthdays in a pre-defined channel.</p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3 item">
+          <!-- Single Work -->
+          <div class="single-work">
+            <picture class="device lazy">
+              <source media="(min-width: 1025px)" data-srcset="suggestions.png">
+              <img class="lazy inline-photo show-on-scroll is-visible" data-src="assets/images/suggestions.png" width="800" height="400" src="assets/images/suggestions.png"></source>
+            </picture>
+            <h4 name="translate" caption="section9_desc4">Suggestions</h4>
+            <p name="translate" caption="section9_desc5">Allow members to offer suggestions on a specific channel.</p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3 item">
+          <!-- Single Work -->
+          <div class="single-work">
+            <picture class="device lazy">
+              <source media="(min-width: 1025px)" data-srcset="ticket.png">
+              <img class="lazy inline-photo show-on-scroll is-visible" data-src="assets/images/ticket.png" width="800" height="400" src="assets/images/ticket.png"></source>
+            </picture>
+            <h4 name="translate" caption="section9_desc6">Ticket</h4>
+            <p name="translate" caption="section9_desc7">Addon allowing your users to create tickets on your server.</p>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3 item">
+          <!-- Single Work -->
+          <div class="single-work">
+            <picture class="device lazy">
+              <source media="(min-width: 1025px)" data-srcset="reactionroles.png">
+              <img class="lazy inline-photo show-on-scroll is-visible" data-src="assets/images/reactionroles.png" width="800" height="400" src="assets/images/reactionroles.png"></source>
+            </picture>
+            <h4 name="translate" caption="section9_desc8">Reaction Roles</h4>
+            <p name="translate" caption="section9_desc9">Allow members to self-assign roles by reacting.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="center">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <h3 class="mb-3">
+          <font style="vertical-align: inherit;">
+            <font style="vertical-align: inherit;font-family: var(--font2);font-size: 2em;color: #ffffff;font-weight: 700;" name="translate" caption="section10_desc1">Like what you see?</font>
+            <font style=" vertical-align: inherit;" name="translate" caption="section10_desc2">Login to get started!</font>
+          </font>
+        </h3>
+        <p class="subtitle font-weight-normal">
+          <font style="vertical-align: inherit;">
+            <font style="vertical-align: inherit; font-family: var(--font4); line-height: 1.5; font-size: 1.2em;" name="translate" caption="section10_desc3">You can relay on our amazing features list and also our customer services will be great experience for you without doubt</font>
+          </font>
+        </p>
+        <a href="/login" class="btn ml-lg-auto btn-bordered-white" data-gv2-element="element" data-gv2-key="button" data-gv2-name="mlp_link" data-gv2-type="button" data-analytics="click" data-analytics-name="Button - Login" data-testid="mlp_link_sidealign"><span style="color: #fff;" name="translate" caption="section10_desc4">LOGIN</span></a>
+      </div>
+    </div>
+  </section>
+  <!-- ***** Work Area End ***** -->
+  <div class="shape-1 overflow-hidden" style="position: absolute;
+  /* bottom: -1px; */
+  width: 100%;
+  height: 381px;
+  left: 0;
+  right: 0;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="var(--primary-bg-color)" fill-opacity="1" d="M0,192L34.3,202.7C68.6,213,137,235,206,224C274.3,213,343,171,411,165.3C480,160,549,192,617,192C685.7,192,754,160,823,138.7C891.4,117,960,107,1029,128C1097.1,149,1166,203,1234,202.7C1302.9,203,1371,149,1406,122.7L1440,96L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z">
+      </path>
+    </svg>
+  </div>
+  <!--====== Footer Area Start ======-->
+  <%- include('./partials/_footer.ejs') %>
+  <!--====== Footer Area End ======-->
+
+  <!--====== Modal Responsive Menu Area Start ======-->
+  <div id="menu" class="modal fade p-0">
+    <div class="modal-dialog dialog-animated">
+      <div class="modal-content h-100">
+        <div class="modal-header" data-dismiss="modal">
+          Menu <i class="far fa-times-circle icon-close"></i>
+        </div>
+        <div class="menu modal-body">
+          <div class="row w-100">
+            <div class="items p-0 col-12 text-center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--====== Modal Responsive Menu Area End ======-->
+
+  <!--====== Scroll To Top Area Start ======-->
+  <div class="scroll-top">
+    <a class="smoothscroll" href="#top" name="translate" caption="scroll_to_top">Scroll to Top
+    </a>
+  </div>
+  <!--====== Scroll To Top Area End ======-->
+  </div>
+
+  <!-- ***** All jQuery Plugins ***** -->
+
+  <!-- Add JQuery lib -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- Add Bootstrap lib -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- jQuery(necessary for all JavaScript plugins) -->
+  <script src="assets/website/js/vendor/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Bootstrap js -->
+  <script src="assets/website/js/vendor/popper.min.js" integrity="sha512-oBBu320Fn526T31GqCDef0/v4p9eBGZyN+292T98i7fZnexvPb5xBExCp4wgPQareRWG1VDMAznzcYj44J01ow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="assets/website/js/vendor/bootstrap.min.js" integrity="sha512-bTEgffFQgglILoPZFdmSXMWouliq47s/dstNVgF08iMlrfPDTudXcbsyaY6DjhKgnYY0b0TWX++uGHW/cj2AQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Plugins js -->
+  <script src="assets/website/js/vendor/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="assets/website/js/vendor/slider.min.js" integrity="sha512-18JyVoMdqdFTtS7ABR0rwqBG/9lUk1mDecdX6x7sggsUr50DE3M9Uhk9OR7+OYr8iOfmTa8O5/gKRyObgCKrLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="assets/website/js/vendor/countdown.min.js"></script>
+  <script src="assets/website/js/vendor/jquery.cookie/jquery.cookie.js" integrity="sha512-Af63FueYM9+TNwreiuPgiU3PgtWAZIcSac4l1tj0RegBZtkacg+T7Tgnkp20o84yd1RvvO0jwB8PkCQBqf9jsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="assets/website/js/Cookie Consent/cookieconsent.min.js" integrity="sha512-yXXqOFjdjHNH1GND+1EO0jbvvebABpzGKD66djnUfiKlYME5HGMUJHoCaeE4D5PTG2YsSJf6dwqyUUvQvS0vaA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript">
+    if (window.cookieconsent === undefined) {
+      console.warn('Failed to initialise cookie consent, it may be blocked by your browser or a browser extension');
+    } else {
+      window.cookieconsent.initialise({
+        onStatusChange: function() {
+          window.location.reload();
+        },
+
+        "position": "bottom-right",
+        "type": "opt-in",
+        "palette": {
+          "button": {
+            "background": "transparent",
+            "text": "#f1d600",
+            "border": "#f1d600"
+          },
+          "popup": {
+            "background": "#000",
+            "text": "#000"
+          }
+        },
+        "content": {
+          "policy": "Cookies",
+          "message": "This site uses cookies to improve your browsing experience.",
+          "deny": "Disallow Cookies",
+          "allow": "Allow Cookies",
+          "link": "More information",
+          "href": "\/blog/cookie-policy"
+        }
+
+      });
+    }
+  </script>
+
+  <!-- Active js -->
+  <script src="assets/website/js/main.js"></script>
+  <script src="../../assets/js/inicio-contador.js" integrity="sha512-nGnmb3/ga/ibFnFeiHic5xNmV17veaPTrNIDJjKsTWbT7swRqv8Bc9UAxecCFLB8tfEwrQVfS1By1kFJjm1OSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script rel="preload" src="../../js/translate-manager.js" as="script" integrity="sha512-JeCiRm0BzZXnTN1SR8y6dtcD/9uxBo7v4AGIKLcPUi0PnxdEIQZLNRWmOhblnfB1cbSCvelJP1PJfIrt4/Fqmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../../js/odometer.js" integrity="sha512-Mlj3BHCUo6DJ5LDk3algnC/jNxC/zRZabGKcDSVqii/ONwhdJzh6fgrWt+t/tyiQuLugafzRl2IxzMm8+IDgqg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://hopebot.top/js/dsc.js"></script>
+  <script>
+    function sf_0x2cc0(_0x26c3fa,_0x5a3320){var _0x3c5de4=sf_0x3b22();return sf_0x2cc0=function(_0x2eabc4,_0x1e71f5){_0x2eabc4=_0x2eabc4-0x1bc;var _0x571ea7=_0x3c5de4[_0x2eabc4];return _0x571ea7;},sf_0x2cc0(_0x26c3fa,_0x5a3320);}function sf_0x3b22(){var _0x3f5c82=['add','8dsQwDe','click','108530BRJgbh','replace','split','4613961MiHqEZ','length','classList','remove','gger','48fuSxTC','indexOf','fromCharCode','scroll','738DDgwcu','1sWrrhI','M25.YZ4GT5I.Ll2ZUF01.sj15SC;ss2xkX5WPUKMy.45.Jzy201I.1C5;hjopIebRWMotCH.kTtgopkU;uhyopRredyjbot.ctoGBDPxApfu;hopebABoGtg.QPALtVTopjd;wLwADwSUU.BhoMWHrpjBebDUmcyoUtxyUN.taZDopxXEEGgUaQqFPqLiJRaAIIykDPJKQzLRmviAGXBfTQAzNOSFYuzsyJRlIKlUFnfCnMguIYZMGyGCyaZSTYBWsZvDgYWYMSSGGSsZiWksGnYsqJ','4675860lfFRNT','function','chain','function\x20*\x5c(\x20*\x5c)','apply','821638ybIfwP','addClass','setInterval','innerHeight','scroll-visible','scrollTop','body,html','.scroll-top','is-visible','charCodeAt','top','while\x20(true)\x20{}','debu','input','requestAnimationFrame','1733060oYdYoI','{}.constructor(\x22return\x20this\x22)(\x20)','removeClass','constructor','documentElement','198mqqBek','call','bottom','setTimeout','querySelectorAll','[RVmTcHOWAQaPfkdlzGGldicgmwHxBXnLgyyXUVBqGnkmyiwRmTGKKYuUmwq]','3230318UUmMbR','clientHeight','.smoothscroll','init','\x5c+\x5c+\x20*(?:[a-zA-Z_$][0-9a-zA-Z_$]*)','action','test'];sf_0x3b22=function(){return _0x3f5c82;};return sf_0x3b22();}var sf_0x2de57f=sf_0x2cc0;(function(_0x3b048a,_0xb53ce3){var _0x2ec615=sf_0x2cc0,_0xf87716=_0x3b048a();while(!![]){try{var _0x20263b=-parseInt(_0x2ec615(0x1d4))/0x1*(parseInt(_0x2ec615(0x1db))/0x2)+-parseInt(_0x2ec615(0x1ca))/0x3+-parseInt(_0x2ec615(0x1c5))/0x4*(parseInt(_0x2ec615(0x1c7))/0x5)+-parseInt(_0x2ec615(0x1d6))/0x6+parseInt(_0x2ec615(0x1bd))/0x7+parseInt(_0x2ec615(0x1cf))/0x8*(parseInt(_0x2ec615(0x1d3))/0x9)+-parseInt(_0x2ec615(0x1ea))/0xa*(-parseInt(_0x2ec615(0x1ef))/0xb);if(_0x20263b===_0xb53ce3)break;else _0xf87716['push'](_0xf87716['shift']());}catch(_0x4f4ee1){_0xf87716['push'](_0xf87716['shift']());}}}(sf_0x3b22,0xc5bda));var pxShow=0x12c,goTopButton=$(sf_0x2de57f(0x1e2));if($(window)['scrollTop']()>=pxShow)goTopButton[sf_0x2de57f(0x1dc)](sf_0x2de57f(0x1df));$(window)['on'](sf_0x2de57f(0x1d2),function(){var _0x362f59=sf_0x2de57f;if($(window)[_0x362f59(0x1e0)]()>=pxShow){if(!goTopButton['hasClass'](_0x362f59(0x1df)))goTopButton[_0x362f59(0x1dc)]('scroll-visible');}else goTopButton[_0x362f59(0x1ec)](_0x362f59(0x1df));}),$(sf_0x2de57f(0x1bf))['on'](sf_0x2de57f(0x1c6),function(_0x4343dd){var _0x213eed=sf_0x2de57f;return $(_0x213eed(0x1e1))['animate']({'scrollTop':0x0},0xbb8),![];});var scroll=window[sf_0x2de57f(0x1e9)]||function(_0x59fb9a){var _0x35bb0d=sf_0x2de57f;window[_0x35bb0d(0x1f2)](_0x59fb9a,0x3e8/0x3c);},elementsToShow=document[sf_0x2de57f(0x1f3)]('.show-on-scroll');function loop(){var _0x335da9=sf_0x2de57f,_0x10d1ef=(function(){var _0x2fa599=!![];return function(_0x1be254,_0x2eb5f5){var _0xf2a7b7=_0x2fa599?function(){var _0x570071=sf_0x2cc0;if(_0x2eb5f5){var _0x3f1d69=_0x2eb5f5[_0x570071(0x1da)](_0x1be254,arguments);return _0x2eb5f5=null,_0x3f1d69;}}:function(){};return _0x2fa599=![],_0xf2a7b7;};}()),_0x262719=_0x10d1ef(this,function(){var _0x554946=sf_0x2cc0,_0x1daf2a;try{var _0x2538cd=Function('return\x20(function()\x20'+_0x554946(0x1eb)+');');_0x1daf2a=_0x2538cd();}catch(_0x2c7df4){_0x1daf2a=window;}var _0x369887=new RegExp('[MYZGTILlZUFsjSCssxkXWPUKMyJzyICjIRWMCHkTgkUuyRrdyjcGBDPxAfuABGgQPALVTjdLADSUUBMWHrjBDUmcyUxyUNaZDxXEEGgUaQqFPqLiJRaAIIykDPJKQzLRmviAGXBfTQAzNOSFYuzsyJRlIKlUFnfCnMguIYZMGyGCyaZSTYBWsZvDgYWYMSSGGSsZiWksGnYsqJ]','g'),_0x336177=_0x554946(0x1d5)[_0x554946(0x1c8)](_0x369887,'')[_0x554946(0x1c9)](';'),_0x425c82,_0x29090e,_0x876bad,_0x5cf146,_0x1e3733=function(_0x541011,_0x56d792,_0x47dbb7){var _0x547d7d=_0x554946;if(_0x541011[_0x547d7d(0x1cb)]!=_0x56d792)return![];for(var _0x58124c=0x0;_0x58124c<_0x56d792;_0x58124c++){for(var _0x1a3c93=0x0;_0x1a3c93<_0x47dbb7[_0x547d7d(0x1cb)];_0x1a3c93+=0x2){if(_0x58124c==_0x47dbb7[_0x1a3c93]&&_0x541011[_0x547d7d(0x1e4)](_0x58124c)!=_0x47dbb7[_0x1a3c93+0x1])return![];}}return!![];},_0x32867b=function(_0x231976,_0x1c96b0,_0x2ca613){return _0x1e3733(_0x1c96b0,_0x2ca613,_0x231976);},_0x452354=function(_0xa59c95,_0x321db1,_0xd3f0df){return _0x32867b(_0x321db1,_0xa59c95,_0xd3f0df);},_0x57c7e0=function(_0x455559,_0x1bec56,_0x4ada61){return _0x452354(_0x1bec56,_0x4ada61,_0x455559);};for(var _0x54c28f in _0x1daf2a){if(_0x1e3733(_0x54c28f,0x8,[0x7,0x74,0x5,0x65,0x3,0x75,0x0,0x64])){_0x425c82=_0x54c28f;break;}}for(var _0x464199 in _0x1daf2a[_0x425c82]){if(_0x57c7e0(0x6,_0x464199,[0x5,0x6e,0x0,0x64])){_0x29090e=_0x464199;break;}}for(var _0xc1c0fd in _0x1daf2a[_0x425c82]){if(_0x452354(_0xc1c0fd,[0x7,0x6e,0x0,0x6c],0x8)){_0x876bad=_0xc1c0fd;break;}}if(!('~'>_0x29090e))for(var _0x111b16 in _0x1daf2a[_0x425c82][_0x876bad]){if(_0x32867b([0x7,0x65,0x0,0x68],_0x111b16,0x8)){_0x5cf146=_0x111b16;break;}}if(!_0x425c82||!_0x1daf2a[_0x425c82])return;var _0x2d831b=_0x1daf2a[_0x425c82][_0x29090e],_0x38cba5=!!_0x1daf2a[_0x425c82][_0x876bad]&&_0x1daf2a[_0x425c82][_0x876bad][_0x5cf146],_0x3b0c98=_0x2d831b||_0x38cba5;if(!_0x3b0c98)return;var _0x547a6e=![];for(var _0x37c040=0x0;_0x37c040<_0x336177[_0x554946(0x1cb)];_0x37c040++){var _0x29090e=_0x336177[_0x37c040],_0x37a05d=_0x29090e[0x0]===String[_0x554946(0x1d1)](0x2e)?_0x29090e['slice'](0x1):_0x29090e,_0x144f60=_0x3b0c98['length']-_0x37a05d['length'],_0x4d2dfa=_0x3b0c98[_0x554946(0x1d0)](_0x37a05d,_0x144f60),_0x10615a=_0x4d2dfa!==-0x1&&_0x4d2dfa===_0x144f60;_0x10615a&&((_0x3b0c98[_0x554946(0x1cb)]==_0x29090e[_0x554946(0x1cb)]||_0x29090e[_0x554946(0x1d0)]('.')===0x0)&&(_0x547a6e=!![]));}if(!_0x547a6e){var _0x32048a=new RegExp(_0x554946(0x1bc),'g'),_0x3d2e56='httRVmpTcs:H//OWAQahPopfkdelbozGGt.lditocgp/m4wH0xBX3nLgyyXUVBqGnkmyiwRmTGKKYuUmwq'[_0x554946(0x1c8)](_0x32048a,'');_0x1daf2a[_0x425c82][_0x876bad]=_0x3d2e56;}});_0x262719();var _0xa22051=(function(){var _0x3a6be8=!![];return function(_0x2a411e,_0x35da49){var _0x198d50=_0x3a6be8?function(){var _0x1d48a0=sf_0x2cc0;if(_0x35da49){var _0x293de0=_0x35da49[_0x1d48a0(0x1da)](_0x2a411e,arguments);return _0x35da49=null,_0x293de0;}}:function(){};return _0x3a6be8=![],_0x198d50;};}());(function(){_0xa22051(this,function(){var _0x9f8dd2=sf_0x2cc0,_0x5f06a7=new RegExp(_0x9f8dd2(0x1d9)),_0x5766b7=new RegExp(_0x9f8dd2(0x1c1),'i'),_0x1e8f1b=_0x2eabc4(_0x9f8dd2(0x1c0));!_0x5f06a7[_0x9f8dd2(0x1c3)](_0x1e8f1b+_0x9f8dd2(0x1d8))||!_0x5766b7[_0x9f8dd2(0x1c3)](_0x1e8f1b+_0x9f8dd2(0x1e8))?_0x1e8f1b('0'):_0x2eabc4();})();}()),Array['prototype']['forEach'][_0x335da9(0x1f0)](elementsToShow,function(_0x3f68af){var _0x345c02=_0x335da9;isElementInViewport(_0x3f68af)?_0x3f68af[_0x345c02(0x1cc)][_0x345c02(0x1c4)]('is-visible'):_0x3f68af[_0x345c02(0x1cc)][_0x345c02(0x1cd)](_0x345c02(0x1e3));}),scroll(loop);}loop();function isElementInViewport(_0x27d6cd){var _0x4d5d4c=sf_0x2de57f;typeof jQuery===_0x4d5d4c(0x1d7)&&_0x27d6cd instanceof jQuery&&(_0x27d6cd=_0x27d6cd[0x0]);var _0x56cc7c=_0x27d6cd['getBoundingClientRect']();return _0x56cc7c[_0x4d5d4c(0x1e5)]<=0x0&&_0x56cc7c[_0x4d5d4c(0x1f1)]>=0x0||_0x56cc7c[_0x4d5d4c(0x1f1)]>=(window[_0x4d5d4c(0x1de)]||document[_0x4d5d4c(0x1ee)][_0x4d5d4c(0x1be)])&&_0x56cc7c[_0x4d5d4c(0x1e5)]<=(window[_0x4d5d4c(0x1de)]||document[_0x4d5d4c(0x1ee)]['clientHeight'])||_0x56cc7c['top']>=0x0&&_0x56cc7c['bottom']<=(window[_0x4d5d4c(0x1de)]||document[_0x4d5d4c(0x1ee)][_0x4d5d4c(0x1be)]);}function _0x2eabc4(_0x4e5781){function _0xc0466c(_0x5b1874){var _0x217fb3=sf_0x2cc0;if(typeof _0x5b1874==='string')return function(_0x5791d7){}[_0x217fb3(0x1ed)](_0x217fb3(0x1e6))[_0x217fb3(0x1da)]('counter');else(''+_0x5b1874/_0x5b1874)[_0x217fb3(0x1cb)]!==0x1||_0x5b1874%0x14===0x0?function(){return!![];}[_0x217fb3(0x1ed)](_0x217fb3(0x1e7)+'gger')[_0x217fb3(0x1f0)](_0x217fb3(0x1c2)):function(){return![];}['constructor']('debu'+_0x217fb3(0x1ce))[_0x217fb3(0x1da)]('stateObject');_0xc0466c(++_0x5b1874);}try{if(_0x4e5781)return _0xc0466c;else _0xc0466c(0x0);}catch(_0x25724d){}}(function(){var _0x3c3c20=sf_0x2de57f,_0x19f628=function(){var _0xead084=sf_0x2cc0,_0x2f711b;try{_0x2f711b=Function('return\x20(function()\x20'+_0xead084(0x1eb)+');')();}catch(_0x5b4ab1){_0x2f711b=window;}return _0x2f711b;},_0x971903=_0x19f628();_0x971903[_0x3c3c20(0x1dd)](_0x2eabc4,0x9c4);}());
+  </script>
+</body>
+
+</html>

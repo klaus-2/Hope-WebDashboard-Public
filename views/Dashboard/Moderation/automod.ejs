@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Moderation: Auto-Mod - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-87DrmpqHRiY8hPLIr7ByqhPIywuSsjuQAfMXAE0sMUpY3BM7nXjf+mLIUSvhDArs" crossorigin="anonymous">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <h4 name="translate" caption="dashboard_automod1">Auto-Mod</h4>
+          <form id="toggle">
+            <div class="nickto">
+              <label class="switch">
+                <% if(settings.Auto_ModToggle === true) {%>
+                <input id="s1" name="autoModToggle" type="checkbox" class="switch" value="on" checked></input>
+                <% } else { %>
+                <input id="s1" name="autoModToggle" type="checkbox" class="switch" value="off"></input>
+                <% } %>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </form>
+          <style>
+            .nickto {
+              float: right !important;
+            }
+
+            /* The switch - the box around the slider */
+            .switch {
+              position: relative;
+              display: inline-block;
+              width: 60px;
+              height: 34px;
+            }
+
+            /* Hide default HTML checkbox */
+            .switch input {
+              opacity: 0;
+              width: 0;
+              height: 0;
+            }
+
+            /* The slider */
+            .slider {
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: #181a20fc;
+              -webkit-transition: .4s;
+              transition: .4s;
+            }
+
+            .slider:before {
+              position: absolute;
+              content: "";
+              height: 26px;
+              width: 26px;
+              left: 4px;
+              bottom: 4px;
+              background-color: rgb(255, 0, 0);
+              -webkit-transition: .4s;
+              transition: .4s;
+            }
+
+            input:checked+.slider {
+              background-color: #191c24;
+            }
+
+            input:focus+.slider {
+              box-shadow: 0 0 1px #2196F3;
+            }
+
+            input:checked+.slider:before {
+              -webkit-transform: translateX(26px);
+              -ms-transform: translateX(26px);
+              transform: translateX(26px);
+              background-color: #00ff4c;
+            }
+
+            /* Rounded sliders */
+            .slider.round {
+              border-radius: 34px;
+            }
+
+            .slider.round:before {
+              border-radius: 50%;
+            }
+
+            @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+
+              input[type=checkbox],
+              input[type=radio] {
+                --active: #275EFE;
+                --active-inner: #fff;
+                --focus: 2px rgba(39, 94, 254, .3);
+                --border: #BBC1E1;
+                --border-hover: #275EFE;
+                --background: #fff;
+                --disabled: #F6F8FF;
+                --disabled-inner: #E1E6F9;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                height: 21px;
+                outline: none;
+                display: inline-block;
+                vertical-align: top;
+                position: relative;
+                margin: 0;
+                cursor: pointer;
+                border: 1px solid var(--bc, var(--border));
+                background: var(--b, var(--background));
+                transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+              }
+
+              input[type=checkbox]:after,
+              input[type=radio]:after {
+                content: "";
+                display: block;
+                left: 0;
+                top: 0;
+                position: absolute;
+                transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+              }
+
+              input[type=checkbox]:checked,
+              input[type=radio]:checked {
+                --b: var(--active);
+                --bc: var(--active);
+                --d-o: .3s;
+                --d-t: .6s;
+                --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+              }
+
+              input[type=checkbox]:disabled,
+              input[type=radio]:disabled {
+                --b: var(--disabled);
+                cursor: not-allowed;
+                opacity: 0.9;
+              }
+
+              input[type=checkbox]:disabled:checked,
+              input[type=radio]:disabled:checked {
+                --b: var(--disabled-inner);
+                --bc: var(--border);
+              }
+
+              input[type=checkbox]:disabled+label,
+              input[type=radio]:disabled+label {
+                cursor: not-allowed;
+              }
+
+              input[type=checkbox]:hover:not(:checked):not(:disabled),
+              input[type=radio]:hover:not(:checked):not(:disabled) {
+                --bc: var(--border-hover);
+              }
+
+              input[type=checkbox]:focus,
+              input[type=radio]:focus {
+                outline: none;
+              }
+
+              input[type=checkbox]:not(.switch),
+              input[type=radio]:not(.switch) {
+                width: 21px;
+              }
+
+              input[type=checkbox]:not(.switch):after,
+              input[type=radio]:not(.switch):after {
+                opacity: var(--o, 0);
+              }
+
+              input[type=checkbox]:not(.switch):checked,
+              input[type=radio]:not(.switch):checked {
+                --o: 1;
+              }
+
+              input[type=checkbox]+label,
+              input[type=radio]+label {
+                font-size: 14px;
+                line-height: 21px;
+                display: inline-block;
+                vertical-align: top;
+                cursor: pointer;
+                margin-left: 4px;
+              }
+
+              input[type=checkbox]:not(.switch) {
+                border-radius: 7px;
+              }
+
+              input[type=checkbox]:not(.switch):after {
+                width: 5px;
+                height: 9px;
+                border: 2px solid var(--active-inner);
+                border-top: 0;
+                border-left: 0;
+                left: 7px;
+                top: 4px;
+                transform: rotate(var(--r, 20deg));
+              }
+
+              input[type=checkbox]:not(.switch):checked {
+                --r: 43deg;
+              }
+
+              input[type=checkbox].switch {
+                width: 38px;
+                border-radius: 11px;
+              }
+
+              input[type=checkbox].switch:after {
+                left: 2px;
+                top: 2px;
+                border-radius: 50%;
+                width: 15px;
+                height: 15px;
+                background: var(--ab, var(--border));
+                transform: translateX(var(--x, 0));
+              }
+
+              input[type=checkbox].switch:checked {
+                --ab: var(--active-inner);
+                --x: 17px;
+              }
+
+              input[type=checkbox].switch:disabled:not(:checked):after {
+                opacity: 0.6;
+              }
+
+              input[type=radio] {
+                border-radius: 50%;
+              }
+
+              input[type=radio]:after {
+                width: 19px;
+                height: 19px;
+                border-radius: 50%;
+                background: var(--active-inner);
+                opacity: 0;
+                transform: scale(var(--s, 0.7));
+              }
+
+              input[type=radio]:checked {
+                --s: .5;
+              }
+            }
+          </style>
+          <p class="text-muted mb-0" name="translate" caption="dashboard_automod2">Enables various auto moderation features.</p><br>
+          <div class=" row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_automod3">LOG CHANNEL</h4>
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_automod4">The channel where the message and actions done on the user will be logged.
+                  </p>
+                  <div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <form id="logchannel" class="form-horizontal">
+                      <div class="input-group">
+                        <select id="logch" name="logch" class="js-example-basic-single" style="width:483px;max-width:483px">
+                          <%- include('../components/am-channels1', {ch: ch, var1: settings.Auto_ModLogChannel }) %>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="automod-toggles">
+                    <h3 class="title is-5" style="width: 100%;" name="translate" caption="dashboard_automod5">Filter Options</h3>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Alt<span class="is-help" data-tooltip="Block newly created accounts from joining your server."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#alt"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antialtform">
+                        <select id="antialt" name="antialt" class="js-example-basic-single" style="width:100%">
+                          <% if (settings.Auto_ModAntiAlt == "0") { %>
+                          <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod11">Enabled</option>
+                          <% } else { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" selected name="translate" caption="dashboard_automod11">Enabled</option>
+                          <% } %>
+                        </select>
+                      </form>
+                    </div>
+
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Bad Words<span class="is-help" data-tooltip="Allow block specific words, phrases or regular expressions."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#badwords"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antibadwords-form">
+                        <select id="antibadwords" name="antibadwords" class="js-example-basic-single" style="width:100%">
+                          <% if (settings.Auto_ModBadwords == "0") { %>
+                          <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModBadwords == "1") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModBadwords == "2") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModBadwords == "3") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } %>
+                        </select>
+                      </form>
+                    </div>
+
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Caps<span class="is-help" data-tooltip="Prevents excessive use of CAPSLOCK in messages on your server."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#caps"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="anticaps-form">
+                        <select id="anticaps" name="anticaps" class="js-example-basic-single" style="width:100%">
+                          <% if (settings.Auto_ModAntiCaps == "0") { %>
+                          <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModAntiCaps == "1") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModAntiCaps == "2") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModAntiCaps == "3") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } %>
+                        </select>
+                      </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Dehoisting<span class="is-help" data-tooltip="Prevents users from setting their username or nickname to be listed higher in the user list."><i class="fa fa-question-circle"></i></span></label>
+                      </div>
+                      <form id="antidehoisting-form">
+                        <select id="antidehoisting" name="antidehoisting" class="js-example-basic-single" style="width:100%">
+                          <% if (settings.Auto_ModAntiDehoisting == true) { %>
+                          <option name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option selected name="translate" caption="dashboard_automod11">Enabled</option>
+                          <% } else { %>
+                          <option selected name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option name="translate" caption="dashboard_automod11">Enabled</option>
+                          <% } %>
+                        </select>
+                      </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Everyone<span class="is-help" data-tooltip="Prevents users from attempting to ping @everyone / @here.">
+                            <i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#everyone"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antieveryone-form">
+                        <select id="antieveryone" name="antieveryone" class="js-example-basic-single" style="width:100%">
+                          <% if (settings.Auto_ModAntiEveryone == "0") { %>
+                          <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModAntiEveryone == "1") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModAntiEveryone == "2") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } else if (settings.Auto_ModAntiEveryone == "3") { %>
+                          <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                          <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                          <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                          <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                          <% } %>
+                        </select>
+                      </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-External Links<span class="is-help" data-tooltip="Block external links from being sent on your server."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#external-links"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antiextlinks-form">
+                      <select id="antiexternallinks" name="antiexternallinks" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiExternalLinks == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiExternalLinks == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiExternalLinks == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiExternalLinks == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Invites<span class="is-help" data-tooltip="Block invitations from being sent from servers within your server."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#invites"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antiinvites-form">
+                      <select id="antiinvites" name="antiinvites" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiInvite == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiInvite == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiInvite == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiInvite == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Mass Emojis<span class="is-help" data-tooltip="Prevents the excessive use of emojis in your server messages."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#mass-emojis"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antimassemojis-form">
+                      <select id="antimassemojis" name="antimassemojis" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiMassEmojis == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassEmojis == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassEmojis == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassEmojis == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Mass Lines<span class="is-help" data-tooltip="Set a maximum number of lines users messages can be."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#mass-lines"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antimasslines-form">
+                      <select id="antimasslines" name="antimasslines" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiMassLines == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassLines == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassLines == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassLines == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Mass Mentions<span class="is-help" data-tooltip="Stops mention spammers from performing mass-mentions of users (or roles)"><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#mass-mentions"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antimassmentions-form">
+                      <select id="antimassmentions" name="antimassmentions" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiMassMentions == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassMentions == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassMentions == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassMentions == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Mass Spoilers<span class="is-help" data-tooltip="Prevents the excessive use of spoilers in your server messages."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#mass-spoilers"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antimassspoilers-form">
+                      <select id="antimassspoilers" name="antimassspoilers" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiMassSpoilers == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassSpoilers == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassSpoilers == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiMassSpoilers == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-NSFW<span class="is-help" data-tooltip="Filter messages, links and attachments with NSFW content on your server."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#nsfw"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antinsfw-form">
+                      <select id="antinsfw" name="antinsfw" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiNsfw == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiNsfw == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiNsfw == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiNsfw == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-Spam<span class="is-help" data-tooltip="Stops spam from repeated or very fast messages on your server."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#spam"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antispam-form">
+                      <select id="antispam" name="antispam" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiSpam == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiSpam == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiSpam == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiSpam == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="automod-selector rich-select control">
+                      <div class="rich-select-top"><label class="label">Anti-ZAlgo<span class="is-help" data-tooltip="Prevent visual pollution with Zalgo characters on your server."><i class="fa fa-question-circle"></i></span><a class="filter-settings" href="#zalgo"><span class="icon is-link"><i class="fa fa-cog"></i></span></a></label>
+                      </div>
+                      <form id="antizalgo-form">
+                      <select id="antizalgo" name="antizalgo" class="js-example-basic-single" style="width:100%">
+                        <% if (settings.Auto_ModAntiZAlgo == "0") { %>
+                        <option value="0" selected name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiZAlgo == "1") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" selected name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiZAlgo == "2") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" selected name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } else if (settings.Auto_ModAntiZAlgo == "3") { %>
+                        <option value="0" name="translate" caption="dashboard_automod6">Disabled</option>
+                        <option value="1" name="translate" caption="dashboard_automod7">Delete the user's message</option>
+                        <option value="2" name="translate" caption="dashboard_automod8">Warn the user</option>
+                        <option value="3" selected name="translate" caption="dashboard_automod9">Both (Warn user & Delete message)</option>
+                        <% } %>
+                      </select>
+                    </form>
+                    </div>
+                    <div class="control rich-number "><span>
+                      <form id="automute-time">
+                        <div class="is-flex"><label class="label" style="text-transform: uppercase;letter-spacing: 1.5px;font-size: 12px;line-height: 20px;">Auto Mute/Ban Time
+                            (minutes)</label></div>
+                        <div class="fill-max"><span class="react-numeric-input"><input id="globaltime" name="globaltime" type="number" value="<%= settings.Auto_ModTime || "3" %>" pattern=".*"></span></div>
+                      </span></div>
+                    </form>
+                    <div class="control rich-number "><span>
+                      <form id="automute-count">
+                        <div class="is-flex"><label class="label" style="text-transform: uppercase;letter-spacing: 1.5px;font-size: 12px;line-height: 20px;">Mute/Ban
+                            Violations (count)</label></div>
+                        <div class="fill-max"><span class="react-numeric-input"><input id="globalcount" name="globalcount" type="number" value="<%= settings.Auto_ModWarningCounter || "3" %>" pattern=".*"></span></div>
+                      </span></div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div id="alt" class="modal-window">
+            <div class="alt settings">
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod13">ALT Accounts Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antialtform-users">
+                <h5 name="translate" caption="dashboard_automod14"> Ignored Users </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod15"> Whitelist alt accounts of your choice or Remove an alt account off the whitelist. </p>
+                <textarea class="form-control" name="altusers" id="altusers" rows="4" placeholder="<%= settings.Auto_ModAntiAltAllowed %>"><%= settings.Auto_ModAntiAltAllowed %></textarea>
+                <p class="text-muted mb-0"><code name="translate" caption="dashboard_automod16">(COMMA SEPARATED LIST)</code></p>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antialtform-limit">
+                <h5 name="translate" caption="dashboard_automod17"> Limit </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod18"> Set the amount of days of the alt age </p>
+                <div class="fill-max"><span class="react-numeric-input"><input type="number" id="altlimit" name="altlimit" value="<%= settings.Auto_ModAntiAltLimit %>" pattern=".*"></span></div>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antialtform-action">
+                <h5 name="translate" caption="dashboard_automod19"> Action </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod20"> Pick the action fired towards the alt </p>
+                <div class="control is-flex" style="display: flex;">
+                  <% if (settings.Auto_ModAntiAltAction == "kick") { %>
+                  <div class="col-sm-4">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="altoption" id="altoption" value="kick" checked> Kick </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="altoption" id="altoption" value="ban"> Ban </label>
+                    </div>
+                  </div>
+                  <% } else { %>
+                  <div class="col-sm-4">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="altoption" id="altoption" value="kick"> Kick </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="altoption" id="altoption" value="ban" checked> Ban </label>
+                    </div>
+                  </div>
+                  <% } %>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="badwords" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod21">Bad Words Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antibadwords-words">
+                <h5 name="translate" caption="dashboard_automod22"> Add/Remove words from Blacklist </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod23"> WORDS (COMMA SEPARATED LIST) - KEEP IN MIND THAT WORDS HAVE TO BE 3 CHARACTERS OR LONGER. </p>
+                <textarea class="form-control" name="badwordslist" id="badwordslist" rows="4" placeholder="<%= settings.Auto_ModBadwordsList %>"><%= settings.Auto_ModBadwordsList %></textarea>
+                <p class="text-muted mb-0"><code name="translate" caption="dashboard_automod16">(COMMA SEPARATED LIST)</code></p>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antibadwords-time">
+                <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+                <div class="fill-max"><span class="react-numeric-input"><input name="badwordstime" id="badwordstime" type="number" value="<%= settings.Auto_ModBadwordsTime %>" pattern=".*"></span></div>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antibadwords-limit">
+                <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+                <div class="fill-max"><span class="react-numeric-input"><input name="badwordslimit" id="badwordslimit" type="number" value="3" pattern=".*" disabled></span></div>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antibadwords-channels">
+                <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+                <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+                <div class="input-group">
+                  <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="badwordsch" id="badwordsch">
+                    <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModBadwordsChannels }) %>
+                  </select>
+                </div>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antibadwords-roles">
+                <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+                <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+                <div class="input-group">
+                  <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="badwordsrole" id="badwordsrole">
+                    <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModBadwordsRole }) %>
+                  </select>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="caps" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod36">CAPS Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="anticaps-limit">
+                <h5 name="translate" caption="dashboard_automod37"> Caps Limit </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod38"> Hope will moderate messages that contain a certain value of capital letters. </p>
+                <div class="fill-max"><span class="react-numeric-input"><input name="capslimit" id="capslimit" type="number" value="<%= settings.Auto_ModAntiCapsLimit %>" pattern=".*"></span></div>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="anticaps-time">
+                <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+                <div class="fill-max"><span class="react-numeric-input"><input id="capstime" name="capstime" type="number" value="<%= settings.Auto_ModAntiCapsTime %>" pattern=".*"></span></div>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="anticaps-count">
+                <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+                <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+                <div class="fill-max"><span class="react-numeric-input"><input type="number" name="capscount" id="capscount" value="3" pattern=".*" disabled></span></div>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="anticaps-channels">
+                <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+                <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+                <div class="input-group">
+                  <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="capsch" id="capsch">
+                    <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiCapsChannels }) %>
+                  </select>
+                </div>
+              </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="anticaps-roles">
+                <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+                <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+                <div class="input-group">
+                  <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="capsrole" id="capsrole">
+                    <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiCapsRole }) %>
+                  </select>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="everyone" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod39">Everyone Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antieveryone-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="everyonetime" id="everyonetime" type="number" value="<%= settings.Auto_ModAntiEveryoneTime %>" pattern=".*"></span></div>
+            </form>
+            <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+            <form id="antieveryone-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="everyonech" id="everyonech">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiEveryoneChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antieveryone-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="everyonerole" id="everyonerole">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiEveryoneRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="external-links" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod40">External Links Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antiextlinks-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input type="number" name="linktime" id="linktime" value="<%= settings.Auto_ModAntiExternalLinksTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antiextlinks-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="linkcount" id="linkcount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antiextlinks-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="linkch" id="linkch">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiExternalLinksChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antiextlinks-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="linkrole" id="linkrole">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiExternalLinksRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="invites" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod41">Invites Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antiinvites-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input type="number" name="invitetime" id="invitetime" value="<%= settings.Auto_ModAntiInviteTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antiinvites-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="invitecount" id="invitecount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antiinvites-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="invitech" id="invitech">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiInviteChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antiinvites-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="inviterr" id="inviterr">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiInviteRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="mass-emojis" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod42">Mass Emojis Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassemojis-limit">
+              <h5 name="translate" caption="dashboard_automod43"> Emojis Limit </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod44"> Set the value limit of emojis in a message </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="emojilimit" id="emojilimit" type="number" value="<%= settings.Auto_ModAntiMassEmojisLimit %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassemojis-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="emojitime" id="emojitime" type="number" value="<%= settings.Auto_ModAntiMassEmojisTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassemojis-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="emojicount" id="emojicount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassemojis-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="emojich" id="emojich">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiMassEmojisChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassemojis-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="emojirr" id="emojirr">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiMassEmojisRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="mass-lines" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod45">Mass Lines Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimasslines-limit">
+              <h5 name="translate" caption="dashboard_automod46"> Lines Limit </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod47"> Set the value limit of emojis in a message </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="linelimit" id="linelimit" type="number" value="<%= settings.Auto_ModAntiMassLinesLimit %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimasslines-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="linetime" id="linetime" type="number" value="<%= settings.Auto_ModAntiMassLinesTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimasslines-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="linecount" id="linecount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimasslines-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="linech" id="linech">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiMassLinesChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimasslines-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="linerr" id="linerr">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiMassLinesRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="mass-mentions" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod48">Mass Mentions Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassmentions-limit">
+              <h5 name="translate" caption="dashboard_automod49"> Mentions Limit </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod50"> Set the value limit of emojis in a message </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="mentionslimit" id="mentionslimit" type="number" value="<%= settings.Auto_ModAntiMassMentionsLimit %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassmentions-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="mentionstime" id="mentionstime" type="number" value="<%= settings.Auto_ModAntiMassMentionsTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassmentions-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="mentionscount" id="mentionscount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassmentions-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="mentionsch" id="mentionsch">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiMassMentionsChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassmentions-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="mentionsrr" id="mentionsrr">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiMassMentionsRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="mass-spoilers" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod51">Mass Spoilers Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassspoilers-limit">
+              <h5 name="translate" caption="dashboard_automod52"> Spoilers Limit </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod53"> Set the value limit of emojis in a message </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="spoilerlimit" id="spoilerlimit" type="number" value="<%= settings.Auto_ModAntiMassSpoilersLimit %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassspoilers-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="spoilertime" id="spoilertime" type="number" value="<%= settings.Auto_ModAntiMassSpoilersTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassspoilers-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="spoilercount" id="spoilercount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassspoilers-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="spoilerch" id="spoilerch">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiMassSpoilersChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antimassspoilers-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="spoilerrr" id="spoilerrr">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiMassSpoilersRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="nsfw" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod54">NSFW Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antinsfw-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="nsfwtime" id="nsfwtime" type="number" value="<%= settings.Auto_ModAntiNsfwTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antinsfw-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="nsfwcount" id="nsfwcount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antinsfw-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="nsfwch" id="nsfwch">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiNsfwChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antinsfw-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="nsfwrr" id="nsfwrr">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiNsfwRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="spam" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod55">Spam Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antispam-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="spamtime" id="spamtime" type="number" value="<%= settings.Auto_ModAntiSpamTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antispam-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="spamcount" id="spamcount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antispam-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="spamch" id="spamch">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiSpamChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antispam-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="spamrr" id="spamrr">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiSpamRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div id="zalgo" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_automod12">Close</a>
+              <h4 name="translate" caption="dashboard_automod56">ZAlgo Settings</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antizalgo-time">
+              <h5 name="translate" caption="dashboard_automod24"> Warns Time (Minutes) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod25"> Set the duration of the warning the user will receive </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="zalgotime" id="zalgotime" type="number" value="<%= settings.Auto_ModAntiZAlgoTime %>" pattern=".*"></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antizalgo-count">
+              <h5 name="translate" caption="dashboard_automod26"> Warns Limit (Count) </h5>
+              <p class="text-muted mb-0" name="translate" caption="dashboard_automod27"> Sets the limit of warnings a user can receive before getting the final punishment </p>
+              <div class="fill-max"><span class="react-numeric-input"><input name="zalgocount" id="zalgocount" type="number" value="3" pattern=".*" disabled></span></div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antizalgo-channels">
+              <h5 name="translate" caption="dashboard_automod28"> Ignored Channels </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod29">Add or Remove an</span> <code name="translate" caption="dashboard_automod30">channel</code> <span name="translate" caption="dashboard_automod31">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="zalgoch" id="zalgoch">
+                  <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModAntiZAlgoChannels }) %>
+                </select>
+              </div>
+            </form>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <form id="antizalgo-roles">
+              <h5 name="translate" caption="dashboard_automod32"> Ignored Roles </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_automod33">Add or Remove an</span> <code name="translate" caption="dashboard_automod34">role</code> <span name="translate" caption="dashboard_automod35">to blacklist in the whitelist</span> </p>
+              <div class="input-group">
+                <select class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px" name="zalgorr" id="zalgorr">
+                  <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModAntiZAlgoRole }) %>
+                </select>
+              </div>
+            </form>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_automod57">IGNORED CHANNELS</h4>
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_automod58">Message sent in these channels will not trigger Automod.
+                  </p>
+                  <div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <form id="globalchannel-form">
+                    <div class="input-group">
+                      <select id="globalchannel" name="globalchannel" class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px">
+                        <%- include('../components/am-channels', {ch: ch, var1: settings.Auto_ModIgnoreChannel }) %>
+                      </select>
+                    </div>
+                  </form>
+                    <p id="alert-error" style="display: none;">a</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_automod59">ALLOWED ROLES</h4>
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_automod60">Members in these roles will not trigger Automod.
+                  </p>
+                  <div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <form id="globalrole-form">
+                    <div class="input-group">
+                      <select id="globalrole" name="globalrole" class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px">
+                        <%- include('../components/am-roles', {ch: ch, var1: settings.Auto_ModIgnoreRole }) %>
+                      </select>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+        <script>
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 10000,
+            timerProgressBar: true
+          })
+
+          // obtem os dados do servidor sobre premium
+          var premium = "<%= settings.isPremium.toString() %>";
+          // obtem os dados do seletor
+          var length = $("#globalchannel").val();
+          //var lengthSplit = length.split(", ");
+          // verifica se o seletor tem mais de 10 opções e se o servidor é premium
+          if (length.length > 10 && premium !== "true") {
+            // alert('Oops, você precisa ser premium para adicionar mais de 10 usuarios na whitelist.')
+            // limita o seletor a 10
+            var le1 = length.splice(1, 10);
+            // atualiza os dados do seletor para 10
+            $("#globalchannel").val(le1).change();
+            // $('#globalchannel').attr('disabled', 'disabled');
+          }
+
+          if (length.length == 10) {
+            var x = document.getElementById('alert-error');
+            if (x.style.display === 'none') {
+              x.style.display = 'block';
+              $('p#alert-error').html('*You have reached the <code>10</code> channel limit. To exceed this limit, become <a href="/premium" style="padding: 5px;color: #fc424a;font-weight: 300;font-size: 0.875rem;border-radius: 4px;"><code>premium</code></a>.');
+              //x.textContent="*You have reached the 10 channel limit. To exceed this limit, become premium."
+            } else {
+              x.style.display = 'none';
+            }
+          }
+
+          $("#data1").submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+
+            $.ajax({
+              type: "POST",
+              url: '/dashboard/<%= req.params.guildID %>/automod',
+              data: form.serialize(),
+              beforeSend: function() {
+                Toast.fire({
+                  icon: 'warning',
+                  title: 'Saving...'
+                });
+                if (length.length == 10) {
+                  var x = document.getElementById('alert-error');
+                  if (x.style.display === 'none') {
+                    x.style.display = 'block';
+                    $('p#alert-error').html('*You have reached the <code>10</code> channel limit. To exceed this limit, become <code>premium</code>.');
+                    //x.textContent="*You have reached the 10 channel limit. To exceed this limit, become premium."
+                  } else {
+                    x.style.display = 'none';
+                  }
+                }
+              },
+              success: function(data) {
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Saved Changes'
+                });
+              }
+            }).fail(function() {
+              Toast.fire({
+                icon: 'error',
+                title: 'An error occurred while saving...'
+              });
+            });
+          });
+        </script>
+        <!-- content-wrapper ends -->
+        <%- include("../../partials/_footer-dashboard.ejs") %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <style>
+    /* 
+  You want a simple and fancy tooltip?
+  Just copy all [data-tooltip] blocks:
+*/
+    [data-tooltip] {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Positioning and visibility settings of the tooltip */
+    [data-tooltip]:before,
+    [data-tooltip]:after {
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+      left: 50%;
+      bottom: calc(100% + 5px);
+      /* 5px is the size of the arrow */
+      pointer-events: none;
+      transition: 0.2s;
+      will-change: transform;
+    }
+
+    /* The actual tooltip with a dynamic width */
+    [data-tooltip]:before {
+      content: attr(data-tooltip);
+      padding: 10px 18px;
+      min-width: 50px;
+      max-width: 300px;
+      width: max-content;
+      width: -moz-max-content;
+      border-radius: 6px;
+      font-size: 10px;
+      background-color: rgb(14 16 21);
+      background-image: rgb(14 16 21);
+      box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.2);
+      color: #fff;
+      text-align: center;
+      white-space: pre-wrap;
+      transform: translate(-50%, -5px) scale(0.5);
+    }
+
+    /* Tooltip arrow */
+    [data-tooltip]:after {
+      content: '';
+      border-style: solid;
+      border-width: 5px 5px 0px 5px;
+      /* CSS triangle */
+      border-color: rgba(55, 64, 70, 0.9) transparent transparent transparent;
+      transition-duration: 0s;
+      /* If the mouse leaves the element, 
+                              the transition effects for the 
+                              tooltip arrow are "turned off" */
+      transform-origin: top;
+      /* Orientation setting for the
+                              slide-down effect */
+      transform: translateX(-50%) scaleY(0);
+    }
+
+    /* Tooltip becomes visible at hover */
+    [data-tooltip]:hover:before,
+    [data-tooltip]:hover:after {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Scales from 0.5 to 1 -> grow effect */
+    [data-tooltip]:hover:before {
+      transition-delay: 0.3s;
+      transform: translate(-50%, -5px) scale(1);
+    }
+
+    /* 
+  Arrow slide down effect only on mouseenter (NOT on mouseleave)
+*/
+    [data-tooltip]:hover:after {
+      transition-delay: 0.5s;
+      /* Starting after the grow effect */
+      transition-duration: 0.2s;
+      transform: translateX(-50%) scaleY(1);
+    }
+
+    /*
+  That's it for the basic tooltip.
+
+  If you want some adjustability
+  here are some orientation settings you can use:
+*/
+
+    /* LEFT */
+    /* Tooltip + arrow */
+    [data-tooltip-location="left"]:before,
+    [data-tooltip-location="left"]:after {
+      left: auto;
+      right: calc(100% + 5px);
+      bottom: 50%;
+    }
+
+    /* Tooltip */
+    [data-tooltip-location="left"]:before {
+      transform: translate(-5px, 50%) scale(0.5);
+    }
+
+    [data-tooltip-location="left"]:hover:before {
+      transform: translate(-5px, 50%) scale(1);
+    }
+
+    /* Arrow */
+    [data-tooltip-location="left"]:after {
+      border-width: 5px 0px 5px 5px;
+      border-color: transparent transparent transparent rgba(55, 64, 70, 0.9);
+      transform-origin: left;
+      transform: translateY(50%) scaleX(0);
+    }
+
+    [data-tooltip-location="left"]:hover:after {
+      transform: translateY(50%) scaleX(1);
+    }
+
+    /* RIGHT */
+    [data-tooltip-location="right"]:before,
+    [data-tooltip-location="right"]:after {
+      left: calc(100% + 5px);
+      bottom: 50%;
+    }
+
+    [data-tooltip-location="right"]:before {
+      transform: translate(5px, 50%) scale(0.5);
+    }
+
+    [data-tooltip-location="right"]:hover:before {
+      transform: translate(5px, 50%) scale(1);
+    }
+
+    [data-tooltip-location="right"]:after {
+      border-width: 5px 5px 5px 0px;
+      border-color: transparent rgba(55, 64, 70, 0.9) transparent transparent;
+      transform-origin: right;
+      transform: translateY(50%) scaleX(0);
+    }
+
+    [data-tooltip-location="right"]:hover:after {
+      transform: translateY(50%) scaleX(1);
+    }
+
+
+    /* BOTTOM */
+    [data-tooltip-location="bottom"]:before,
+    [data-tooltip-location="bottom"]:after {
+      top: calc(100% + 5px);
+      bottom: auto;
+    }
+
+    [data-tooltip-location="bottom"]:before {
+      transform: translate(-50%, 5px) scale(0.5);
+    }
+
+    [data-tooltip-location="bottom"]:hover:before {
+      transform: translate(-50%, 5px) scale(1);
+    }
+
+    [data-tooltip-location="bottom"]:after {
+      border-width: 0px 5px 5px 5px;
+      border-color: transparent transparent rgba(55, 64, 70, 0.9) transparent;
+      transform-origin: bottom;
+    }
+
+    /* Settings that make the pen look nicer */
+    @keyframes moveFocus {
+      0% {
+        background-position: 0% 100%
+      }
+
+      100% {
+        background-position: 100% 0%
+      }
+    }
+
+    button {
+      margin: 0;
+      padding: 0.7rem 1.4rem;
+
+      cursor: pointer;
+      text-align: center;
+      border: none;
+      border-radius: 4px;
+      outline: inherit;
+      text-decoration: none;
+      font-family: Roboto, sans-serif;
+      font-size: 0.7em;
+      background-color: rgba(174, 184, 192, 0.55);
+      color: white;
+
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      transition: background 350ms ease-in-out,
+        transform 150ms ease;
+    }
+
+    button:hover {
+      background-color: #484f56;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:focus {
+      box-shadow: 0 0 2px 2px #298bcf;
+    }
+
+    button::-moz-focus-inner {
+      border: 0;
+    }
+
+    .example-elements {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      text-align: center;
+      padding-right: 4%;
+    }
+
+    .example-elements p {
+      padding: 6px;
+      display: inline-block;
+      margin-bottom: 5%;
+      color: #fff;
+    }
+
+    .example-elements p:hover {
+      border-left: 1px solid lightgrey;
+      border-right: 1px solid lightgrey;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .example-elements a {
+      margin-left: 6px;
+      margin-bottom: calc(5% + 10px);
+      color: #76daff;
+      text-decoration: none;
+    }
+
+    .example-elements a:hover {
+      margin-bottom: calc(5% + 9px);
+      border-bottom: 1px solid #76daff;
+    }
+
+    .example-elements button {
+      margin-bottom: 20px;
+    }
+
+    .info-wrapper {
+      flex-grow: 8;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: justify;
+      padding-left: 6%;
+      border-left: 3px solid #35ea95;
+    }
+
+    .info-wrapper p {
+      color: rgba(255, 255, 255, 0.69);
+    }
+
+    .info-wrapper p {
+      max-width: 600px;
+      text-align: justify;
+    }
+
+    .info-wrapper .title-question {
+      display: block;
+      color: #fff;
+      font-size: 1.36em;
+      font-weight: 500;
+      padding-bottom: 24px;
+    }
+
+    /* Thumbnail settings */
+    @media (max-width: 750px) {
+
+      .info-wrapper p:before,
+      .info-wrapper p:after {
+        display: none;
+      }
+
+      .example-elements {
+        max-width: 150px;
+        font-size: 22px;
+      }
+
+      .example-elements a,
+      button {
+        display: none;
+      }
+
+      .example-elements p:before,
+      .example-elements p:after {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .example-elements p:before {
+        content: "Tooltip";
+        font-size: 20px;
+        transform: translate(-50%, -5px) scale(1);
+      }
+
+      .example-elements p:after {
+        transform: translate(-50%, -1px) scaleY(1);
+      }
+
+
+      [data-tooltip]:after {
+        bottom: calc(100% + 3px);
+      }
+
+      [data-tooltip]:after {
+        border-width: 7px 7px 0px 7px;
+      }
+    }
+  </style>
+  <style>
+    .is-help {
+      padding: 3px;
+      color: #555;
+    }
+
+    .is-help:hover {
+      color: #dd364d;
+    }
+
+    .modal-window {
+      position: fixed;
+      background-color: rgb(0 0 0 / 82%);
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1030;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      overflow: auto;
+    }
+
+    .modal-window:target {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-window>div {
+      width: 800px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 2em;
+      background: #13151b;
+    }
+
+    @media (max-width: 768px) {
+      .modal-window>div {
+        width: 800px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2em;
+        background: #13151b;
+      }
+    }
+
+    @media (max-width: 543px) {
+      .modal-window>div {
+        width: 350px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2em;
+        background: #13151b;
+      }
+    }
+
+    @media (max-width: 490px) {
+      .modal-window>div {
+        width: 350px;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2em;
+        background: #13151b;
+      }
+    }
+
+    .modal-window header {
+      font-weight: bold;
+    }
+
+    .modal-window h1 {
+      font-size: 150%;
+      margin: 0 0 15px;
+    }
+
+    .modal-close {
+      color: #aaa;
+      line-height: 50px;
+      font-size: 80%;
+      position: absolute;
+      right: 0;
+      text-align: center;
+      top: 0;
+      width: 70px;
+      text-decoration: none;
+    }
+
+    .modal-close:hover {
+      color: rgb(255, 255, 255);
+    }
+
+    .modal-window>div {
+      border-radius: 1rem;
+    }
+
+    .modal-window div:not(:last-of-type) {
+      margin-bottom: 15px;
+    }
+  </style>
+  <!-- container-scroller -->
+  <style>
+    .fill-max {
+      display: flex;
+      width: 100%;
+    }
+
+    .page-server .settings-panel .settings-content,
+    .automod-toggles,
+    .page-server .settings-panel .actionlog-toggles {
+      margin-top: 0;
+    }
+
+    .settings-content .control input,
+    .page-server .automod-toggles .control input,
+    .page-server .actionlog-toggles .control input,
+    .embed-builder-controls .control input,
+    .view-command .control input {
+      background: #272b34;
+      color: #fff;
+      border: none;
+    }
+
+    .control {
+      box-sizing: border-box;
+      clear: both;
+      font-size: 1rem;
+      position: relative;
+      text-align: left;
+    }
+
+    .rich-number {
+      display: inline-block;
+      width: 24em;
+      padding: 0.5em 1em 0.5em 0.5em;
+      margin: -0.5em;
+    }
+
+    .rich-number .fill-max input {
+      display: flex;
+      width: 230px;
+    }
+
+    input[type=text] {
+      height: 48px;
+      padding: 0.4em 0.2em 0.4em 0.6em;
+    }
+
+    .react-numeric-input input {
+      background-color: #0e1015;
+      height: 46px;
+      line-height: 46px;
+      font-size: 16px;
+      color: #fff;
+      border-radius: 5px;
+      outline: none;
+      border: 1px solid rgb(41 43 49);
+      width: 190px;
+      padding-left: 0.5em;
+    }
+
+    .control input,
+    .control textarea,
+    .control select {
+      background-color: #000000;
+      box-shadow: rgb(72 75 81 / 15%) 0px 1px 0px 0px inset;
+      border-radius: 4px;
+      color: #fff;
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    .Select-control,
+    .Select-option,
+    li,
+    tr {
+      transition: color 0.3s, background 0.3s, background-color 0.3s;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      margin: 0;
+    }
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
+      font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    }
+
+    .react-numeric-input b {
+      background-color: #23262f;
+      position: absolute;
+      width: 2.26ex;
+      border-color: #444;
+      text-align: center;
+      cursor: default;
+      transition: all 0.1s ease 0s;
+      height: 24px;
+      top: 0;
+      right: 0;
+      bottom: 50%;
+      box-shadow: rgb(72 75 81 / 15%) 0px 1px 0px 0px inset;
+      border: solid 1px rgba(0, 0, 0, 0.1);
+      border-top: none;
+      border-radius: 0px 4px 0px 0px;
+      border-width: 1px 1px;
+    }
+
+    .react-numeric-input b i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0px;
+      height: 0px;
+      border-width: 0px 0.6ex 0.6ex;
+      border-color: transparent transparent rgba(255, 255, 255, 0.7);
+      border-style: solid;
+      margin: -0.3ex 0px 0px -0.56ex;
+    }
+
+    .react-numeric-input b:last-child {
+      box-shadow: rgb(0 0 0 / 10%) 0px 0px 1px inset, rgb(0 0 0 / 70%) 0px 0px 1px inset;
+      border: none;
+      top: 50%;
+      bottom: 3px;
+      border-radius: 0px 0px 4px 0px;
+      border-width: 0px 1px 1px;
+    }
+
+    .react-numeric-input b {
+      background-color: #23262f;
+      position: absolute;
+      width: 2.26ex;
+      border-color: #444;
+      text-align: center;
+      cursor: default;
+      transition: all 0.1s ease 0s;
+      height: 24px;
+      top: 0;
+      right: 0;
+      bottom: 50%;
+      box-shadow: rgb(72 75 81 / 15%) 0px 1px 0px 0px inset;
+      border: solid 1px rgba(0, 0, 0, 0.1);
+      border-top: none;
+      border-radius: 0px 4px 0px 0px;
+      border-width: 1px 1px;
+    }
+
+    .button.is-info {
+      margin-right: 0.5em;
+      border-radius: 4px;
+      background-color: #dd364d;
+      text-decoration: none;
+    }
+
+    .button.is-info {
+      background-color: #dd364d;
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .rich-number .button {
+      height: 46px;
+      line-height: 46px;
+    }
+
+    .button {
+      background-color: #fff;
+      border-color: #dbdbdb;
+      border-width: 1px;
+      color: #363636;
+      cursor: pointer;
+      justify-content: center;
+      padding-bottom: calc(0.375em - 1px);
+      padding-left: 0.75em;
+      padding-right: 0.75em;
+      padding-top: calc(0.375em - 1px);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .button,
+    .input,
+    .textarea,
+    .select select,
+    .file-cta,
+    .file-name,
+    .pagination-previous,
+    .pagination-next,
+    .pagination-link,
+    .pagination-ellipsis {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      box-shadow: none;
+      display: inline-flex;
+      font-size: 1rem;
+      height: 2.25em;
+      justify-content: flex-start;
+      line-height: 1.5;
+      padding-bottom: calc(0.375em - 1px);
+      padding-left: calc(0.625em - 1px);
+      padding-right: calc(0.625em - 1px);
+      padding-top: calc(0.375em - 1px);
+      position: relative;
+      vertical-align: top;
+    }
+
+    .page-wrapper .button {
+      text-shadow: 1px 1px rgb(0 0 0 / 20%);
+    }
+
+    .page-server a {
+      outline: none;
+    }
+
+    .page-server .automod-toggles {
+      background: #181a20;
+      padding: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .page-server .automod-toggles,
+    .page-server .actionlog-toggles {
+      background: #181a20;
+      padding: 28px;
+      margin: 1em 0;
+      clear: both;
+      vertical-align: top;
+      border-radius: 5px;
+      font-family: 'Maison Neue';
+    }
+
+    .page-server .automod-toggles>h3,
+    .page-server .actionlog-toggles>h3,
+    .page-server .settings-content>p,
+    .page-server .automod-toggles>p,
+    .page-server .actionlog-toggles>p {
+      width: 100%;
+    }
+
+    .page-server .automod-toggles>h3,
+    .page-server .actionlog-toggles>h3 {
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: 2.1px;
+      text-transform: uppercase;
+      border-bottom: none;
+    }
+
+    .box:not(:last-child),
+    .fieldset:not(:last-child),
+    .block:not(:last-child),
+    .highlight:not(:last-child),
+    .table:not(:last-child),
+    .table-container:not(:last-child),
+    .title:not(:last-child),
+    .subtitle:not(:last-child),
+    .level:not(:last-child),
+    .message:not(:last-child),
+    .tabs:not(:last-child),
+    .notification:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+
+    .module-settings h3 {
+      padding-bottom: 1em;
+    }
+
+    .title {
+      word-break: normal;
+    }
+
+    .title {
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.125;
+    }
+
+    @media (max-width: 2000px) {
+      .automod-toggles .rich-select {
+        width: calc(50%);
+      }
+    }
+
+    .automod-toggles .rich-select {
+      background-color: transparent;
+      /* width: calc(33%); */
+    }
+
+    .page-server .settings-panel .settings-content .rich-select,
+    .automod-toggles .rich-select,
+    .page-server .settings-panel .actionlog-toggles .rich-select {
+      background-color: transparent;
+    }
+
+    .automod-selector.rich-select {
+      padding: 0.5em 1em;
+    }
+
+    .rich-select {
+      align-items: initial !important;
+      padding-top: 0;
+      padding-bottom: 0;
+      min-width: 200px;
+    }
+
+    .control {
+      margin-bottom: 10px;
+    }
+
+    .page-server .settings-panel .settings-content .rich-select .rich-select-top,
+    .automod-toggles .rich-select .rich-select-top,
+    .page-server .settings-panel .actionlog-toggles .rich-select .rich-select-top {
+      display: flex;
+      justify-content: space-between;
+      background-color: transparent;
+      border-radius: 5px;
+    }
+
+    .automod-toggles .rich-select-top label {
+      margin-bottom: 1em;
+    }
+
+    .page-server .settings-panel .settings-content .rich-select label,
+    .automod-toggles .rich-select label,
+    .page-server .settings-panel .actionlog-toggles .rich-select label {
+      color: #677289;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 12px;
+      line-height: 20px;
+    }
+
+    .rich-select label {
+      width: 100%;
+      line-height: 2em;
+    }
+
+    .page-server a {
+      outline: none;
+    }
+
+    a {
+      color: #dd364d;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #524d4d;
+    }
+
+    .filter-settings .icon {
+      line-height: 20px;
+      float: right;
+    }
+
+    .icon.is-link {
+      width: 24px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 16px;
+    }
+
+    span {
+      font-style: inherit;
+      font-weight: inherit;
+    }
+
+    .fa,
+    .fas {
+      font-family: "Font Awesome 5 Pro";
+      font-weight: 900;
+    }
+
+    .fa,
+    .fab,
+    .fal,
+    .far,
+    .fas {
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+    }
+
+    .Select,
+    .Select div,
+    .Select input,
+    .Select span {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .Select {
+      position: relative;
+    }
+
+    .page-server .settings-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .is-half.automod-toggles,
+    .page-server .settings-group .is-half.actionlog-toggles {
+      width: 49.5%;
+    }
+
+    .automod-toggles,
+    .page-server .actionlog-toggles {
+      background: #181a20;
+      padding: 28px;
+      margin: 1em 0;
+      clear: both;
+      vertical-align: top;
+      border-radius: 5px;
+      font-family: 'Maison Neue';
+    }
+
+    .automod-toggles,
+    .page-server .settings-group .actionlog-toggles {
+      margin: 1em 0;
+    }
+
+    .automod-toggles,
+    .page-server .settings-panel .actionlog-toggles {
+      margin-top: 0;
+    }
+
+    .automod-toggles:first-of-type,
+    .page-server .settings-group .actionlog-toggles:first-of-type {
+      margin-left: 0;
+    }
+
+    .automod-toggles>h3,
+    .page-server .actionlog-toggles>h3 {
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: 2.1px;
+      text-transform: uppercase;
+      border-bottom: none;
+    }
+
+    .automod-toggles .rich-select {
+      width: calc(50%);
+    }
+
+    .automod-toggles .rich-select {
+      background-color: transparent;
+      /* width: calc(33%); */
+    }
+
+    .automod-toggles,
+    .page-server .actionlog-toggles {
+      background: #181a20;
+      padding: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+  <!-- plugins:js -->
+  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../../js/automod.js"></script>
+  <script src="../../assets/js/file-upload.js"></script>
+  <script src="../../assets/js/typeahead.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

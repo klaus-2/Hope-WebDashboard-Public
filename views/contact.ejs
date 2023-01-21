@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <%- include('./partials/_seo.ejs') %>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <!-- Title  -->
+  <title>Contact - Hope</title>
+
+  <!-- Style css -->
+  <link rel="stylesheet" href="assets/website/css/style.css">
+  <noscript>
+    <div class="no-js">
+      To view the page please enable javascript in your browser
+    </div>
+  </noscript>
+</head>
+
+<body>
+  <div class="main">
+    <!-- ***** Header Start ***** -->
+    <%- include('./partials/_header.ejs') %>
+    <!-- ***** Header End ***** -->
+
+    <!-- ***** Breadcrumb Area Start ***** -->
+    <section class="breadcrumb-area overlay-dark d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Breamcrumb Content -->
+            <div class="breadcrumb-content text-center">
+              <h2 class="m-0" name="translate" caption="contact_1">Contact</h2>
+              <ol class="breadcrumb d-flex justify-content-center">
+                <li class="breadcrumb-item"><a href="/" name="translate" caption="contact_2">Home</a></li>
+                <li class="breadcrumb-item active"><span name="translate" caption="contact_1">Contact</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Breadcrumb Area End ***** -->
+
+    <!-- ***** Contact Area Start ***** -->
+    <section class="author-area">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-7">
+            <!-- Intro -->
+            <div class="intro text-center">
+              <span name="translate" caption="contact_1">Contact</span>
+              <h3 class="mt-3 mb-0" name="translate" caption="contact_3">Contact Us</h3>
+              <p name="translate" caption="contact_4">
+                Have any questions? We'd love to hear from you.
+              </p>
+            </div>
+            <!-- Item Form -->
+            <form id="contact-form" class="item-form card no-hover" method="POST" action="assets/website/php/mail.php">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group mt-3">
+                    <input type="text" class="form-control" name="name" placeholder="Discord Name" required="required" />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group mt-3">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required="required" />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group mt-3">
+                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="required" />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group mt-3">
+                    <textarea class="form-control" name="message" placeholder="Message" cols="30" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <% if (user) { %>
+                  <button class="btn w-100 mt-3 mt-sm-4" type="submit">
+                    <i class="icon-paper-plane mr-2"></i><span name="translate" caption="contact_5">Send Message</span>
+                  </button>
+                  <% } else { %>
+                  <span name="translate" caption="contact_6">You must be logged in to contact us.</span>
+                  <button class="btn w-100 mt-3 mt-sm-4" type="submit" disabled>
+                    <i class="icon-paper-plane mr-2"></i><span name="translate" caption="contact_5">Send Message</span>
+                  </button>
+                  <% } %>
+                </div>
+              </div>
+            </form>
+            <p class="form-message"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Contact Area End ***** -->
+
+    <!--====== Footer Area Start ======-->
+    <%- include('./partials/_footer.ejs') %>
+    <!--====== Footer Area End ======-->
+
+    <!--====== Modal Responsive Menu Area Start ======-->
+    <div id="menu" class="modal fade p-0">
+      <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+          <div class="modal-header" data-dismiss="modal">
+            Menu <i class="far fa-times-circle icon-close"></i>
+          </div>
+          <div class="menu modal-body">
+            <div class="row w-100">
+              <div class="items p-0 col-12 text-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--====== Modal Responsive Menu Area End ======-->
+
+    <!--====== Scroll To Top Area Start ======-->
+    <div class="scroll-top">
+      <a class="smoothscroll" href="#top" name="translate" caption="scroll_to_top">Scroll to Top
+      </a>
+    </div>
+    <!--====== Scroll To Top Area End ======-->
+  </div>
+
+  <style>
+    p {
+      margin: 0 !important;
+      font-size: var(--p-size);
+      font-weight: var(--p-weight);
+      line-height: 1.5;
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+    }
+  </style>
+
+  <!-- ***** All jQuery Plugins ***** -->
+
+  <!-- jQuery(necessary for all JavaScript plugins) -->
+  <script src="assets/website/js/vendor/jquery.min.js"></script>
+
+  <!-- Bootstrap js -->
+  <script src="assets/website/js/vendor/popper.min.js"></script>
+  <script src="assets/website/js/vendor/bootstrap.min.js"></script>
+
+  <!-- Plugins js -->
+  <script src="assets/website/js/vendor/all.min.js"></script>
+  <script src="assets/website/js/vendor/slider.min.js"></script>
+  <script src="assets/website/js/vendor/countdown.min.js"></script>
+  <script src="../../js/translate-manager.js"></script>
+  <script src="assets/website/js/vendor/shuffle.min.js"></script>
+
+  <!-- Active js -->
+  <script src="assets/website/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Engagement & Fun: Auto-Birthdays - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/auto-birthdays.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form id="birth">
+            <div class="clearfix">
+              <span><span name="translate" caption="dashboard_autobirthday1">Birthdays</span> <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;" name="translate" caption="dashboard_autoanime4">free/premium</code></span>
+              <div class="control module-toggle float-right">
+                <label class="switch">
+                  <input name="toggle" id="toggle" type="checkbox" checked>
+                  <span class="slider">
+                    <i class="icon times off"></i>
+                    <i class="icon check on"></i>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_autobirthday2">Wish user's birthdays in a pre-defined channel.</p><br>
+            <p class="text-muted mb-0"><span name="translate" caption="dashboard_autobirthday3">Don't forget to remind your users to set their birthdays by the command</span> <code><%= settings.prefix %>setbirthday</code></p>
+            <div class=" row ">
+              <div class=" col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_autobirthday4" style="text-transform: none;">Channel to post</h4>
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_autobirthday5">Choose where to post the congratulatory messages on your server.</p>
+                      </div>
+                    </header>
+                    <div class="input-group">
+                      <select id="ch" name="ch" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <% for (const channel of ch.channels) { %>
+                        <% if (channel.type === 0 && channel.id !== dbNiver.channelID) { %>
+                        <option value="<%= channel.id %>">#<%= channel.name %></option>
+                        <% } else if (channel.type === 0 && channel.id == dbNiver.channelID) { %>
+                        <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+                        <% } %>
+                        <% } %>
+
+                        <% if (dbNiver.toggle == false) { %>
+                        <option selected value="disabled">#Disabled</option>
+                        <% } else { %>
+                        <option value="disabled">#Disabled</option>
+                        <% } %>
+                      </select>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_autobirthday6">If enabled, messages in the channel will be deactivated and the user will receive the message in his DM.</p>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <% if(settings.ModerationClearReplyToggle == true) {%>
+                        <input name="dm" id="dm" type="checkbox" class="form-check-input" checked> Send Direct Message
+                      </label>
+                      <% } else { %>
+                      <input name="dm" id="dm" type="checkbox" class="form-check-input"> Send Direct Message
+                      </label>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class=" row ">
+              <div class=" col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_autobirthday7" style="text-transform: none;">Notify type</h4>
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_autobirthday8">Choose how Hope will notify members on your server of the day's birthday.</p>
+                      </div>
+                    </header>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <div class="control is-flex">
+                      <% if (dbNiver.mentionType == "everyone") { %>
+                      <div class="col-sm-4">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="everyone" value="everyone" onclick="myFunction4()" checked> @everyone </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="role" value="role" onclick="myFunction5()"> Role </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="none" value="none" onclick="myFunction6()"> None </label>
+                        </div>
+                      </div>
+                      <% } else if (dbNiver.mentionType == "role") { %>
+                      <div class="col-sm-4">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="everyone" value="everyone" onclick="myFunction4()"> @everyone </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="role" value="role" onclick="myFunction5()" checked> Role </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="none" value="none" onclick="myFunction6()"> None </label>
+                        </div>
+                      </div>
+                      <% } else if (dbNiver.mentionType == "none") { %>
+                      <div class="col-sm-4">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="everyone" value="everyone" onclick="myFunction4()"> @everyone </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="role" value="role" onclick="myFunction5()"> Role </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="notifyType" id="none" value="none" onclick="myFunction6()" checked> None </label>
+                        </div>
+                      </div>
+                      <% } %>
+                    </div>
+                    <div id="roleN" style="display: none;">
+                      <select id="roleNotify" name="roleNotify" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <% for (const role of rr.roles) { %>
+                        <% if (role.id !== dbNiver.roleID && role.name !== "@everyone" && !role.managed) { %>
+                        <option value="<%= role.id %>">@<%= role.name %></option>
+                        <% } else if (role.id == dbNiver.roleID) { %>
+                        <option value="<%= role.id %>" selected>@<%= role.name %></option>
+                        <% } %>
+                        <% } %>
+
+                        <% if (dbNiver.toggle == false) { %>
+                        <option selected value="none">@None</option>
+                        <% } else { %>
+                        <option value="none">@None</option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class=" row ">
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_autobirthday9" style="text-transform: none;">Message type</h4>
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_autobirthday10">Change the bot's prefix that triggers the bot.</p>
+                      </div>
+                    </header>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <div class="control is-flex">
+                      <% if (dbNiver.messageType == "default") { %>
+                      <div class="col-sm-4">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="defaultType" onclick="myFunction1()" value="default" checked> Default Message (Recommend) </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="textType" onclick="myFunction2()" value="text"> Text Message </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="embedType" onclick="myFunction3()" value="embed"> Embed Message </label>
+                        </div>
+                      </div>
+                      <% } else if (dbNiver.messageType == "text") { %>
+                      <div class="col-sm-4">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="defaultType" onclick="myFunction1()" value="default"> Default Message (Recommend) </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="textType" onclick="myFunction2()" value="text" checked> Text Message </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="embedType" onclick="myFunction3()" value="embed"> Embed Message </label>
+                        </div>
+                      </div>
+                      <% } else if (dbNiver.messageType == "embed") { %>
+                      <div class="col-sm-4">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="defaultType" onclick="myFunction1()" value="default"> Default Message (Recommend) </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="textType" onclick="myFunction2()" value="text"> Text Message </label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="settingsType" id="embedType" onclick="myFunction3()" value="embed" checked> Embed Message </label>
+                        </div>
+                      </div>
+                      <% } %>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <div class="col-sm-7" id="text" style="display: block;">
+
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_autobirthday11">Text message</p>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="inText" name="inText" placeholder="<%= dbNiver.messageText || 'Hey {user}, today is the day to celebrate life. May your day be blessed. Happy birthday!' %>" value="<%= dbNiver.messageText %>">
+                      </div>
+
+                    </div>
+
+                    <div id="embed" style="display: none;">
+
+                      <div class="col-md-10 offset-md-1" style="color: white">
+                        <div class="card-deck">
+                          <div class="card">
+                            <div class="card-block">
+                              <div class="row form-group">
+                                <div class="col-md-3">
+
+                                  <input name="leave_author_icon" value="<%= dbNiver.embed.author.icon %>" style="background-color: #000000; color: white" type="text" placeholder="Author Icon" class="form-control" maxlength="200" id="author_icon1">
+                                </div>
+
+                                <div class="col-md-6">
+
+                                  <input name="leave_author_name" value="<%= dbNiver.embed.author.name %>" style="background-color: #000000; color: white" type="text" placeholder="Author Name" class="form-control" maxlength="256" id="author_name1">
+                                </div>
+
+
+                                <div class="col-md-3">
+
+                                  <input name="leave_author_url" value="<%= dbNiver.embed.author.url %>" style="background-color: #000000; color: white" type="text" placeholder="Author URL" class="form-control" maxlength="256" id="author_url1">
+                                </div>
+                              </div>
+
+                              <div class="row form-group">
+                                <div class="col-md-9">
+                                  <input value="<%= dbNiver.embed.title %>" name="leave_embedTitle" style="background-color: #000000; color: white" type="text" placeholder="Embed Title" class="form-control" maxlength="200" id="title1">
+                                </div>
+                                <div class="col-md-3">
+
+                                  <input value="<%= dbNiver.embed.titleURL %>" name="leave_embedTitleURL" style="background-color: #000000; color: white" type="text" placeholder="Embed Title Url" class="form-control" maxlength="200" id="url1">
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12"><textarea name="leave_embedDescription" value="<%= dbNiver.embed.description %>" placeholder="Embed Description" style="background-color: #000000; color: white" rows="3" wrap="soft" class="col-12 form-control" maxlength="2048" type="text" id="description1"><%= dbNiver.embed.description || 'Hey {user}, today is the day to celebrate life. May your day be blessed. Happy birthday!' %></textarea><br></div>
+                              </div>
+
+
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <input value="<%= dbNiver.embed.thumbnail %>" name="leave_embedThumbnail" id="thumb1" style="background-color: #000000; color: white" class="form-control" maxlength="200" type="text" placeholder="Embed Thumbnail Url">
+
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                  <input id="footerIcon1" value="<%= dbNiver.embed.footerIcon %>" name="leave_embedFooterIcon" style="background-color: #000000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Icon">
+                                </div>
+
+                                <div class="col-md-3">
+
+                                  <input id="footer1" value="<%= dbNiver.embed.footer %>" name="leave_embedFooter" style="background-color: #000000; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Text">
+                                </div>
+
+                              </div>
+
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <div class="col-md-6">
+                                <input value="<%= dbNiver.embed.image %>" name="leave_embedImage" id="image1" style="background-color: #000000; color: white;right: 12px;" class="form-control" maxlength="200" type="text" placeholder="Embed Image Url">
+                              </div>
+
+                              <br>
+                              <p>Timestamp</p>
+                              <div class="col-sm-5">
+                                <div class="form-check">
+                                  <% if (dbNiver.embed.timestamp == true) { %>
+                                  <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="leave_timestamp" id="leave_timestamp" value="time" onclick="Stamp()" checked> Toggle <i class="input-helper"></i></label>
+                                  <% } else { %>
+                                  <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="leave_timestamp" id="leave_timestamp" value="time" onclick="Stamp()"> Toggle <i class="input-helper"></i></label>
+                                  <% } %>
+                                </div>
+                              </div>
+                              <br>
+                              <input class="form-control" value="<%= dbNiver.embed.color || '#000000' %>" name="leave_embedColor" style="background-color: #000000; color: white" id="color1" type="color">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div id="image" style="display: none;">
+
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_autobirthday12">Title</p>
+                      <input type="text" class="form-control" id="inImageTitle" name="inImageTitle" placeholder="" value="<%= dbNiver.welcomeImageTitle %>">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_autobirthday13">Subtitle</p>
+                      <input type="text" class="form-control" id="inImageSub" name="inImageSub" placeholder="" value="<%= dbNiver.welcomeImageSub %>">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <button type="submit" name="inImageUpdate" id="inImageUpdate" class="btn btn-outline-secondary btn-sm"><span name="translate" caption="dashboard_autobirthday14">Update image</span></button>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_autobirthday15">PREVIEW</h4>
+                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                        <div id="textPreview" style="display: block;">
+                          <div class="msgEmbed">
+                            <div class="contents">
+                              <img src="https://cdn.discordapp.com/avatars/<%= req.client_id %>/<%= req.client_avatar %>.webp?size=1024" class="avatar" alt=" ">
+                              <h2>
+                                <span class="username" role="button">Hope <img draggable="false" class="emoji" alt="🌺" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f33a.png"></span><span class="botTag"><span class="botText" style="">✓ BOT</span></span>
+                                <span class="timeText" name="translate" caption="dashboard_autobirthday16">Today at 8:22 AM</span>
+                              </h2>
+                            </div>
+                            <div id="outputText" class="markup messageContent"><%= dbNiver.messageText || '{user}, welcome to **{server}**!' %></div>
+                          </div>
+                        </div>
+                        <div id="embedPreview" style="display: none;">
+                          <div class="container">
+                            <div id="embedColor1" id="embedColor1" class="embed markup" style="border-color: <%= dbNiver.embed.color || '#ff0000' %>;">
+                              <div class="embedGrid">
+                                <div class="embedAuthor embedMargin" style="display: flex;">
+                                  <img id="embedAuthorIcon1" name="embedAuthorIcon1" class="embedAuthorIcon" src="<%= dbNiver.embed.author.icon || 'https://unsplash.it/100' %>">
+                                  <a id="embedAuthorName1" name="embedAuthorName1" class="embedAuthorNameLink embedLink embedAuthorName" href="<%= dbNiver.embed.author.url || 'https://hopebot.top' %>" target="_blank"><%= dbNiver.embed.author.name || 'Author Name' %></a>
+                                </div>
+                                <div id="embedTitle1" name="embedTitle1" class="embedTitle embedMargin" style="display: unset;"><a class="anchor" target="_blank" href="<%= dbNiver.embed.titleURL || 'https://hopebot.top' %>"><%= dbNiver.embed.title || 'Title' %></a></div>
+                                <div id="embedDescription1" name="embedDescription1" class="embedDescription embedMargin" style="display: unset;"><%= dbNiver.embed.description || 'Description...' %></div>
+                                <img id="embedImage1" name="embedImage1" class="imageWrapper clickable embedMedia embedImage" src="<%= dbNiver.embed.image || 'https://unsplash.it/380/200' %>" style="display: block;">
+                                <img id="embedThumb1" name="embedThumb1" class="imageWrapper clickable embedThumbnail" src="<%= dbNiver.embed.thumbnail || 'https://unsplash.it/200' %>" style="display: block;">
+                                <div id="embedFooter1" name="embedFooter1" class="embedFooter embedMargin" style="display: flex;">
+                                  <img id="embedFooterIcon1" name="embedFooterIcon1" class="embedFooterIcon" src="<%= dbNiver.embed.footerIcon || 'https://unsplash.it/100' %>">
+                                  <span class="embedFooterText">
+                                    <%= dbNiver.embed.footer || 'Footer Text' %>
+                                    <span id="embedStamp1" name="embedStamp1" class="embedFooterSeparator" style="display: none;">• Today at 8:22 AM</span></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="imagePreview" style="display: none;">
+                          <div class="sc-9p6mtp-0 jTFRoS sc-xf96lu-0 fpfbFT" dir="ltr">
+                            <!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 550 250" style="    background-image: url(https://i.imgur.com/PzpT99e.png);
+                            background-repeat: round;
+                            width: 768px;
+                            height: 376px;">
+                              <defs>
+                                <style>
+                                  @font-face {
+                                    font-family: https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf;
+                                    src: url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-U1UpcaXcl0Aw.ttf);
+                                  }
+                                </style>
+                              </defs>
+
+                              <!-- Background picture -->
+                              <rect id="rect" width="100%" height="100%" rx="3" ry="3" style="fill:#17181e00;"></rect>
+                              <% if (user.avatar) {
+                                avatar = "http://cdn.discordapp.com/avatars/" + req.user.id + "/" + user.avatar + ".png?size=128";
+                              } else {
+                                avatar = "http://cdn.glitch.com/82fe990a-7942-42e3-9790-39807ccdb9f6%2Ficon-404.png?v=1602412158188";
+                            }  %>
+                              <!-- Rounded rectangle in the center -->
+                              <rect y="5%" x="5%" rx="3" ry="3" width="90%" height="90%" style="fill:#17181e00;opacity:0.75;"></rect>
+
+                              <clipPath id="veyt5l-clipCircle">
+                                <circle cx="50%" cy="95" r="60"></circle>
+                              </clipPath>
+                              <circle cx="50%" cy="95" r="60" stroke="#ffffff" stroke-width="7"></circle>
+                              <image width="120" height="120" x="215" y="35" clip-path="url(#veyt5l-clipCircle)" xlink:href="<%= avatar %>"></image>
+
+                              <text id="output" font-family="https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf" font-size="20" font-weight="normal" fill="#fff" text-anchor="middle" y="190" x="50%" style="    font-family: MV Boli;
+                                font-size: 18px;">
+                                {userName} just joined the server
+                              </text>
+                              <text id="outputSub" font-family="https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf" font-size="20" font-weight="normal" fill="#54ff46" text-anchor="middle" y="215" x="50%" style="    color: #54ff46;
+                                text-shadow: 1px 1px 2px #53e87d, 0 0 25px #53e87d, 0 0 5px #53e87d;
+                                font-family: MV Boli;
+                                font-size: 18px;">
+                                Member #{number}
+                              </text>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="save" id="save">
+                <span><span name="translate" caption="dashboard_autobirthday17">You have unsaved changes. Do you want to save them?</span>
+                  <input type="submit" class="cta" value="Save" name="confirmchange" id="confirmchange" onclick="offNotify();">
+                  <input name="cancel" type="button" class="ctb" value="Cancel" onclick="mudarCor();"">
+                                                                        </span>
+              </div>
+            </div>
+       </form>
+    </div>
+      
+        <style>
+            :root {
+              --switch-off: var(--danger);
+              --switch-on: var(--success);
+              --switch-icon-selected: var(--text-default);
+              --switch-width: 60px;
+              --switch-slider-size: 26px;
+            }
+
+            .server-list.regular.showcase {
+              justify-content: flex-start;
+            }
+
+            .server-list.regular {
+              flex-wrap: wrap;
+              justify-content: center;
+            }
+
+            .server-list {
+              display: flex;
+              padding: 10px;
+              flex-wrap: nowrap;
+              align-items: center;
+              justify-content: flex-start;
+              transition: 300ms;
+              width: 100%;
+              height: 100%;
+              padding-left: 14px;
+              padding-right: 14px;
+              padding-top: 90px;
+              margin: auto;
+              overflow-y: auto;
+              scrollbar-width: none;
+              -ms-overflow-style: none;
+            }
+
+            .server-list {
+              max-width: 1352px;
+            }
+
+            .server-list.regular .server-list-item-wrapper {
+              margin-top: 20px;
+              margin-bottom: 60px;
+              margin-left: 6px;
+              margin-right: 6px;
+              height: 300px;
+              width: calc(33% - 12px);
+              min-width: 300px;
+            }
+
+            .server-list .server-list-item-wrapper {
+              transition: 300ms;
+              display: flex;
+              flex-direction: column;
+              background-position: center center;
+              background-size: cover;
+              background-repeat: no-repeat;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card {
+              background: #181a20;
+              border-radius: 4px;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+              align-items: flex-start;
+              padding: 0px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-list-card-header {
+              margin-bottom: -20px;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card .server-list-card-header {
+              display: flex;
+              width: 100%;
+              margin-bottom: 10px;
+              min-height: 120px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-list-card-header .server-list-item-icon {
+              height: 96px;
+              width: 96px;
+              margin-top: -55px;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card .server-list-card-header .server-list-item-icon {
+              width: 100%;
+              margin-right: 8px;
+              margin-left: 20px;
+              border-radius: 90px;
+              border: 7px solid #0e1015;
+              box-sizing: content-box;
+              background-position: center;
+              background-size: contain;
+              height: 96px;
+              width: 96px;
+              margin-top: -64px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-list-card-header .regular-join-wrapper {
+              display: flex;
+              flex-direction: row;
+              align-items: flex-start;
+              flex: 1;
+              justify-content: flex-end;
+              padding-top: 15px;
+              padding-right: 10px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-list-card-header .regular-join-wrapper .server-join-regular {
+              width: 100px;
+            }
+
+            .button.is-rounded {
+              border-radius: 3px;
+            }
+
+            .button.is-info {
+              margin-right: 0.5em;
+              border-radius: 4px;
+              background-color: #dd364d;
+            }
+
+            .page-wrapper .button {
+              text-shadow: 1px 1px rgb(0 0 0 / 20%);
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-name {
+              margin-top: -34px;
+              min-height: 36px;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card .server-name {
+              font-size: 26px;
+              font-weight: 500;
+              margin-bottom: 10px;
+              margin-left: 18px;
+              margin-right: 10px;
+              overflow: hidden;
+              word-break: break-all;
+              text-overflow: ellipsis;
+              max-width: 93%;
+              white-space: nowrap;
+            }
+
+            .server-list .server-list-item-wrapper .server-list-card .server-member-count {
+              background-color: #2e323d;
+              border-radius: 2px;
+              padding: 5px 12px;
+              margin-left: 18px;
+              padding-right: 10px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-description {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+              flex: 1;
+              align-items: center;
+              width: 100%;
+              max-width: calc(100% - 28px);
+              margin-top: 20px;
+              margin-left: 18px;
+              margin-right: 10px;
+              margin-bottom: 23px;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-description .server-description-content-wrapper {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+              align-items: center;
+              flex: 1;
+              overflow-y: hidden;
+              margin-bottom: 9px;
+              width: 100%;
+            }
+
+            .server-list.regular .server-list-item-wrapper .server-list-card .server-description .server-description-content-wrapper p {
+              font-size: 0.9rem;
+              color: #6B7E91;
+            }
+
+            .switch {
+              position: relative;
+              display: inline-block;
+              min-width: var(--switch-width);
+              cursor: pointer;
+            }
+
+            .switch.disabled {
+              opacity: 1;
+              cursor: no-drop;
+            }
+
+            .switch input {
+              visibility: hidden;
+              width: 0;
+              height: 0;
+            }
+
+            .switch input:checked+.slider {
+              background-color: var(--switch-on);
+            }
+
+            .switch input:checked+.slider:before,
+            .switch input:checked+.slider .icon {
+              transform: translateX(var(--switch-slider-size));
+            }
+
+            .switch input:checked+.slider .off {
+              opacity: 0;
+              transform: scale(0) translateX(var(--switch-slider-size));
+            }
+
+            .switch input:checked+.slider .on {
+              opacity: 1;
+              transform: scale(1) translateX(var(--switch-slider-size));
+            }
+
+            .switch input:disabled+.slider {
+              opacity: 0.3;
+              cursor: no-drop;
+            }
+
+            .switch .label~.slider {
+              top: -5px;
+            }
+
+            .switch .slider {
+              position: absolute;
+              cursor: pointer;
+              width: var(--switch-width);
+              height: 34px;
+              right: 0;
+              top: 0;
+              display: block;
+              background-color: #72767c;
+              transition: 0.4s;
+              border-radius: 34px;
+            }
+
+            .switch .slider .icon {
+              position: absolute;
+              transition: 0.4s;
+              --size: 15px;
+              top: 9.5px;
+              left: 9.5px;
+            }
+
+            .switch .slider .off {
+              color: var(--background-inactive);
+              transform: none;
+            }
+
+            .switch .slider .on {
+              opacity: 0;
+              color: var(--switch-on);
+              transform: scale(0);
+            }
+
+            .switch .slider:before {
+              border-radius: 50%;
+              position: absolute;
+              content: "";
+              height: var(--switch-slider-size);
+              width: var(--switch-slider-size);
+              left: 4px;
+              bottom: 4px;
+              background-color: white;
+              -webkit-transition: 0.4s;
+              transition: 0.4s;
+            }
+
+            .radio-switch {
+              border: 1px solid var(--background-tertiary);
+              border-radius: 4px;
+              height: 28px;
+              width: 98px;
+              display: grid;
+              grid-auto-flow: column;
+              overflow: hidden;
+            }
+
+            .radio-switch label {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: var(--background-primary);
+            }
+
+            .radio-switch label:hover {
+              background: var(--background-hover);
+              cursor: pointer;
+            }
+
+            .radio-switch label.deny .icon {
+              color: var(--switch-off);
+            }
+
+            .radio-switch label.deny.selected {
+              background: var(--danger);
+            }
+
+            .radio-switch label.passthrough.selected {
+              background: var(--background-shade);
+            }
+
+            .radio-switch label.allow .icon {
+              color: var(--switch-on);
+            }
+
+            .radio-switch label.allow.selected {
+              background: var(--success);
+            }
+
+            .radio-switch label.selected .icon {
+              color: var(--switch-icon-selected);
+            }
+
+            .radio-switch label .icon {
+              --size: 14px;
+            }
+
+            .radio-switch label input {
+              visibility: hidden;
+              width: 0;
+              height: 0;
+              margin: 0;
+            }
+
+            .is-flex{display:flex!important;}@media (max-width:768px){.is-flex{display:flex!important}}@media (max-width:543px){.is-flex{display:flex!important}}@media (max-width:490px){.is-flex{display:block!important}}
+          </style>
+        <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+                  <script>
+                    const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-right',
+                      showConfirmButton: false,
+                      timer: 5000,
+                      timerProgressBar: true
+                    })
+
+                    /* var premium = "<%= settings.isPremium.toString() %>";
+                    var x = document.getElementById('premium');
+                    if (premium == "false") {
+                      $('#ad').prop('disabled', 'disabled');
+                      $('#adr').prop('disabled', 'disabled');
+                    } else {
+                      x.style.display = 'none';
+                      $("div.form-check").removeAttr("id");
+                    } */
+
+                    $("#birth").submit(function(e) {
+                      e.preventDefault();
+                      var form = $(this);
+
+                      $.ajax({
+                        type: "POST",
+                        url: '/dashboard/<%= req.params.guildID %>/auto-birthdays',
+                        data: form.serialize(),
+                        beforeSend: function() {
+                          Toast.fire({
+                            icon: 'warning',
+                            title: 'Saving...'
+                          });
+                        },
+                        success: function(data) {
+                          Toast.fire({
+                            icon: 'success',
+                            title: 'Saved Changes'
+                          });
+                        }
+                      }).fail(function() {
+                        Toast.fire({
+                          icon: 'error',
+                          title: 'An error occurred while saving...'
+                        });
+                      });
+                    });
+                  </script>
+                  <script>
+                    var checkBox = document.getElementById("defaultType");
+                    var text = document.getElementById("text");
+                    var textP = document.getElementById("textPreview");
+                    var embed = document.getElementById("embed");
+                    var embedP = document.getElementById("embedPreview");
+                    if (checkBox.checked == true) {
+                      text.style.display = "none";
+                      textP.style.display = "none";
+                      embed.style.display = "none";
+                      embedP.style.display = "none";
+                    }
+
+                    function myFunction1() {
+                      var checkBox = document.getElementById("defaultType");
+                      var text = document.getElementById("text");
+                      var textP = document.getElementById("textPreview");
+                      var embed = document.getElementById("embed");
+                      var embedP = document.getElementById("embedPreview");
+                      if (checkBox.checked == true) {
+                        text.style.display = "none";
+                        textP.style.display = "none";
+                        embed.style.display = "none";
+                        embedP.style.display = "none";
+                      }
+                    }
+
+                    function myFunction2() {
+                      var checkBox1 = document.getElementById("textType");
+                      var text = document.getElementById("text");
+                      var textP = document.getElementById("textPreview");
+                      var embed = document.getElementById("embed");
+                      var embedP = document.getElementById("embedPreview");
+                      if (checkBox1.checked == true) {
+                        text.style.display = "block";
+                        textP.style.display = "block";
+                        embed.style.display = "none";
+                        embedP.style.display = "none";
+                      }
+                    }
+
+                    function myFunction3() {
+                      var checkBox2 = document.getElementById("embedType");
+                      var text = document.getElementById("text");
+                      var textP = document.getElementById("textPreview");
+                      var embed = document.getElementById("embed");
+                      var embedP = document.getElementById("embedPreview");
+                      if (checkBox2.checked == true) {
+                        text.style.display = "none";
+                        textP.style.display = "none";
+                        embed.style.display = "block";
+                        embedP.style.display = "block";
+                      }
+                    }
+
+                    function myFunction4() {
+                      var role = document.getElementById("roleN");
+                      var everyoneCheck = document.getElementById("everyone");
+                      if (everyoneCheck.checked == true) {
+                        role.style.display = "none";
+                      }
+                    }
+
+                    function myFunction5() {
+                      var roleCheck = document.getElementById("role");
+                      var role = document.getElementById("roleN");
+                      if (roleCheck.checked == true) {
+                        role.style.display = "block";
+                      }
+                    }
+
+                    function myFunction6() {
+                      var role = document.getElementById("roleN");
+                      var noneCheck = document.getElementById("none");
+                      if (noneCheck.checked == true) {
+                        role.style.display = "none";
+                      }
+                    }
+                  </script>
+                  <!-- content-wrapper ends -->
+                  <%- include("../../partials/_footer-dashboard.ejs") %>
+                  <!-- partial -->
+              </div>
+              <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <script src="../../js/auto-birthdays.js"></script>
+  <!-- Custom js for this page -->
+  <script src="../../assets/js/file-upload.js"></script>
+  <script src="../../assets/js/typeahead.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

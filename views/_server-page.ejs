@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+  <head>
+    <%- include('./partials/_seo.ejs') %>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  
+    <!-- Title  -->
+    <title><%- guild.guildName %> | Hope</title>
+  
+    <!-- Style css -->
+    <link rel="stylesheet" href="/assets/website/css/style.css">
+    <noscript>
+      <div class="no-js">
+        To view the page please enable javascript in your browser
+      </div>
+    </noscript>
+  </head>
+
+<body>
+  <div class="main">
+    <!-- ***** Header Start ***** -->
+    <%- include('./partials/_header.ejs') %>
+    <!-- ***** Header End ***** -->
+
+    <!-- ***** Breadcrumb Area Start ***** -->
+    <section class="breadcrumb-area overlay-dark d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Breamcrumb Content -->
+            <div class="breadcrumb-content text-center">
+              <h2 class="m-0"><%- guild.guildName %></h2>
+              <ol class="breadcrumb d-flex justify-content-center">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/public-servers">Public Servers</a></li>
+                <li class="breadcrumb-item active"><%- guild.guildName %></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Breadcrumb Area End ***** -->
+
+    <!-- ***** Item Details Area Start ***** -->
+    <section class="item-details-area">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-12 col-lg-5">
+            <div class="item-info">
+              <% if (data.icon) {
+                  iconurl = "http://cdn.discordapp.com/icons/" + data.id + "/" + data.icon + ".png??size=512";
+               } else {
+                  iconurl = "https://ui-avatars.com/api/?name=" + data.name + "&background=5865f2&color=fff";
+               } %>
+              <div class="item-thumb text-center">
+                <img src="<%- iconurl %>" alt="" />
+              </div>
+              <div class="card no-hover countdown-times my-4">
+                <div class="countdown d-flex justify-content-center" data-date="2022-03-30"></div>
+              </div>
+              <!-- Hope Tab -->
+              <ul class="hope-tab nav nav-tabs" id="nav-tab">
+                <li>
+                  <a class="active" id="nav-contact-tab" data-toggle="pill" href="#socials">
+                    <h5 class="m-0">Socials</h5>
+                  </a>
+                </li>
+                <li>
+                  <a id="nav-contact-tab" data-toggle="pill" href="#details">
+                    <h5 class="m-0">Details</h5>
+                  </a>
+                </li>
+                <li>
+                  <a id="nav-profile-tab" data-toggle="pill" href="#updates">
+                    <h5 class="m-0">Updates</h5>
+                  </a>
+                </li>
+              </ul>
+              <!-- Tab Content -->
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade" id="details">
+                  <!-- Single Tab List -->
+                  <div class="owner-meta d-flex align-items-center mt-3">
+                    <span>Owner</span>
+                    <a class="owner d-flex align-items-center ml-2">
+                      <img class="avatar-sm rounded-circle" src="https://cdn.discordapp.com/avatars/<%- owner.user.id %>/<%- owner.user.avatar %>.webp?size=1024" alt="" />
+                      <h6 class="ml-2"><%- owner.user.username %>#<%- owner.user.discriminator %></h6>
+                    </a>
+                  </div>
+                  <p class="mt-2">Guild ID : <%- data.id %></p>
+                  <p class="mt-2">Created : <%- moment(parseInt(guild.guildCreated)).fromNow() %></p>
+                  <% const verificationLevels = {
+                    0: 'None',
+                    1: 'Low',
+                    2: 'Medium',
+                    3: 'High',
+                    4: 'Very High'
+                  }; %>
+                  <p class="mt-2">Verification level : <%- verificationLevels[data.verification_level] %></p>
+                  <p class="mt-2">Features : <% data.features.join(', ') %></p>
+                  <p class="mt-2">Roles : <%- data.roles.length %></p>
+                  <p class="mt-2">Emotes : <%- data.emojis.length %></p>
+                  <p class="mt-2">Channels : <%- channels %></p>
+                  <p class="mt-2">Boost Tier : Tier <%- data.premium_tier %></p>
+                  <p class="mt-2">Boost Count : <%- data.premium_subscription_count %> boosters</p>
+                  <p class="mt-2">Explicit Filter : Tier <%- data.explicit_content_filter %></p>
+                  <p class="mt-2">Categories : <%- guild.categories.join(', ') %></p>
+                  <p class="mt-2">Tags : <%- guild.tags.join(', ') %></p>
+                  <p class="mt-2">Main Language : <%- guild.mainServerLanguage %></p>
+
+                </div>
+                <div class="tab-pane fade" id="updates">
+                  <ul class="list-unstyled">
+                    <!-- Single Tab List -->
+                    <% for (const update of guild.updates.slice(4, 5)) { %>
+                    <li class="single-tab-list d-flex align-items-center">
+                      <img class="avatar-sm rounded-circle mr-3" src="https://cdn-icons-png.flaticon.com/512/1632/1632666.png" alt="" />
+                      <p class="m-0">
+                        <strong><%- update.action %></strong>
+                        <br />At <a><%- moment(update.date).fromNow() %></a>
+                      </p>
+                    </li>
+                    <% } %>
+                    <% for (const update of guild.updates.slice(3, 4)) { %>
+                    <li class="single-tab-list d-flex align-items-center">
+                      <img class="avatar-sm rounded-circle mr-3" src="https://cdn-icons-png.flaticon.com/512/1632/1632666.png" alt="" />
+                      <p class="m-0">
+                        <strong><%- update.action %></strong>
+                        <br />At <a><%- moment(update.date).fromNow() %></a>
+                      </p>
+                    </li>
+                    <% } %>
+                    <% for (const update of guild.updates.slice(2, 3)) { %>
+                    <li class="single-tab-list d-flex align-items-center">
+                      <img class="avatar-sm rounded-circle mr-3" src="https://cdn-icons-png.flaticon.com/512/1632/1632666.png" alt="" />
+                      <p class="m-0">
+                        <strong><%- update.action %></strong>
+                        <br />At <a><%- moment(update.date).fromNow() %></a>
+                      </p>
+                    </li>
+                    <% } %>
+                    <% for (const update of guild.updates.slice(1, 2)) { %>
+                    <li class="single-tab-list d-flex align-items-center">
+                      <img class="avatar-sm rounded-circle mr-3" src="https://cdn-icons-png.flaticon.com/512/1632/1632666.png" alt="" />
+                      <p class="m-0">
+                        <strong><%- update.action %></strong>
+                        <br />At <a><%- moment(update.date).fromNow() %></a>
+                      </p>
+                    </li>
+                    <% } %>
+
+                    <% for (const update of guild.updates.slice(0, 1)) { %>
+                    <li class="single-tab-list d-flex align-items-center">
+                      <img class="avatar-sm rounded-circle mr-3" src="https://cdn-icons-png.flaticon.com/512/1632/1632666.png" alt="" />
+                      <p class="m-0">
+                        <strong><%- update.action %></strong>
+                        <br />At <a><%- moment(update.date).fromNow() %></a>
+                      </p>
+                    </li>
+                    <% } %>
+                  </ul>
+                </div>
+                <div class="tab-pane fade show active" id="socials">
+                  <!-- Single Tab List -->
+                  <% if (guild.youtubeURL) { %>
+                  <div class="owner-meta d-flex align-items-center mt-3">
+                    <div class="social-icons d-flex">
+                      <a class="youtube" href="<%- guild.youtubeURL %>">
+                        <i class="fab fa-youtube"></i>
+                        <i class="fab fa-youtube"></i>
+                      </a>
+                    </div><a href="<%- guild.youtubeURL %>">
+                      <h6 class="ml-2">/<%- guild.youtubeURL.split("/")[4] %></h6>
+                    </a>
+                  </div>
+                  <% } %>
+                  <% if (guild.twitchURL) { %>
+                  <div class="owner-meta d-flex align-items-center mt-3">
+                    <div class="social-icons d-flex">
+                      <a class="twitch" href="<%- guild.twitchURL %>">
+                        <i class="fab fa-twitch"></i>
+                        <i class="fab fa-twitch"></i>
+                      </a>
+                    </div><a href="<%- guild.twitchURL %>">
+                      <h6 class="ml-2">/<%- guild.twitchURL.split("/")[3] %></h6>
+                    </a>
+                  </div>
+                  <% } %>
+                  <% if (guild.twitterURL) { %>
+                  <div class="owner-meta d-flex align-items-center mt-3">
+                    <div class="social-icons d-flex">
+                      <a class="twitter" href="<%- guild.twitterURL %>">
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                    </div><a href="<%- guild.twitterURL %>">
+                      <h6 class="ml-2">/<%- guild.twitterURL.split("/")[3] %></h6>
+                    </a>
+                  </div>
+                  <% } %>
+                  <% if (guild.redditURL) { %>
+                  <div class="owner-meta d-flex align-items-center mt-3">
+                    <div class="social-icons d-flex">
+                      <a class="reddit" href="<%- guild.redditURL %>">
+                        <i class="fab fa-reddit"></i>
+                        <i class="fab fa-reddit"></i>
+                      </a>
+                    </div><a href="<%- guild.redditURL %>">
+                      <h6 class="ml-2">/<%- guild.redditURL.split("/")[4] %></h6>
+                    </a>
+                  </div>
+                  <% } %>
+                  <% if (!guild.youtubeURL && !guild.twitchURL && !guild.twitterURL && !guild.redditURL) { %>
+                  <p class="mt-2">No socials.</p>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <!-- Content -->
+            <div class="content mt-5 mt-lg-0">
+              <h3 class="m-0"><%- guild.guildName %></h3>
+              <p>
+                <%- guild.description %>
+              </p>
+              <!-- Owner -->
+              <div class="owner d-flex align-items-center">
+                <span>Owned By</span>
+                <a class="owner-meta d-flex align-items-center ml-3">
+                  <img class="avatar-sm rounded-circle" src="https://cdn.discordapp.com/avatars/<%- owner.user.id %>/<%- owner.user.avatar %>.webp?size=1024" alt="" />
+                  <h6 class="ml-2"><%- owner.user.username %>#<%- owner.user.discriminator %></h6>
+                </a>
+              </div>
+              <!-- Item Info List -->
+              <div class="item-info-list mt-4">
+                <h4 class="ml-2">Emotes</h4>
+                <style>
+                  .css-1mglacd {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 5px;
+                  }
+                </style>
+                <ul class="chakra-wrap__list css-1l8wha0">
+                  <% for (const emote of data.emojis) { %>
+                  <img class="chakra-image css-1mglacd" src="https://cdn.discordapp.com/emojis/<%- emote.id %>.webp?size=128&quality=lossless">
+                  <% } %>
+                </ul>
+              </div>
+              <div class="row items">
+                <div class="col-12 col-md-6 item px-lg-2">
+                  <div class="card no-hover">
+                    <div class="single-seller d-flex align-items-center">
+                      <a>
+                        <img class="avatar-md rounded-circle" src="https://cdn-icons-png.flaticon.com/512/476/476863.png" alt="" />
+                      </a>
+                      <!-- Seller Info -->
+                      <div class="seller-info ml-3">
+                        <a class="seller mb-2"><%- data.approximate_member_count %></a>
+                        <span>Member Count</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 item px-lg-2">
+                  <div class="card no-hover">
+                    <div class="single-seller d-flex align-items-center">
+                      <a>
+                        <img class="avatar-md rounded-circle" src="https://cdn-icons-png.flaticon.com/512/2364/2364757.png" alt="" />
+                      </a>
+                      <!-- Seller Info -->
+                      <div class="seller-info ml-3">
+                        <a class="seller mb-2"><%- data.approximate_presence_count %></a>
+                        <span>Members online</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 item px-lg-2">
+                  <div class="card no-hover">
+                    <h4 class="mt-0 mb-2">Languages</h4>
+                    <div class="price d-flex justify-content-between align-items-center">
+                      <% if (guild.languages.length > 0) { %>
+                      <% for (const lang of guild.languages) { %>
+                      <span><%- lang %></span>
+                      <% } %>
+                      <% } else { %>
+                        <span>Not defined</span>
+                        <% } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% if (guild.vanityURL && guild.vanityRedirect) { %>
+              <a class="d-block btn btn-bordered-white mt-4" href="https://<%= domain %>/v/<%= guild.vanityURL %>">Join this server</a>
+            <% } %>
+            <% if (!guild.vanityURL && !guild.vanityRedirect && guild.inviteURL) { %>
+              <a class="d-block btn btn-bordered-white mt-4" href="https://discord.gg/<%- guild.inviteURL %>">Join this server</a>
+            <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Item Details Area End ***** -->
+
+    <!-- ***** Live Auctions Area Start ***** -->
+    <section class="live-auctions-area pt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Intro -->
+            <div class="intro d-flex justify-content-between align-items-end m-0">
+              <div class="intro-content">
+                <span>Public Servers</span>
+                <h3 class="mt-3 mb-0">More Like This</h3>
+              </div>
+              <div class="intro-btn">
+                <a class="btn content-btn" href="/public-servers">View All</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="auctions-slides">
+          <div class="swiper-container slider-mid items">
+            <div class="swiper-wrapper">
+              <!-- Single Slide -->
+              <% for (const server of servers) { %>
+              <div class="swiper-slide item">
+                <div class="card">
+                  <div class="image-over">
+                    <% if (server.guildIcon) {
+                      iconurl2 = "http://cdn.discordapp.com/icons/" + server.guildID + "/" + server.guildIcon + ".png??size=512";
+                   } else {
+                      iconurl2 = "https://ui-avatars.com/api/?name=" + server.guildName + "&background=5865f2&color=fff";
+                   } %>
+                    <a href="/public-servers/<%- server.guildID %>">
+                      <img class="card-img-top" src="<%- iconurl2 %>" alt="" />
+                    </a>
+                  </div>
+                  <!-- Card Caption -->
+                  <div class="card-caption col-12 p-0">
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="countdown-times mb-3">
+                        <div class="countdown d-flex justify-content-center" data-date="2021-12-09"></div>
+                      </div>
+                      <a href="/public-servers/<%- server.guildID %>">
+                        <h5 class="mb-0"><%- server.guildName %></h5>
+                      </a>
+                      <div class="seller d-flex align-items-center my-3">
+                        <span class="ml-2"><%- server.description %></span>
+                      </div>
+                      <div class="card-bottom d-flex justify-content-between">
+                        <span><%- server.categories[0] %></span>
+                        <span><%- server.mainServerLanguage %></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Live Auctions Area End ***** -->
+
+    <!--====== Footer Area Start ======-->
+    <%- include('./partials/_footer.ejs') %>
+    <!--====== Footer Area End ======-->
+
+    <!--====== Modal Search Area Start ======-->
+    <div id="search" class="modal fade p-0">
+      <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+          <div class="modal-header" data-dismiss="modal">
+            Search <i class="far fa-times-circle icon-close"></i>
+          </div>
+          <div class="modal-body">
+            <form class="row">
+              <div class="col-12 align-self-center">
+                <div class="row">
+                  <div class="col-12 pb-3">
+                    <h2 class="search-title mt-0 mb-3">
+                      What are you looking for?
+                    </h2>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 input-group mt-4">
+                    <input type="text" placeholder="Enter your keywords" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 input-group align-self-center">
+                    <button class="btn btn-bordered-white mt-3">
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--====== Modal Search Area End ======-->
+
+    <!--====== Modal Responsive Menu Area Start ======-->
+    <div id="menu" class="modal fade p-0">
+      <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+          <div class="modal-header" data-dismiss="modal">
+            Menu <i class="far fa-times-circle icon-close"></i>
+          </div>
+          <div class="menu modal-body">
+            <div class="row w-100">
+              <div class="items p-0 col-12 text-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--====== Modal Responsive Menu Area End ======-->
+
+    <!--====== Scroll To Top Area Start ======-->
+    <div id="scroll-to-top" class="scroll-to-top">
+      <a href="#header" class="smooth-anchor">
+        <i class="fas fa-arrow-up"></i>
+      </a>
+    </div>
+    <!--====== Scroll To Top Area End ======-->
+  </div>
+
+  <!-- ***** All jQuery Plugins ***** -->
+
+  <!-- jQuery(necessary for all JavaScript plugins) -->
+  <script src="./../../assets/website/js/vendor/jquery.min.js"></script>
+
+  <!-- Bootstrap js -->
+  <script src="./../../assets/website/js/vendor/popper.min.js"></script>
+  <script src="./../../assets/website/js/vendor/bootstrap.min.js"></script>
+
+  <!-- Plugins js -->
+  <script src="./../../assets/website/js/vendor/all.min.js"></script>
+  <script src="./../../assets/website/js/vendor/slider.min.js"></script>
+  <script src="./../../assets/website/js/vendor/countdown.min.js"></script>
+  <script src="./../../assets/website/js/vendor/shuffle.min.js"></script>
+
+  <!-- Active js -->
+  <script src="./../../assets/website/js/main.js"></script>
+</body>
+
+</html>

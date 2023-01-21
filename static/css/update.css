@@ -1,0 +1,175 @@
+.cta {
+    font-size: 1em;
+    font-weight: 700;
+    text-decoration: none;
+    padding: .3em 1em;
+    text-transform: uppercase;
+    border-radius: .3em;
+    transition: .2s all ease-in-out;
+    width: fit-content;
+    background-color: #00d25b;
+    color: var(--text-color);
+    display: inline-block;
+    margin: .75em auto;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+  }
+
+  .ctb {
+    font-size: 1em;
+    font-weight: 700;
+    text-decoration: none;
+    padding: .3em 1em;
+    text-transform: uppercase;
+    border-radius: .3em;
+    transition: .2s all ease-in-out;
+    width: fit-content;
+    background-color: #d20000;
+    color: var(--text-color);
+    display: inline-block;
+    margin: .75em auto;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+  }
+
+  .cta:hover {
+    background-color: hsl(146, 81%, 29%);
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  .ctb:hover {
+    background-color: hsl(0, 81%, 29%);
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  /* GUILD SETTINGS */
+  .tabbed_section {
+    display: flex;
+    background: var(--mid-grey);
+    border-radius: 10px;
+  }
+
+  .tabbed_menu {
+    max-width: 360px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: #1f1b1d;
+    margin: 20px;
+    border-radius: 5px;
+  }
+
+  .tabbed_menu .tablink {
+    text-align: left;
+    background: transparent;
+    color: var(--text-color);
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 3px;
+    margin: 0 0 5px;
+    opacity: .8;
+    cursor: pointer;
+  }
+
+  .tabbed_menu .tablink:hover {
+    opacity: 1;
+    background: #333;
+    transition: .2s all ease-in-out;
+  }
+
+  .tabbed_menu .tablink.selected {
+    opacity: 1;
+    background-color: #de3268;
+  }
+
+  .tabbed_menu .tablink:focus,
+  .tabbed_menu .tablink:active {
+    outline: 0;
+  }
+
+  .tabbed_content {
+    padding: 40px 30px;
+    width: 100%;
+    height: 100%;
+  }
+
+  form.form-inline {
+    align-items: normal;
+  }
+
+  .form-group.w-1 {
+    width: calc(100% - 20px);
+  }
+
+  .form-group.w-2 {
+    width: calc(50% - 20px);
+  }
+
+  .form-group.w-3 {
+    width: calc(33.33% - 20px);
+  }
+
+  .form-group {
+    background: #1F1B1D;
+    padding: 30px 40px;
+    margin: 0 20px 20px 0;
+    align-items: flex-start;
+    border-radius: 5px;
+  }
+
+  .form-inline label {
+    padding: 0 15px 0 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    min-width: 0;
+    justify-content: flex-start;
+    font-size: 1.5em;
+    color: #de3268;
+  }
+
+  .form-group .field_desc {
+    color: #888;
+    font-size: .9em;
+  }
+
+  .form-group input {
+    width: 100%;
+    line-height: 2em;
+    border-radius: 0;
+    border: 0;
+    background: #666;
+    color: #fff;
+  }
+
+  .form-group input::placeholder {
+    color: #fff;
+  }
+
+  .save {
+    position: fixed;
+    bottom: -200px;
+    z-index: 999;
+    background: #13151b;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    /* padding: 30px 40px; */
+    border-radius: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 700;
+    transition: .2s all ease-in-out;
+  }
+
+  .save .cta {
+    margin-left: 20px;
+  }
+
+  .save.changes_true {
+    bottom: 30px;
+  }

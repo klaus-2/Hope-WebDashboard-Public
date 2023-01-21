@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Server management: Giveaway - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form role="form" action="/dashboard/<%= guild.id %>/giveaway" method="POST">
+            <% if (error != '') { %>
+              <script>
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-right',
+                  showConfirmButton: false,
+                  timer: 15000,
+                  timerProgressBar: true
+                })
+    
+                Toast.fire({
+                  icon: 'error',
+                  title: '<%= error %>'
+                });
+              </script>
+              <% }  %>
+              <% if(success != ''){ %>
+              <script>
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-right',
+                  showConfirmButton: false,
+                  timer: 15000,
+                  timerProgressBar: true
+                })
+    
+                Toast.fire({
+                  icon: 'success',
+                  title: '<%= success %>'
+                });
+              </script>
+              <% } %>
+            <div class="clearfix">
+              <span name="translate" caption="dashboard_giveaway1">Giveaway</span>
+              <button name="GiveawaySend" id="GiveawaySend" type="submit" class="btn btn-outline-success float-right btn-fw"><span name="translate" caption="dashboard_giveaway2">Start giveaway</span></button>
+            </div>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_giveaway3">Allows you to host giveaways on your server with Hope.</p><br>
+
+            <div class=" row ">
+              <div class=" col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_giveaway4">Title</h4>
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_giveaway5">What are you giving away? Eg: 2 Discord Nitro</p>
+                      </div>
+                    </header>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <textarea type="text" class="form-control" id="GiveawayTitle" name="GiveawayTitle" placeholder="Eg: 2 Nitro Gift" maxlength="100"></textarea>
+                    <small id="textareaHide" class="form-text text-muted" style="color: white">0 characters remaining</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" row ">
+              <div class=" col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_giveaway6">Channel</h4>
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_giveaway7">Where do you want to announce the giveaway?</p>
+                      </div>
+                    </header>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <div class="input-group">
+                      <select id="GiveawayChannel" name="GiveawayChannel" class="js-example-basic-single form-control" style="width:483px;max-width:483px">
+                        <% for (const channel of ch.channels) { %>
+                          <% if (channel.type === 0) { %>
+                            <option value="<%= channel.id %>">#<%= channel.name %></option>
+                          <% } %>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" row ">
+              <div class=" col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_giveaway8">ENDS ON</h4>
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_giveaway9">Where do you want to announce the giveaway?</p>
+                      </div>
+                    </header>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <div class="input-group">
+                      <input type="datetime-local" id="Giveawaytime" name="Giveawaytime" style="
+position: relative;
+display: inline-block;
+width: 100%;
+min-width: 0;
+font-size: 16px;
+padding: 4px 11px;
+line-height: 1.5715;
+transition: all .3s;
+flex: auto;
+min-width: 1px;
+height: auto;
+background-color: hsl(222deg 10% 16%);
+    color: white;
+    outline: none;
+    border-radius: 6px;
+    overflow: hidden;
+    text-decoration: none;
+    white-space: nowrap;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+    -webkit-backface-visibility: hidden;
+border: 0;">
+                    </div>
+                    <p class="text-muted mb-0"><code name="translate" caption="dashboard_giveaway10">Time zone based on (UTC)</code></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" row ">
+              <div class=" col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <header class="sc-1o36vqg-4 kYxrQw">
+                      <div class="sc-1o36vqg-3 iVeijx">
+                        <h4 class="card-title" name="translate" caption="dashboard_giveaway11">NUMBER OF WINNERS</h4>
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_giveaway12">Where do you want to announce the giveaway?</p>
+                      </div>
+                    </header>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <div class="input-group">
+                      <input type="range" id="GiveawayRange" name="GiveawayRange" min="1" max="100" value="1" style="position: relative;
+        display: inline-block;
+        width: 100%;
+        min-width: 0;
+        font-size: 16px;
+        padding: 4px 11px;
+        line-height: 1.5715;
+        transition: all .3s;
+        flex: auto;
+        min-width: 1px;
+        height: auto;
+        background-color: hsl(222deg 10% 16%);
+            color: white;
+            outline: none;
+            border-radius: 6px;
+            overflow: hidden;
+            text-decoration: none;
+            white-space: nowrap;
+            -moz-transition: 0.25s;
+            -o-transition: 0.25s;
+            transition: 0.25s;
+            -webkit-backface-visibility: hidden;
+        border: 0;" oninput="amount.value=GiveawayRange.value">
+                      <output id="amount" name="amount" for="GiveawayRange" style="color: #f1f1f1; margin-left: 10px;">1</output>
+                    </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script>
+    function markRequired() {
+      var control = $(this).children(".form-control");
+      var label = $(this).children("label");
+      if (control.attr("required") == "required") {
+        label.addClass("required");
+      }
+    }
+
+    function countCharacters() {
+      var max = $(this).attr("maxlength");
+      var length = $(this).val().length;
+      var counter = max - length;
+      var helper = $(this).next(".form-text");
+      // Switch to the singular if there's exactly 1 character remaining
+      if (counter !== 1) {
+        helper.text(counter + " characters remaining");
+      } else {
+        helper.text(counter + " character remaining");
+      }
+      // Make it red if there are 0 characters remaining
+      if (counter === 0) {
+        helper.removeClass("text-muted");
+        helper.addClass("text-danger");
+      } else {
+        helper.removeClass("text-danger");
+        helper.addClass("text-muted");
+      }
+    }
+
+    $(document).ready(function() {
+      $(".form-group").each(markRequired);
+      $(".form-control").each(countCharacters);
+      $(".form-control").keyup(countCharacters);
+    });
+  </script>
+  <!-- content-wrapper ends -->
+  <%- include("../../partials/_footer-dashboard.ejs") %>
+  <!-- partial -->
+  </div>
+  <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../../js/prefix-update.js"></script>
+  <script src="../../js/nickname-update.js"></script>
+  <script src="../../assets/js/file-upload.js"></script>
+  <script src="../../assets/js/typeahead.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+$("#covidch").on({keydown:function(e){if(e.which===32)return false;},change:function(){this.value=this.value.replace(/\s/g,"");$(".save").addClass("changes_true");}});function mudarCor(novaCor){$(".save").removeClass("changes_true");}function offNotify(novaCor){$(".save").removeClass("changes_true");}

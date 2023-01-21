@@ -1,0 +1,13 @@
+<% for (const channel of ch.channels) { %>
+    <% if (channel.type === 0 && channel.id !== var1) { %>
+      <option value="<%= channel.id %>">#<%= channel.name %></option>
+      <% } else if (channel.type === 0 && channel.id == var1) { %>
+      <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+    <% } %>
+  <% } %>
+
+  <% if (var1 === "disabled") { %>
+    <option selected value="disabled">#Disabled</option>
+  <% } else { %>
+    <option value="disabled">#Disabled</option>
+  <% } %>

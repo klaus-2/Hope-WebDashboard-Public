@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <%- include('./partials/_seo.ejs') %>
+  <meta charset="UTF-8" />
+  <meta name="description" content="" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <!-- Title  -->
+  <title>Blog - Hope</title>
+
+  <!-- Style css -->
+  <link rel="stylesheet" href="assets/website/css/style.css" />
+  <noscript>
+    <div class="no-js">
+      To view the page please enable javascript in your browser
+    </div>
+  </noscript>
+</head>
+
+<body>
+  <div class="main">
+    <!-- ***** Header Start ***** -->
+    <%- include('./partials/_header.ejs') %>
+    <!-- ***** Header End ***** -->
+
+    <!-- ***** Breadcrumb Area Start ***** -->
+    <section class="breadcrumb-area overlay-dark d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Breamcrumb Content -->
+            <div class="breadcrumb-content text-center">
+              <h2 class="m-0">Blog</h2>
+              <ol class="breadcrumb d-flex justify-content-center">
+                <li class="breadcrumb-item">
+                  <a href="index.html" name="translate" caption="blog_breadcrumb1">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="#" name="translate" caption="blog_breadcrumb2">Community</a>
+                </li>
+                <li class="breadcrumb-item active">Blog</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Breadcrumb Area End ***** -->
+
+    <!-- ***** Blog Area Start ***** -->
+    <section class="blog-area load-more">
+      <div class="container">
+        <div class="row items">
+          <% const limitString = (str = '', num = 1) => {
+             const { length: len } = str;
+             if(num < len){
+                return str.slice(0, num) + '...';
+             }else{
+                return str;
+             };
+          }; %>
+
+          <% for (const post of db) { %>
+          <div class="col-12 col-md-4 item">
+            <!-- Single Blog -->
+            <div class="card blog-card">
+              <!-- Blog Thumb -->
+              <div class="blog-thumb">
+                <a href="/blog/<%- post.postURL %>"><img src="<%- post.thumbnail ?? '../assets/website/img/blog/blog_1.jpg' %>" alt="" /></a>
+              </div>
+              <!-- Blog Content -->
+              <div class="blog-content">
+                <!-- Meta Info -->
+                <ul class="meta-info d-flex justify-content-between list-unstyled mt-4">
+                  <li>
+                    <span name="translate" caption="blog_desc1">By</span>
+                    <a href="/blog/author/<%- post.authorID %>"><%- post.author %></a>
+                  </li>
+                  <li><a href="#"><%- moment(post.posted).format('ll') %></a></li>
+                </ul>
+                <!-- Blog Title -->
+                <a href="/blog/<%- post.postURL %>">
+                  <h4><%- post.title %></h4>
+                </a>
+                <p>
+                  <%- limitString(post.shortDesc, 86) %>
+                </p>
+                <!-- Blog Button -->
+                <a class="btn content-btn" href="/blog/<%- post.postURL %>" name="translate" caption="blog_desc2" style="display: flex; justify-content: flex-end;">Read More</a>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+        <% if (!db[0]) { %>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-7">
+              <!-- Intro -->
+              <div class="intro text-center">
+                <h3 class="mt-3 mb-0">Uh-oh...</h3>
+                <p>
+                  We haven't published any posts yet, come back later.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } else { %>
+        <div class="row">
+          <div class="col-12 text-center">
+            <a id="load-btn" class="btn btn-bordered-white mt-5" href="#" name="translate" caption="blog_desc3">Load More</a>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </section>
+    <!-- ***** Blog Area End ***** -->
+
+    <!--====== Footer Area Start ======-->
+    <%- include('./partials/_footer.ejs') %>
+    <!--====== Footer Area End ======-->
+
+    <!--====== Modal Search Area Start ======-->
+    <div id="search" class="modal fade p-0">
+      <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+          <div class="modal-header" data-dismiss="modal">
+            Search <i class="far fa-times-circle icon-close"></i>
+          </div>
+          <div class="modal-body">
+            <form class="row">
+              <div class="col-12 align-self-center">
+                <div class="row">
+                  <div class="col-12 pb-3">
+                    <h2 class="search-title mt-0 mb-3">
+                      What are you looking for?
+                    </h2>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 input-group mt-4">
+                    <input type="text" placeholder="Enter your keywords" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 input-group align-self-center">
+                    <button class="btn btn-bordered-white mt-3">
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--====== Modal Search Area End ======-->
+
+    <!--====== Modal Responsive Menu Area Start ======-->
+    <div id="menu" class="modal fade p-0">
+      <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+          <div class="modal-header" data-dismiss="modal">
+            Menu <i class="far fa-times-circle icon-close"></i>
+          </div>
+          <div class="menu modal-body">
+            <div class="row w-100">
+              <div class="items p-0 col-12 text-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--====== Modal Responsive Menu Area End ======-->
+
+    <!--====== Scroll To Top Area Start ======-->
+    <div class="scroll-top">
+      <a class="smoothscroll" href="#top" name="translate" caption="scroll_to_top">Scroll to Top
+      </a>
+    </div>
+    <!--====== Scroll To Top Area End ======-->
+  </div>
+
+  <style>
+    p {
+      margin: 0 !important;
+      font-size: var(--p-size);
+      font-weight: var(--p-weight);
+      line-height: 1.5;
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+    }
+  </style>
+
+  <!-- ***** All jQuery Plugins ***** -->
+
+  <!-- jQuery(necessary for all JavaScript plugins) -->
+  <script src="assets/website/js/vendor/jquery.min.js"></script>
+
+  <!-- Bootstrap js -->
+  <script src="assets/website/js/vendor/popper.min.js"></script>
+  <script src="assets/website/js/vendor/bootstrap.min.js"></script>
+
+  <!-- Plugins js -->
+  <script src="assets/website/js/vendor/all.min.js"></script>
+  <script src="assets/website/js/vendor/slider.min.js"></script>
+  <script src="../../js/translate-manager.js"></script>
+  <script src="assets/website/js/vendor/countdown.min.js"></script>
+  <script src="assets/website/js/vendor/shuffle.min.js"></script>
+
+  <!-- Active js -->
+  <script src="assets/website/js/main.js"></script>
+</body>
+
+</html>

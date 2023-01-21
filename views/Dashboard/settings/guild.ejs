@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Settings: Guild - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/jquery-tags-input/jquery.tagsinput.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <h4 name="translate" caption="dashboard_guild1">Guild Settings</h4>
+          <p class="text-muted mb-0"><span name="translate" caption="dashboard_guild2">Customise</span> <%= guild.guild.name %> <span name="translate" caption="dashboard_guild3">Settings</span></p><br>
+          <!-- row start -->
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <header class="sc-1o36vqg-4 kYxrQw">
+                    <div class="sc-1o36vqg-3 iVeijx">
+                      <h4 class="card-title" name="translate" caption="dashboard_guild4" style="text-transform: none;">Vanity Settings</h4>
+                      <p class="text-muted mb-0"><span name="translate" caption="dashboard_guild5">In the first field, enter only the ending of the url you would like.</span> <code name="translate" caption="dashboard_guild6">Eg: DawnForge</code><br><span name="translate" caption="dashboard_guild7">In the second field, enter only your guild's invite code.</span> <code name="translate" caption="dashboard_guild8">Eg: eXnZRSBRC8</code><br>
+                      </p>
+                    </div>
+                  </header>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <div class="form-inline">
+                    <form role="form" action="/dashboard/<%= guild.guild.id %>/guild" method="POST">
+                      <div class="input-group mb-2 mr-sm-2">
+                        <input type="text" class="form-control" name="vanityURL" id="vanityURL" placeholder="<%= publicDB.vanityURL || guild.name %>" minlength="3" maxlength="12">
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-primary" type="submit" id="updateVanity" name="updateVanity"><span name="translate" caption="dashboard_bot5">Update</span></button>
+                        </div>
+                      </div>
+                    </form>
+                    <form id="dscvanity">
+                      <div class="input-group mb-2 mr-sm-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text"> https://discord.gg/ </div>
+                        </div>
+                        <input type="text" class="form-control" name="vanityRedirect" id="vanityRedirect" placeholder="<%= publicDB.vanityRedirect || " eXnZRSBRC8" %>" maxlength="12">
+                        <div class="input-group-append">
+                          <button class="btn btn-sm btn-primary" type="submit" id="updateNick" name="updateNick"><span name="translate" caption="dashboard_bot5">Update</span></button>
+                        </div>
+                      </div>
+                      <div>
+                    </form>
+                  </div>
+                </div>
+                <p class=" text-muted mb-0"><span name="translate" caption="dashboard_guild9">Preview:</span> <a href="https://<%= req.hostname %>/v/<%= publicDB.vanityURL || guild.name %>"><%= req.hostname %>/v/<%= publicDB.vanityURL || guild.name %></a></p>
+              </div>
+            </div>
+          </div>
+          <!-- row ends -->
+
+          <!-- row start -->
+          <div class="row">
+            <div class="col-md-3 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title text-warning" name="translate" caption="dashboard_guild10">Public Servers</h4>
+                  <p class="text-muted mb-0"> <span name="translate" caption="dashboard_guild11">This panel controls and customizes whether and how this server is listed on our server list, which can be found</span> <a href="/public-servers" style="padding: 5px; color: #fc424a; font-weight: 300; font-size: 0.875rem; border-radius: 4px;" name="translate" caption="dashboard_guild12">here</a></p>
+                  <div id="no-blur">
+                    <form id="publicServers">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <h4 style="display: flex; justify-content: space-between;"><span name="translate" caption="dashboard_guild13">Listing Details</span>
+                        <% if (publicDB.enabled === true) { %>
+                        <div class="item">
+                          <div class="toggle-pill-dark">
+                            <input type="checkbox" id="toggle" name="toggle" value="on" checked>
+                            <label for="toggle"></label>
+                          </div>
+                        </div>
+                        <% } else { %>
+                        <div class="item">
+                          <div class="toggle-pill-dark">
+                            <input type="checkbox" id="toggle" name="toggle" value="off">
+                            <label for="toggle"></label>
+                          </div>
+                        </div>
+                        <% } %>
+                      </h4>
+
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_guild14">Description</p>
+                      <textarea class="form-control" id="description" name="description" rows="4" placeholder="A very interesting server"><%- publicDB.description %></textarea>
+                      <div style="max-width: 484px;">
+                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_guild15">Invite URL</p>
+                        <div class="input-group mb-2 mr-sm-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text"> https://discord.gg/ </div>
+                          </div>
+                          <input type="text" class="form-control" id="inviteURL" name="inviteURL" placeholder="eXnZRSBRC8" maxlength="12" value="<%- publicDB.inviteURL %>">
+                          <p class="text-muted mb-0"><span name="translate" caption="dashboard_guild16">This link will be used if you have not configured the</span> <code name="translate" caption="dashboard_guild17">Vanity Settings</code>.</p>
+                        </div>
+
+                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_guild18">Main server language</p>
+                        <select class="js-example-basic-single" id="mainServerLanguage" name="mainServerLanguage" style="width:100%">
+                          <option name="English" id="English" <% if (publicDB.mainServerLanguage === "English") { %> selected <% } %>>English</option>
+                          <option name="Français" id="Français" <% if (publicDB.mainServerLanguage === "Français") { %> selected <% } %>>Français</option>
+                          <option name="Deutsch" id="Deutsch" <% if (publicDB.mainServerLanguage === "Deutsch") { %> selected <% } %>>Deutsch</option>
+                          <option name="Português" id="Português" <% if (publicDB.mainServerLanguage === "Português") { %> selected <% } %>>Português</option>
+                          <option name="Türkçe" id="Türkçe" <% if (publicDB.mainServerLanguage === "Türkçe") { %> selected <% } %>>Türkçe</option>
+                          <option name="Русский" id="Русский" <% if (publicDB.mainServerLanguage === "Русский") { %> selected <% } %>>Русский</option>
+                          <option name="Español" id="Español" <% if (publicDB.mainServerLanguage === "Español") { %> selected <% } %>>Español</option>
+                          <option name="Nederlands" id="Nederlands" <% if (publicDB.mainServerLanguage === "Nederlands") { %> selected <% } %>>Nederlands</option>
+                          <option name="Polski" id="Polski" <% if (publicDB.mainServerLanguage === "Polski") { %> selected <% } %>>Polski</option>
+                        </select>
+
+                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_guild22">Sub languages</p>
+                        <select class="js-example-basic-multiple" id="sublangs" name="sublangs" multiple="multiple" style="width:100%">
+                          <option name="English" id="English" <% if (publicDB.languages.includes("English")) { %> selected <% } %>>English</option>
+                          <option name="Français" id="Français" <% if (publicDB.languages.includes("Français")) { %> selected <% } %>>Français</option>
+                          <option name="Deutsch" id="Deutsch" <% if (publicDB.languages.includes("Deutsch")) { %> selected <% } %>>Deutsch</option>
+                          <option name="Português" id="Português" <% if (publicDB.languages.includes("Português")) { %> selected <% } %>>Português</option>
+                          <option name="Türkçe" id="Türkçe" <% if (publicDB.languages.includes("Türkçe")) { %> selected <% } %>>Türkçe</option>
+                          <option name="Русский" id="Русский" <% if (publicDB.languages.includes("Русский")) { %> selected <% } %>>Русский</option>
+                          <option name="Español" id="Español" <% if (publicDB.languages.includes("Español")) { %> selected <% } %>>Español</option>
+                          <option name="Nederlands" id="Nederlands" <% if (publicDB.languages.includes("Nederlands")) { %> selected <% } %>>Nederlands</option>
+                          <option name="Polski" id="Polski" <% if (publicDB.languages.includes("Polski")) { %> selected <% } %>>Polski</option>
+                        </select>
+
+                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_guild19">Categories</p>
+                        <select class="js-example-basic-multiple" id="categories" name="categories" multiple="multiple" style="width:100%">
+                          <option <% if (publicDB.categories.includes('Anime')) { %> selected <% } %>>Anime</option>
+                          <option <% if (publicDB.categories.includes('Community')) { %> selected <% } %>>Community</option>
+                          <option <% if (publicDB.categories.includes('Social')) { %> selected <% } %>>Social</option>
+                          <option <% if (publicDB.categories.includes('Economy')) { %> selected <% } %>>Economy</option>
+                          <option <% if (publicDB.categories.includes('Crypto')) { %> selected <% } %>>Crypto</option>
+                          <option <% if (publicDB.categories.includes('Rolepay')) { %> selected <% } %>>Roleplay</option>
+                          <option <% if (publicDB.categories.includes('Meme')) { %> selected <% } %>>Meme</option>
+                          <option <% if (publicDB.categories.includes('Fun')) { %> selected <% } %>>Fun</option>
+                          <option <% if (publicDB.categories.includes('Music')) { %> selected <% } %>>Music</option>
+                          <option <% if (publicDB.categories.includes('Development')) { %> selected <% } %>>Development</option>
+                          <option <% if (publicDB.categories.includes('Emojis')) { %> selected <% } %>>Emojis</option>
+                          <option <% if (publicDB.categories.includes('Gaming')) { %> selected <% } %>>Gaming</option>
+                          <option <% if (publicDB.categories.includes('Chill')) { %> selected <% } %>>Chill</option>
+                          <option <% if (publicDB.categories.includes('Giveaway')) { %> selected <% } %>>Giveaway</option>
+                          <option <% if (publicDB.categories.includes('LFG')) { %> selected <% } %>>LFG</option>
+                          <option <% if (publicDB.categories.includes('Youtube')) { %> selected <% } %>>Youtube</option>
+                          <option <% if (publicDB.categories.includes('Stream')) { %> selected <% } %>>Stream</option>
+                          <option <% if (publicDB.categories.includes('Events')) { %> selected <% } %>>Events</option>
+                          <option <% if (publicDB.categories.includes('Overwatch')) { %> selected <% } %>>Overwatch</option>
+                          <option <% if (publicDB.categories.includes('PUBG')) { %> selected <% } %>>PUBG</option>
+                          <option <% if (publicDB.categories.includes('Fortnite')) { %> selected <% } %>>Fortnite</option>
+                          <option <% if (publicDB.categories.includes('Dota')) { %> selected <% } %>>Dota</option>
+                          <option <% if (publicDB.categories.includes('League of Legends')) { %> selected <% } %>>League of Legends</option>
+                          <option <% if (publicDB.categories.includes('Rocket League')) { %> selected <% } %>>Rocket League</option>
+                          <option <% if (publicDB.categories.includes('DOOM')) { %> selected <% } %>>DOOM</option>
+                          <option <% if (publicDB.categories.includes('Diablo')) { %> selected <% } %>>Diablo</option>
+                          <option <% if (publicDB.categories.includes('Paladins')) { %> selected <% } %>>Paladins</option>
+                          <option <% if (publicDB.categories.includes('Rust')) { %> selected <% } %>>Rust</option>
+                          <option <% if (publicDB.categories.includes('World of Warcraft')) { %> selected <% } %>>World of Warcraft</option>
+                          <option <% if (publicDB.categories.includes('GTA')) { %> selected <% } %>>GTA</option>
+                          <option <% if (publicDB.categories.includes('Destiny')) { %> selected <% } %>>Destiny</option>
+                          <option <% if (publicDB.categories.includes('Final Fantasy')) { %> selected <% } %>>Final Fantasy</option>
+                          <option <% if (publicDB.categories.includes('Minecraft')) { %> selected <% } %>>Minecraft</option>
+                          <option <% if (publicDB.categories.includes('CSGO')) { %> selected <% } %>>CSGO</option>
+                          <option <% if (publicDB.categories.includes('Roblox')) { %> selected <% } %>>Roblox</option>
+                          <option <% if (publicDB.categories.includes('Pokemon')) { %> selected <% } %>>Pokemon</option>
+                          <option <% if (publicDB.categories.includes('Indie Games')) { %> selected <% } %>>Indie Games</option>
+                          <option <% if (publicDB.categories.includes('Apex Legends')) { %> selected <% } %>>Apex Legends</option>
+                          <option <% if (publicDB.categories.includes('Trains')) { %> selected <% } %>>Trains</option>
+                        </select>
+
+                        <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                        <p class="text-muted mb-0" name="translate" caption="dashboard_guild20">Tags</p>
+                        <input name="tags" id="tags" value="<%- publicDB.tags || '' %>" />
+                      </div>
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0">Youtube URL</p>
+                      <input type="text" class="form-control" id="youtubeURL" name="youtubeURL" placeholder="https://www.youtube.com/c/Hope" value="<%- publicDB.youtubeURL %>" maxlength="60">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0">Twitch URL</p>
+                      <input type="text" class="form-control" id="twitchURL" name="twitchURL" placeholder="https://twitch.tv/hope" value="<%- publicDB.twitchURL %>" maxlength="60">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0">Twitter URL</p>
+                      <input type="text" class="form-control" id="twitterURL" name="twitterURL" placeholder="https://twitter.com/hope" value="<%- publicDB.twitterURL %>" maxlength="60">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0">Reddit URL</p>
+                      <input type="text" class="form-control" id="redditURL" name="redditURL" placeholder="https://www.reddit.com/r/hope" value="<%- publicDB.redditURL %>" maxlength="60">
+                      <div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-9 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_guild21">PREVIEW</h4>
+                  <div class="collection-list-content" style="    position: relative;
+                                      display: -webkit-box;
+                                      display: -webkit-flex;
+                                      display: -ms-flexbox;
+                                      display: flex;
+                                      width: 263px;
+                                      height: 400px;
+                                      max-height: 400px;
+                                      padding: 32px;
+                                      -webkit-box-orient: vertical;
+                                      -webkit-box-direction: normal;
+                                      -webkit-flex-direction: column;
+                                      -ms-flex-direction: column;
+                                      flex-direction: column;
+                                      -webkit-box-pack: start;
+                                      -webkit-justify-content: flex-start;
+                                      -ms-flex-pack: start;
+                                      justify-content: flex-start;
+                                      -webkit-box-align: center;
+                                      -webkit-align-items: center;
+                                      -ms-flex-align: center;
+                                      align-items: center;
+                                      background-color: var(--card-bg-color);
+                                      -webkit-transition: background-color 200ms ease;
+                                      transition: background-color 200ms ease;
+                                      text-align: center;    /* padding-left: 570px; */
+                                      /* position: fixed; */
+                                      top: 70%;
+                                      left: 50%;
+                                      transform: translate(-50%, -00%);">
+                    <div style="background-image: url('<%= iconurl %>');position: relative;
+                                        display: -webkit-box;
+                                        display: -webkit-flex;
+                                        display: -ms-flexbox;
+                                        display: flex;
+                                        overflow: hidden;
+                                        width: 10vw;
+                                        height: 10vw;
+                                        max-height: 150px;
+                                        max-width: 150px;
+                                        margin-bottom: 16px;
+                                        border-radius: 50%;
+                                        background-position: 50% 50%;
+                                        background-size: cover;
+                                        background-color: rgb(102, 102, 102);
+                                        border-radius: 90px;
+                                        border: 7px solid #0e1015;
+                                        box-sizing: content-box;" class="image-background"></div>
+                    <div class="server-name" title="Blabal Guild" style="    /* margin-top: -15px; */
+                                        min-height: 36px;
+                                        /* margin-bottom: 10px; */
+                                        margin-left: 18px;
+                                        margin-right: 10px;
+                                        overflow: hidden;
+                                        word-break: break-all;
+                                        text-overflow: ellipsis;
+                                        max-width: 93%;
+                                        white-space: nowrap;
+                                        font-size: 1.5rem !important;"><%- guild.guild.name %></div>
+                    <div class="server-member-count" style="background-color: #2e323d;
+                                        /* border-radius: 2px; */
+                                        padding: 5px 12px;
+                                        margin-top: -83px;
+                                        margin-bottom: 41px;
+                                        margin-left: 0px;
+                                        padding-right: 10px;
+                                        z-index: 1;
+                                        border-radius: 90px;
+                                        border: 7px solid #0e1015;
+                                        box-sizing: content-box;"><span><%- guild.guild.memberCount %></span> members</div>
+                    <div class="server-description" style="color: #6b7c91;max-height: 95px;">
+                      <div class="server-description-content-wrapper" style="overflow: hidden;
+                                          display: -webkit-box;
+                                          -webkit-line-clamp: 3;
+                                          -webkit-box-orient: vertical;">
+                        <p id="output">Xd server blablabla</p>
+                      </div>
+                    </div>
+                    <div class="filters-hide">
+                      <div hidden="" class="color">#fon</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- row ends -->
+        </div>
+        <!-- content-wrapper ends -->
+        <%- include("../../partials/_footer-dashboard.ejs") %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- CUSTOM STYLE -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    /* toggle-pill */
+    .toggle-pill input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle-pill input[type="checkbox"]+label {
+      display: block;
+      position: relative;
+      width: 3em;
+      height: 1.6em;
+      /* margin-bottom: 20px; */
+      border-radius: 1em;
+      background: #f3f3f3;
+      box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-transition: background 0.1s ease-in-out;
+      transition: background 0.1s ease-in-out;
+    }
+
+    .toggle-pill input[type="checkbox"]+label:before {
+      content: "";
+      display: block;
+      width: 1.2em;
+      height: 1.2em;
+      border-radius: 1em;
+      background: #000;
+      box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      left: 0.2em;
+      top: 0.2em;
+      -webkit-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .toggle-pill input[type="checkbox"]:checked+label {
+      background: #fff;
+    }
+
+    .toggle-pill input[type="checkbox"]:checked+label:before {
+      box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+      left: 1.6em;
+    }
+
+    /* toggle-pill end */
+
+    /* toggle-pill-bw */
+    .toggle-pill-bw input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle-pill-bw input[type="checkbox"]+label {
+      display: block;
+      position: relative;
+      width: 3em;
+      height: 1.6em;
+      /* margin-bottom: 20px; */
+      background: #000;
+      border-radius: 1em;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-transition: background 0.1s ease-in-out;
+      transition: background 0.1s ease-in-out;
+    }
+
+    .toggle-pill-bw input[type="checkbox"]+label:before {
+      content: "";
+      display: block;
+      width: 1.2em;
+      height: 1.2em;
+      border-radius: 1em;
+      background: #f7f2f2;
+      position: absolute;
+      left: 0.2em;
+      top: 0.2em;
+      -webkit-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .toggle-pill-bw input[type="checkbox"]:checked+label {
+      background: #40464a;
+    }
+
+    .toggle-pill-bw input[type="checkbox"]:checked+label:before {
+      left: 1.6em;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    /* toggle-pill-bw end */
+
+    /* toggle-pill-color */
+    .toggle-pill-color input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle-pill-color input[type="checkbox"]+label {
+      display: block;
+      position: relative;
+      width: 3em;
+      height: 1.6em;
+      /* margin-bottom: 20px; */
+      border-radius: 1em;
+      background: #e84d4d;
+      box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-transition: background 0.1s ease-in-out;
+      transition: background 0.1s ease-in-out;
+    }
+
+    .toggle-pill-color input[type="checkbox"]+label:before {
+      content: "";
+      display: block;
+      width: 1.2em;
+      height: 1.2em;
+      border-radius: 1em;
+      background: #fff;
+      box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      left: 0.2em;
+      top: 0.2em;
+      -webkit-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .toggle-pill-color input[type="checkbox"]:checked+label {
+      background: #47cf73;
+    }
+
+    .toggle-pill-color input[type="checkbox"]:checked+label:before {
+      box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+      left: 1.6em;
+    }
+
+    /* toggle-pill-color end */
+
+    /* toggle-pill-color */
+    .toggle-pill-dark input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle-pill-dark input[type="checkbox"]+label {
+      display: block;
+      position: relative;
+      width: 3em;
+      height: 1.6em;
+      margin-bottom: 20px;
+      border-radius: 1em;
+      background: #000;
+      box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-transition: background 0.1s ease-in-out;
+      transition: background 0.1s ease-in-out;
+    }
+
+    .toggle-pill-dark input[type="checkbox"]+label:before {
+      content: "";
+      display: block;
+      width: 1.2em;
+      height: 1.2em;
+      border-radius: 1em;
+      background: #e84d4d;
+      position: absolute;
+      left: 0.2em;
+      top: 0.2em;
+      -webkit-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+
+    .toggle-pill-dark input[type="checkbox"]:checked+label:before {
+      background: #47cf73;
+      box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+      left: 1.6em;
+      -webkit-transform: rotate(295deg);
+      transform: rotate(295deg);
+    }
+
+    /* toggle-pill-dark end */
+  </style>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src=" ../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+  <% if (error != '') { %>
+  <script>
+    const ToastGuild = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: false,
+      timer: 15000,
+      timerProgressBar: true
+    })
+
+    ToastGuild.fire({
+      icon: 'error',
+      title: '<%= error %>'
+    });
+  </script>
+  <% }  %>
+
+  <% if (success != '') { %>
+  <script>
+    const ToastBot1 = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true
+    })
+
+    ToastBot1.fire({
+      icon: 'success',
+      title: '<%= success %>'
+    });
+  </script>
+  <% } %>
+
+  <script>
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true
+    })
+
+    $('#toggle').on({
+      keydown: function(e) {
+        // if (e.which === 32) return false;
+      },
+      change: function(e) {
+        this.value = this.value.replace(/\s/g, '');
+        // console.log('detectado')
+
+        e.preventDefault();
+        var form = $(this);
+        var id = form[0].id;
+        var dados = {
+          data: [id, form[0].checked]
+        };
+
+        $.ajax({
+          type: "POST",
+          url: '/dashboard/<%= req.params.guildID %>/guild/toggle',
+          data: dados,
+          beforeSend: function() {
+            Toast.fire({
+              icon: 'warning',
+              title: 'Saving...'
+            });
+          },
+          success: function(data) {
+            Toast.fire({
+              icon: 'success',
+              title: 'Updated server listing'
+            });
+          }
+        }).fail(function() {
+          Toast.fire({
+            icon: 'error',
+            title: 'An error occurred while saving',
+            text: 'A log was generated and sent to support!'
+          });
+        });
+      },
+    });
+
+    $("#dscvanity").submit(function(e) {
+      e.preventDefault();
+      var form = $(this);
+
+      $.ajax({
+        type: "POST",
+        url: '/dashboard/<%= req.params.guildID %>/guild',
+        data: form.serialize(),
+        beforeSend: function() {
+          Toast.fire({
+            icon: 'warning',
+            title: 'Saving...'
+          });
+        },
+        success: function(data) {
+          Toast.fire({
+            icon: 'success',
+            title: 'Vanity Redirect Saved Changes'
+          });
+        }
+      }).fail(function() {
+        Toast.fire({
+          icon: 'error',
+          title: 'An error occurred while saving',
+        text: 'A log was generated and sent to support!'
+        });
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      document.getElementById("output").textContent = "A very interesting server"
+      $("#description").on("input", function() {
+        $("#output").text($(this).val());
+
+      });
+    });
+  </script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../../js/guild.js"></script>
+  <script src="../../assets/js/file-upload.js"></script>
+  <script src="../../assets/js/typeahead.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <script src="../../assets/vendors/jquery-tags-input/jquery.tagsinput.min.js"></script>
+  <script src="../../assets/js/form-addons.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Moderation: Auto-Response - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form role="form" action="/dashboard/<%= guild.guild.id %>/autoresponse" method="POST">
+            <div class="clearfix">
+              <span name="translate" caption="dashboard_autoresponse1">Auto-Response</span>
+              <a class="btn btn-outline-primary float-right btn-fw" href="#addresponse" name="translate" caption="dashboard_autoresponse2"> Add response </a>
+            </div>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_autoresponse3">Automatically respond to text triggers.</p><br>
+            <div class="row ">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_autoresponse4">SUBSCRIPTION LIST</h4>
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th name="translate" caption="dashboard_autoresponse5">ID</th>
+                            <th name="translate" caption="dashboard_autoresponse6">Trigger</th>
+                            <th name="translate" caption="dashboard_autoresponse7">Response</th>
+                            <th name="translate" caption="dashboard_autoresponse8">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% dbResponse.forEach((response, count) => {%>
+                          <tr>
+                            <td><%=count + 1%></td>
+                            <td><%=response.name%></td>
+                            <td><%=response.content%></td>
+                            <td><button type="submit" value="<%=response.name%>" class="btn btn-outline-danger btn-fw" id="del<%=count + 1%>" name="del<%=count + 1%>">Remove</button></td>
+                          </tr>
+                          <%})%>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <form role="form" action="/dashboard/<%= guild.guild.id %>/autoresponse" method="POST">
+          <div id="addresponse" class="modal-window">
+            <div>
+              <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_autoresponse9">Close</a>
+              <h4 name="translate" caption="dashboard_autoresponse10">Add response</h4>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <h5 name="translate" caption="dashboard_autoresponse11"> Trigger </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_autoresponse12">Eg:</span> <mark class="bg-dark text-white"><span name="translate" caption="dashboard_autoresponse13">test</span></mark> </p>
+              <label class="sr-only" for="inlineFormInputName2" >Name</label>
+              <input type="text" class="form-control mb-2 mr-sm-2" id="trigger" name="trigger" placeholder="">
+              <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <h5 name="translate" caption="dashboard_autoresponse14"> Response </h5>
+              <p class="text-muted mb-0"> <span name="translate" caption="dashboard_autoresponse12">Eg:</span> <mark class="bg-dark text-white"><span name="translate" caption="dashboard_autoresponse15">Hello, this is an auto response👋</span></mark></p>
+              <textarea class="form-control" id="response" name="response" rows="4"></textarea>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <button type="submit" class="btn btn-outline-success btn-fw" id="addresponse" name="addresponse"> <span name="translate" caption="dashboard_autoresponse10">Add response</span> </button>
+              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+              <div><small name="translate" caption="dashboard_autoresponse16">Variables</small></div>
+              <code>{user}</code><span name="translate" caption="dashboard_autoresponse17"> - mention @User. Eg:</span> <code name="translate" caption="dashboard_autoresponse18">{everyone} live is starting</code><br>
+              <code>{user_tag}</code><span name="translate" caption="dashboard_autoresponse19"> - mention @here. Eg:</span> <code name="translate" caption="dashboard_autoresponse20">{here} live is starting</code><br>
+              <code>{user_name}</code><span name="translate" caption="dashboard_autoresponse21"> - Streamer Name. Eg:</span> <code name="translate" caption="dashboard_autoresponse22">Hey {everyone}! {streamer} is now live</code><br>
+              <code>{user_ID}</code><span name="translate" caption="dashboard_autoresponse23"> - Stream link. Eg:</span> <code name="translate" caption="dashboard_autoresponse24">Hey {everyone}! {streamer} is now live. Link: {link}</code><br>
+              <code>{guild_name}</code><span name="translate" caption="dashboard_autoresponse25"> - Stream Title. Eg:</span> <code name="translate" caption="dashboard_autoresponse26">{everyone} {streamer} is now live. {title} {link}</code><br>
+              <code>{guild_ID}</code><span name="translate" caption="dashboard_autoresponse27"> - Stream Title. Eg:</span> <code name="translate" caption="dashboard_autoresponse28">{everyone} {streamer} is now live. {title} {link}</code><br>
+              <code>{memberCount}</code><span name="translate" caption="dashboard_autoresponse29"> - Stream Title. Eg:</span> <code name="translate" caption="dashboard_autoresponse30">{everyone} {streamer} is now live. {title} {link}</code><br>
+              <code>{size}</code><span name="translate" caption="dashboard_autoresponse31"> - Stream Title. Eg:</span> <code name="translate" caption="dashboard_autoresponse32">{everyone} {streamer} is now live. {title} {link}</code><br>
+              <code>{guild}</code><span name="translate" caption="dashboard_autoresponse33"> - Stream Title. Eg:</span> <code name="translate" caption="dashboard_autoresponse34">{everyone} {streamer} is now live. {title} {link}</code><br>
+              <code>{member_createdAtAgo}</code><span name="translate" caption="dashboard_autoresponse35"> - Stream Title. Eg:</span> <code name="translate" caption="dashboard_autoresponse36">{everyone} {streamer} is now live. {title} {link}</code><br>
+              <code>{member_createdAt}</code><span name="translate" caption="dashboard_autoresponse37"> - Stream Title. Eg:</span> <code name="translate" caption="dashboard_autoresponse38">{everyone} {streamer} is now live. {title} {link}</code><br>
+            </div>
+          </div>
+          </form>
+
+
+
+              <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+              <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+              <style>
+                .modal-window {
+                  position: fixed;
+                  background-color: rgb(0 0 0 / 82%);
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  left: 0;
+                  z-index: 1030;
+                  visibility: hidden;
+                  opacity: 0;
+                  pointer-events: none;
+                  transition: all 0.3s;
+                  overflow: auto;
+                }
+
+                .modal-window:target {
+                  visibility: visible;
+                  opacity: 1;
+                  pointer-events: auto;
+                }
+
+                .modal-window>div {
+                  width: 800px;
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  padding: 2em;
+                  background: #13151b;
+                }
+
+                @media (max-width: 768px) {
+                  .modal-window>div {
+                    width: 800px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    padding: 2em;
+                    background: #13151b;
+                  }
+                }
+
+                @media (max-width: 543px) {
+                  .modal-window>div {
+                    width: 350px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    padding: 2em;
+                    background: #13151b;
+                  }
+                }
+
+                @media (max-width: 490px) {
+                  .modal-window>div {
+                    width: 350px;
+                    position: absolute;
+                    top: 60%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    padding: 2em;
+                    background: #13151b;
+                  }
+                }
+
+                .modal-window header {
+                  font-weight: bold;
+                }
+
+                .modal-window h1 {
+                  font-size: 150%;
+                  margin: 0 0 15px;
+                }
+
+                .modal-close {
+                  color: #aaa;
+                  line-height: 50px;
+                  font-size: 80%;
+                  position: absolute;
+                  right: 0;
+                  text-align: center;
+                  top: 0;
+                  width: 70px;
+                  text-decoration: none;
+                }
+
+                .modal-close:hover {
+                  color: rgb(255, 255, 255);
+                }
+
+                .modal-window>div {
+                  border-radius: 1rem;
+                }
+
+                .modal-window div:not(:last-of-type) {
+                  margin-bottom: 15px;
+                }
+              </style>
+              <style>
+                @import url('https://fonts.googleapis.com/css?family=Hind:300,400&display=swap');
+
+                * {
+                  box-sizing: border-box;
+                }
+
+                *::before,
+                *::after {
+                  box-sizing: border-box;
+                }
+
+                .accordion .accordion-item {
+                  border-bottom: 1px solid #e5e5e5;
+                }
+
+                .accordion .accordion-item button[aria-expanded='true'] {
+                  border-bottom: 1px solid #03b5d2;
+                }
+
+                .accordion button {
+                  position: relative;
+                  display: block;
+                  text-align: left;
+                  width: 100%;
+                  padding: 1em 0;
+                  color: #7288a2;
+                  font-size: 1.15rem;
+                  font-weight: 400;
+                  border: none;
+                  background: none;
+                  outline: none;
+                }
+
+                .accordion button:hover,
+                .accordion button:focus {
+                  cursor: pointer;
+                  color: #03b5d2;
+                }
+
+                .accordion button:hover::after,
+                .accordion button:focus::after {
+                  cursor: pointer;
+                  color: #03b5d2;
+                  border: 1px solid #03b5d2;
+                }
+
+                .accordion button .accordion-title {
+                  padding: 1em 1.5em 1em 0;
+                }
+
+                .accordion button .icon {
+                  display: inline-block;
+                  position: absolute;
+                  top: 18px;
+                  right: 0;
+                  width: 22px;
+                  height: 22px;
+                  border: 1px solid;
+                  border-radius: 22px;
+                }
+
+                .accordion button .icon::before {
+                  display: block;
+                  position: absolute;
+                  content: '';
+                  top: 9px;
+                  left: 5px;
+                  width: 10px;
+                  height: 2px;
+                  background: currentColor;
+                }
+
+                .accordion button .icon::after {
+                  display: block;
+                  position: absolute;
+                  content: '';
+                  top: 5px;
+                  left: 9px;
+                  width: 2px;
+                  height: 10px;
+                  background: currentColor;
+                }
+
+                .accordion button[aria-expanded='true'] {
+                  color: #03b5d2;
+                }
+
+                .accordion button[aria-expanded='true'] .icon::after {
+                  width: 0;
+                }
+
+                .accordion button[aria-expanded='true']+.accordion-content {
+                  opacity: 1;
+                  max-height: 100%;
+                  transition: all 200ms linear;
+                  will-change: opacity, max-height;
+                }
+
+                .accordion .accordion-content {
+                  opacity: 0;
+                  max-height: 0;
+                  overflow: hidden;
+                  transition: opacity 200ms linear, max-height 200ms linear;
+                  will-change: opacity, max-height;
+                }
+
+                .accordion .accordion-content p {
+                  font-size: 1rem;
+                  font-weight: 300;
+                  margin: 2em 0;
+                }
+
+                .item:not(.largeImg)+.edit .imgParent[style*="content"] {
+                  transform: scale(1);
+                }
+
+                .editIcon .imgParent {
+                  width: 24px;
+                  height: 24px;
+                  object-fit: contain;
+                  border-radius: 50%;
+                }
+
+                .imgParent {
+                  border-radius: 4px;
+                  object-fit: fill;
+                  margin-top: 0;
+                  content: url("");
+                }
+
+                .top>.gui>.item~.edit input {
+                  align-self: start;
+                  font-size: 13px;
+                  position: relative;
+                  margin-left: 15px;
+                  transform: translateY(4px);
+                }
+
+                .editIcon,
+                .editName,
+                .editIcon input,
+                .editName input {
+                  width: 100%;
+                  overflow: hidden;
+                }
+              </style>
+              <script>
+                const items = document.querySelectorAll(".accordion button");
+
+                function toggleAccordion() {
+                  const itemToggle = this.getAttribute('aria-expanded');
+
+                  for (i = 0; i < items.length; i++) {
+                    items[i].setAttribute('aria-expanded', 'false');
+                  }
+
+                  if (itemToggle == 'false') {
+                    this.setAttribute('aria-expanded', 'true');
+                  }
+                }
+
+                items.forEach(item => item.addEventListener('click', toggleAccordion));
+              </script>
+              <style>
+                .page-server .settings-panel label {
+                  text-transform: uppercase;
+                  letter-spacing: 1.5px;
+                  font-size: 12px;
+                  line-height: 20px;
+                }
+
+                .page-server .settings-content>p,
+                .page-server .automod-toggles>p,
+                .page-server .actionlog-toggles>p,
+                .page-server .settings-content label,
+                .page-server .automod-toggles label,
+                .page-server .actionlog-toggles label {
+                  font-size: 12px;
+                  line-height: 20px;
+                  color: #8793AA;
+                  letter-spacing: -0.2px;
+                }
+
+                .label:not(:last-child),
+                .fieldset>legend:not(:last-child) {
+                  margin-bottom: 0.5em;
+                }
+
+                .embed-message-preview {
+                  border-radius: 4px;
+                }
+
+                .embed-message-preview .embed-message-content {
+                  -moz-user-select: text;
+                  -ms-user-select: text;
+                  -webkit-box-sizing: border-box;
+                  -webkit-user-select: text;
+                  box-sizing: border-box;
+                  display: -webkit-box;
+                  display: -ms-flexbox;
+                  display: flex;
+                  margin-left: 20px;
+                  margin-right: 6px;
+                  padding: 20px 0;
+                  user-select: text;
+                  word-wrap: break-word;
+                }
+
+                .embed-message-preview .embed-message-avatar {
+                  background-image: url(https://cdn.dyno.gg/logos/dyno-256.png);
+                  background-size: 40px 40px;
+                  background-clip: padding-box;
+                  background-color: none;
+                  background-position: 50%;
+                  border-radius: 50%;
+                  position: relative;
+                  height: 40px;
+                  width: 40px;
+                  -ms-flex-negative: 0;
+                  flex-shrink: 0;
+                  margin-right: 20px;
+                  cursor: pointer;
+                  opacity: 1;
+                  transition: opacity .2s ease;
+                }
+
+                .embed-message-preview .embed-message-comment {
+                  -webkit-box-flex: 1;
+                  flex: 1;
+                  margin-right: 20px;
+                  min-width: 0;
+                }
+
+                .embed-message-preview .embed-message-body h2 {
+                  margin: 0;
+                  padding: 0;
+                  border: 0;
+                  outline: 0;
+                  margin-top: 0;
+                  font-family: inherit;
+                  font-size: 100%;
+                  font-style: inherit;
+                  font-weight: inherit;
+                  height: 24px;
+                  line-height: 18px;
+                  vertical-align: baseline;
+                  -webkit-margin-before: 0.83em;
+                  -webkit-margin-start: 0px;
+                  -webkit-margin-end: 0px;
+                }
+
+                .embed-message-preview .embed-message-body h2 strong {
+                  color: #2f3136;
+                  font-size: 15px;
+                  font-weight: 600;
+                  letter-spacing: 0;
+                  cursor: pointer;
+                  color: #f990f3;
+                }
+
+                .embed-message-preview .embed-message-body .bot-tag {
+                  background: #7289da;
+                  color: #fff;
+                  -ms-flex-negative: 0;
+                  border-radius: 3px;
+                  flex-shrink: 0;
+                  font-size: 10px;
+                  font-weight: 500;
+                  line-height: 19px;
+                  margin-left: 6px;
+                  padding: 1px 2px;
+                  text-transform: uppercase;
+                  vertical-align: bottom;
+                }
+
+                .embed-message-preview .embed-message-body .highlight-separator {
+                  border: 0;
+                  font-family: inherit;
+                  font-size: 100%;
+                  font-style: inherit;
+                  font-weight: inherit;
+                  margin: 0;
+                  outline: 0;
+                  padding: 0;
+                  vertical-align: baseline;
+                  color: #99aab5;
+                  display: inline-block;
+                  opacity: 0;
+                  width: 0;
+                }
+
+                .embed-message-preview .embed-message-body .timestamp {
+                  font-size: 0.75rem;
+                  font-weight: 400;
+                  letter-spacing: 0;
+                  margin-left: 6px;
+                  text-transform: none;
+                  color: rgba(255, 255, 255, 0.2);
+                }
+
+                .embed-wrapper {
+                  border: 0;
+                  font-family: inherit;
+                  font-size: 100%;
+                  font-style: inherit;
+                  font-weight: inherit;
+                  margin: 0;
+                  outline: 0;
+                  padding: 0;
+                  vertical-align: baseline;
+                  -ms-flex-align: start;
+                  -ms-flex-direction: column;
+                  -webkit-box-align: start;
+                  -webkit-box-direction: normal;
+                  -webkit-box-orient: vertical;
+                  align-items: flex-start;
+                  display: -webkit-box;
+                  display: -ms-flexbox;
+                  display: flex;
+                  flex-direction: column;
+                  color: rgba(255, 255, 255, 0.7);
+                  font-weight: 500;
+                }
+
+                .embed-wrapper .embed {
+                  display: flex;
+                  max-width: 520px;
+                  margin-bottom: 8px;
+                }
+
+                .embed-wrapper .embed-pill {
+                  width: 4px;
+                  border-radius: 3px 0 0 3px;
+                  background: #4f545c;
+                }
+
+                .embed-wrapper .embed-inner {
+                  border-radius: 0 3px 3px 0;
+                  background: rgba(46, 48, 54, 0.3);
+                  border-color: rgba(46, 48, 54, 0.6);
+                  display: flex;
+                  flex-direction: column;
+                  padding: 8px 10px;
+                  color: rgba(255, 255, 255, 0.6);
+                  font-size: 14px;
+                  overflow: hidden;
+                }
+
+                .embed-wrapper .embed-inner .embed-content {
+                  padding: 0;
+                  display: flex;
+                  margin-bottom: 10px;
+                }
+
+                .embed-wrapper .embed-inner .embed-content-inner {
+                  flex: 1;
+                }
+
+                .embed-wrapper .embed-inner .embed-content-inner .embed-author {
+                  display: flex;
+                  align-items: center;
+                  margin-bottom: 5px;
+                }
+
+                .embed-wrapper .embed-markup {
+                  white-space: pre-wrap;
+                  word-wrap: break-word;
+                  margin-top: 6px;
+                }
+
+                .embed-wrapper .embed-inner .embed-fields {
+                  display: flex;
+                  flex-wrap: wrap;
+                  flex-direction: row;
+                  box-lines: miltiple;
+                  margin-top: 4px;
+                }
+              </style>
+              <script>
+                $(document).ready(function() {
+                  document.getElementById("output").textContent = "A very interesting server"
+                  $("#inText").on("input", function() {
+                    $("#output").text($(this).val());
+
+                  });
+                });
+              </script>
+          </div>
+          <!-- content-wrapper ends -->
+          <%- include("../../partials/_footer-dashboard.ejs") %>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src=" ../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../../assets/vendors/select2/select2.min.js"></script>
+    <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/misc.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="../../assets/js/file-upload.js"></script>
+    <script src="../../assets/js/typeahead.js"></script>
+    <script src="../../assets/js/select2.js"></script>
+    <script src="../../js/prefix-update.js"></script>
+    <script src="../../js/embed.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <!-- End custom js for this page -->
+</body>
+
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Moderation: Applications - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+            <form role="form" action="/dashboard/<%= guild.guild.id %>/applications" method="POST">
+            <div class="clearfix">
+              <span name="translate" caption="dashboard_app1">Applications</span>
+              <a class="btn btn-outline-success float-right btn-fw" href="#addquestion" name="translate" caption="dashboard_app2"> Add question </a>
+            </div>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_app3">Applications allows you to build your own set of questions for your server members/users to fill out and receive submissions straight into your Discord server!</p><br>
+            <div class="row ">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_app4">Available Questions</h4>
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th name="translate" caption="dashboard_app5">ID</th>
+                            <th name="translate" caption="dashboard_app6">Question</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% if (app.questions.length) { %>
+                          <% app.questions.forEach((data, count) => {%>
+                          <tr>
+                            <td><%= count + 1 - 1 %></td>
+                            <td><%= data %></td>
+                            <td><button type="submit" id="question<%=count + 1 - 1%>" name="question<%=count + 1 - 1%>" value="<%=data%>" class="btn btn-outline-danger btn-fw"> <span name="translate" caption="dashboard_autotwitch11">Remove</span> </button></td>
+                          </tr>
+                          <% }) %>
+                          <% } else { %>
+                          <tr>
+                            <td name="translate" caption="dashboard_app7">No questions found.</td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </form>
+        <form role="form" action="/dashboard/<%= guild.guild.id %>/applications" method="POST">
+            <div class=" row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title text-info" name="translate" caption="dashboard_app8">Main Settings</h4>
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_app9"> Pick Your application Settings in the guild.</p>
+
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_app10">Application Log</p>
+                    <div class="input-group">
+                      <select id="log" name="log" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <%- include('../components/channels', {ch: ch, var1: app.appLogs, var2: app.appToggle }) %>
+                      </select>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_app11">Add role if accepted</p>
+                    <div class="input-group">
+                      <select id="add_role" name="add_role" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <%- include('../components/roles', {ch: ch, var1: app.add_role, var2: app.appToggle }) %>
+                      </select>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_app12">Remove Role if Declined</p>
+                    <div class="input-group">
+                      <select id="remove_role" name="remove_role" class="js-example-basic-single" style="width:483px;max-width:483px">
+                        <%- include('../components/roles', {ch: ch, var1: app.remove_role, var2: app.appToggle }) %>
+                      </select>
+                    </div>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <% if(app.appToggle === true) { %>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="toggle" id="c1" checked> Application Status </label>
+                    </div>
+                    <% } else { %>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="toggle" id="c1"> Application Status </label>
+                    </div>
+                    <% } %>
+                    <% if(app.dm === true) { %>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="dm" id="c2" checked> DM user when accepted / declined </label>
+                    </div>
+                    <% } else { %>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="dm" id="c2"> DM user when accepted / declined </label>
+                    </div>
+                    <% }  %>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <button type="submit" class="btn btn-outline-success btn-fw" id="save" name="save"> <span name="translate" caption="dashboard_app13">Save settings</span> </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </form>
+        <form role="form" action="/dashboard/<%= guild.guild.id %>/applications" method="POST">
+            <div id="addquestion" class="modal-window">
+              <div>
+                <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_app14">Close</a>
+                <h4 name="translate" caption="dashboard_app15"> Add question </h4>
+                <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                <p class="text-muted mb-0" name="translate" caption="dashboard_app16"> Question Title </p>
+                <textarea class="form-control" id="questionTitle" name="questionTitle" rows="2" placeholder="" minlength="3" maxlength="1024"></textarea>
+                <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                <button type="submit" class="btn btn-outline-success btn-fw" id="addquestion" name="addquestion"> <span name="translate" caption="dashboard_app17">Add question</span> </button>
+              </div>
+            </div>
+        </div>
+    </form>
+    <style>    
+        .modal-window {
+          position: fixed;
+          background-color: rgb(0 0 0 / 82%);
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 1030;
+          visibility: hidden;
+          opacity: 0;
+          pointer-events: none;
+          transition: all 0.3s;
+          overflow: auto;
+        }
+    
+        .modal-window:target {
+          visibility: visible;
+          opacity: 1;
+          pointer-events: auto;
+        }
+    
+        .modal-window>div {
+          width: 800px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          padding: 2em;
+          background: #13151b;
+        }
+    
+        @media (max-width: 768px) {
+          .modal-window>div {
+            width: 800px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em;
+            background: #13151b;
+          }
+        }
+    
+        @media (max-width: 543px) {
+          .modal-window>div {
+            width: 350px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em;
+            background: #13151b;
+          }
+        }
+    
+        @media (max-width: 490px) {
+          .modal-window>div {
+            width: 350px;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 2em;
+            background: #13151b;
+          }
+        }
+    
+        .modal-window header {
+          font-weight: bold;
+        }
+    
+        .modal-window h1 {
+          font-size: 150%;
+          margin: 0 0 15px;
+        }
+    
+        .modal-close {
+          color: #aaa;
+          line-height: 50px;
+          font-size: 80%;
+          position: absolute;
+          right: 0;
+          text-align: center;
+          top: 0;
+          width: 70px;
+          text-decoration: none;
+        }
+    
+        .modal-close:hover {
+          color: rgb(255, 255, 255);
+        }
+    
+        .modal-window>div {
+          border-radius: 1rem;
+        }
+    
+        .modal-window div:not(:last-of-type) {
+          margin-bottom: 15px;
+        }
+      </style>
+
+        <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+                <!-- content-wrapper ends -->
+                <%- include("../../partials/_footer-dashboard.ejs") %>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src=" ../../assets/vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <script src="../../assets/vendors/select2/select2.min.js"></script>
+      <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+      <script src="../../assets/js/off-canvas.js"></script>
+      <script src="../../assets/js/hoverable-collapse.js"></script>
+      <script src="../../assets/js/misc.js"></script>
+      <script src="../../assets/js/settings.js"></script>
+      <script src="../../assets/js/todolist.js"></script>
+      <!-- endinject -->
+      <!-- Custom js for this page -->
+      <script src="../../assets/js/file-upload.js"></script>
+      <script src="../../assets/js/typeahead.js"></script>
+      <script src="../../assets/js/select2.js"></script>
+      <script src="../../js/applications.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <!-- End custom js for this page -->
+</body>
+
+</html>

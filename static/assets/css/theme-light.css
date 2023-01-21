@@ -1,0 +1,125 @@
+/*----------------------------------------------
+*
+* [Main Stylesheet]
+*
+* Theme    : HopeWeb
+* Version  : 1.2
+* Author   : DawnForge
+* Support  : contact@dawnforge.gg
+* 
+----------------------------------------------*/
+/*----------------------------------------------
+*
+* [Font Import]
+*
+* Jost    : https://fonts.google.com
+* Poppins : https://fonts.google.com
+*
+----------------------------------------------*/
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap");
+/*----------------------------------------------
+
+[ALL CONTENTS]
+
+1. Import
+2. Root
+3. Reset
+4. General 
+5. Section 
+6. Helper Class
+7. Header
+8. Feature
+9. Footer
+10. Modal
+11. Miscellaneous
+12. Blog
+13. All Media Queries
+
+----------------------------------------------*/
+/*----------------------------------------------
+2. Root
+----------------------------------------------*/
+/* #region Root */
+:root {
+  --primary-font: 'Jost', sans-serif;
+  --secondary-font: 'Poppins', sans-serif;
+  --h1-size: 4rem;
+  --h1-weight: 900;
+  --h2-size: 3rem;
+  --h2-weight: 700;
+  --h3-size: 2rem;
+  --h3-weight: 600;
+  --h4-size: 1.5rem;
+  --h4-weight: 600;
+  --h5-size: 1.2rem;
+  --h5-weight: 600;
+  --h6-size: 1rem;
+  --h6-weight: 600;
+  --p-size: 1rem;
+  --p-weight: 400;
+  --header-bg-color: #d2d0d8;
+  --nav-brand-height: 55px;
+  --top-nav-item-color: #f5f5f5;
+  --nav-item-color: #121117;
+  --primary-color: #ff0195;
+  --secondary-color: #d90574;
+  --white-color: #f9f9f9;
+  --black-color: #ebebe6;
+  --grey-color: #f3f5f7;
+  --dark-grey-color: #191919;
+  --primary-t-color: #f5f5f5;
+  --secondary-t-color: #f5f5f5;
+  --primary-p-color: #8E8E8E;
+  --secondary-p-color: #E1E1E1;
+  --primary-b-color: #f5f5f5;
+  --primary-l-color: rgba(221, 215, 215, 0.12);
+  --secondary-l-color: rgba(255, 255, 255, 0.12);
+  --valid-color: #007a4d;
+  --invalid-color: #e34f4f;
+  --primary-bg-color: #09080D;
+  --primary-bg-color-2: #eeeeee;
+  --primary-bg-color-3: #e5e5e5;
+  --secondary-bg-color: #ebebe3;
+  --secondary-bg-color-2: #f1e9e9;
+  --secondary-bg-color-3: #f1eded;
+  --card-bg-color: #e1dfe7;
+  --footer-bg-color: #d6d5dd;
+}
+
+*::-webkit-scrollbar-track,
+.scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(223, 219, 219, 0.3);
+  height: 6px;
+  border-radius: 6px;
+  transition: background-color .2s linear, height .2s ease-in-out;
+  -webkit-transition: background-color .2s linear, height .2s ease-in-out;
+  bottom: 2px;
+  background-clip: padding-box;
+  background-color: rgb(217, 219, 224);
+}
+
+*::-webkit-scrollbar,
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 6px;
+  transition: background-color .2s linear, height .2s ease-in-out;
+  -webkit-transition: background-color .2s linear, height .2s ease-in-out;
+  bottom: 2px;
+  cursor: pointer;
+  background-color: #e6e1e1;
+}
+
+*::-webkit-scrollbar-thumb,
+.scrollbar::-webkit-scrollbar-thumb {
+  height: 6px;
+  border-radius: 6px;
+  transition: background-color .2s linear, height .2s ease-in-out;
+  -webkit-transition: background-color .2s linear, height .2s ease-in-out;
+  bottom: 2px;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 0 0 6px rgba(235, 230, 230, 0.3);
+  background-color: #e6e6e7;
+}
+
+/* #endregion All Media Queries */

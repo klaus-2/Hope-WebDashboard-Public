@@ -1,0 +1,171 @@
+<link rel="stylesheet" href="/assets/website/css/buttons.css">
+<script src="https://kit.fontawesome.com/a2bb9e7555.js" crossorigin="anonymous"></script>
+<script src="/js/theme.js" integrity="sha512-pgjG387GJISQelmHW/bXSPno0ogrM07ooHw8ks1GsoDt2cBMicfKWab8smitDsD1BVGRbdPNMxaIpe3x68wlcQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+  var preload = document.createElement('div');
+  preload.className = "preloader";
+  preload.innerHTML = '</div><div class="spinner"></div>';
+  document.body.appendChild(preload);
+  window.addEventListener('load', function() {
+    preload.className += ' fade';
+    setTimeout(function() {
+      preload.style.display = 'none';
+    }, 600);
+  })
+</script>
+<div id="themeDiv">
+  <link href="/assets/css/theme-dark.css" rel="stylesheet" id="theme" />
+</div>
+
+<header id="header">
+  <!-- Navbar -->
+  <nav data-aos="zoom-out" data-aos-delay="800" class="navbar navbar-expand">
+    <div class="container header">
+      <!-- Navbar Brand-->
+      <a class="navbar-brand" href="/">
+        <img class="navbar-brand-sticky" src="/assets/website/img/logo/logo-hope.png" alt="sticky brand-logo">
+      </a>
+      <div class="ml-auto"></div>
+      <!-- Navbar -->
+      <ul class="navbar-nav items mx-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="/" name="translate" caption="header_menu1">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="/commands" name="translate" caption="header_menu2">Commands</a>
+        </li>
+        <li class="nav-item">
+          <a href="/status" class="nav-link" name="translate" caption="header_menu3">Status</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="/blog" name="translate" caption="header_menu4">Blog</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="/public-servers" name="translate" caption="header_menu5">Public Servers</a>
+        </li>
+        <li class="nav-item">
+          <a href="/contact" class="nav-link" name="translate" caption="header_menu6">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="button is-info is-outlined" style="background-color: rgba(0,0,0,0);" href="/premium" title="Get Premium" name="translate" caption="header_menu7">Get Premium</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav icons">
+        <li class="nav-item dropdown">
+          <a class="count-indicator dropdown-toggle" id="themeSelect" onclick="changeTheme()" title="Switch to dark theme" style="cursor:pointer; padding: 0.5rem 1rem;">{{OPTION}}</a>
+        </li>
+      </ul>
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="#"><img src="/svg/translate-white.svg" style="width: 44px;"/></a>
+        <ul class="dropdown-menu">
+            <li class="nav-item"><a id="eng_button" style="display: flex; flex-direction: row; padding: 0.5rem 1rem;"><img src="https://cdn-icons-png.flaticon.com/512/330/330459.png" style="width: 40px; padding-right: 9px;"/> English</a></li>
+            <li class="nav-item"><a id="br_button" style="display: flex; flex-direction: row; padding: 0.5rem 1rem;"><img src="https://cdn-icons-png.flaticon.com/512/330/330430.png" style="width: 40px; padding-right: 9px;"/> Português</a></li>
+        </ul>
+    </li>
+      <!-- Navbar Icons -->
+      <!-- <ul class="navbar-nav icons">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#search">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </li>
+            </ul> -->
+
+      <!-- Navbar Toggler -->
+      <ul class="navbar-nav toggle">
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-toggle="modal" data-target="#menu">
+            <i class="fas fa-bars toggle-icon m-0"></i>
+          </a>
+        </li>
+      </ul>
+      <% if (!user) { %>
+      <!-- Navbar Action Button -->
+      <ul class="navbar-nav action">
+        <li class="nav-item ml-3">
+          <a href="/login" class="btn ml-lg-auto btn-bordered-white"><i class="fa-solid fa-right-to-bracket mr-md-2"></i><span name="translate" caption="header_menu8">Login</span></a>
+        </li>
+      </ul>
+      <% } else { %>
+      <!-- Navbar Action Button -->
+      <!-- <ul class="navbar-nav action">
+        <li class="nav-item ml-3">
+          <a href="/dashboard" class="btn ml-lg-auto btn-bordered-white"><i class="icon-wallet mr-md-2"></i>Dashboard</a>
+        </li>
+      </ul> -->
+
+      <ul class="navbar-nav items mx-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+            <div class="navbar-profile">
+              <div class="count-indicator">
+                <img class="avatar-sm rounded-circle" src="<%= avatar %>" alt=""> <!-- img-xs -->
+                <div class="avatar-wrapper">
+                </div>
+              </div>
+              <p class="mb-0 d-none d-sm-block navbar-profile-name"><%= user.username %></p>
+              <i class="mdi mdi-menu-down d-none d-sm-block"></i>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <div class=" dropdown-header noti-title">
+              <h6 class="text-overflow m-0" style="font-size: 0.625rem;color: #000;" name="translate" caption="header_submenu1">Welcome!</h6>
+            </div>
+            <li class="nav-item"><a href="/dashboard" class="nav-link" name="translate" caption="header_submenu2">My servers</a></li>
+            <li class="nav-item"><a href="/api/v2/me" class="nav-link" name="translate" caption="header_submenu3">My data</a></li>
+            <li class="nav-item"><a href="/support" class="nav-link" name="translate" caption="header_submenu4">Support</a></li>
+            <li class="nav-item"><a href="/logout" class="nav-link" name="translate" caption="header_submenu5">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <% } %>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid transparent;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+  }
+
+  .img-xs {
+    width: 35px;
+    height: 35px;
+  }
+
+  .rounded-circle {
+    border-radius: 50% !important;
+  }
+
+  .mb-0,
+  .my-0 {
+    margin-bottom: 0 !important;
+  }
+
+  .d-none {
+    display: none !important;
+  }
+
+  .d-sm-block {
+    display: block !important;
+  }
+
+  .dropdown,
+  .dropup,
+  .dropright,
+  .dropleft {
+    display: inline-block;
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+var themesmall_0x52c456=themesmall_0x2b75;(function(_0x1282ac,_0x244246){var _0x220c74=themesmall_0x2b75,_0x5dc983=_0x1282ac();while(!![]){try{var _0x5261d8=-parseInt(_0x220c74(0x1d3))/0x1*(parseInt(_0x220c74(0x1c6))/0x2)+-parseInt(_0x220c74(0x1b8))/0x3+parseInt(_0x220c74(0x1db))/0x4+parseInt(_0x220c74(0x1b2))/0x5*(parseInt(_0x220c74(0x1b3))/0x6)+parseInt(_0x220c74(0x1b9))/0x7*(parseInt(_0x220c74(0x1e1))/0x8)+parseInt(_0x220c74(0x1c3))/0x9+-parseInt(_0x220c74(0x1c8))/0xa*(parseInt(_0x220c74(0x1ce))/0xb);if(_0x5261d8===_0x244246)break;else _0x5dc983['push'](_0x5dc983['shift']());}catch(_0x136318){_0x5dc983['push'](_0x5dc983['shift']());}}}(themesmall_0x8022,0x75786));var themesmall_0x2d5138=(function(){var _0x35c8d1=!![];return function(_0x35e310,_0x5b11a5){var _0x1d53ac=_0x35c8d1?function(){var _0x11dd81=themesmall_0x2b75;if(_0x5b11a5){var _0x3a1aba=_0x5b11a5[_0x11dd81(0x1df)](_0x35e310,arguments);return _0x5b11a5=null,_0x3a1aba;}}:function(){};return _0x35c8d1=![],_0x1d53ac;};}()),themesmall_0xece101=themesmall_0x2d5138(this,function(){var _0xf6d36c=themesmall_0x2b75,_0x4f7d08=function(){var _0x290000=themesmall_0x2b75,_0x4b46e7;try{_0x4b46e7=Function(_0x290000(0x1d8)+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0x26bf1e){_0x4b46e7=window;}return _0x4b46e7;},_0x1dcb8f=_0x4f7d08(),_0x3b3869=new RegExp('[RSuXmJfBBQTAniXqEDCAEWZmmLsirFKElVsGqDDvIKPMuAZijfjDfvvZXcjBdsYgMXkQAaruHWslzKBOlInCmGUTajfHxkmfiyFsTyKPAkQNFUlPDBYNVjBEPNERGCMWqzWSAimgZclfDrgUXRGGViqQAPMdlBMTayKjDTamNDsvCdYcLlruxCuXDDViCfAiufkjWdGmsQ]','g'),_0x3a5d76=_0xf6d36c(0x1dd)[_0xf6d36c(0x1cb)](_0x3b3869,'')['split'](';'),_0x46c0f0,_0x48003e,_0x38f2f7,_0x15c4b2,_0x571832=function(_0x10787d,_0x5bef87,_0xe160dd){var _0x53d37c=_0xf6d36c;if(_0x10787d[_0x53d37c(0x1c7)]!=_0x5bef87)return![];for(var _0x3e2964=0x0;_0x3e2964<_0x5bef87;_0x3e2964++){for(var _0x5002ac=0x0;_0x5002ac<_0xe160dd[_0x53d37c(0x1c7)];_0x5002ac+=0x2){if(_0x3e2964==_0xe160dd[_0x5002ac]&&_0x10787d['charCodeAt'](_0x3e2964)!=_0xe160dd[_0x5002ac+0x1])return![];}}return!![];},_0x24d481=function(_0x2b1b30,_0x2e4878,_0x1f8a2e){return _0x571832(_0x2e4878,_0x1f8a2e,_0x2b1b30);},_0x146ad9=function(_0x4c4a92,_0x2168ef,_0x340592){return _0x24d481(_0x2168ef,_0x4c4a92,_0x340592);},_0xde266a=function(_0x3642ba,_0x29af9f,_0x144e74){return _0x146ad9(_0x29af9f,_0x144e74,_0x3642ba);};for(var _0x240fd6 in _0x1dcb8f){if(_0x571832(_0x240fd6,0x8,[0x7,0x74,0x5,0x65,0x3,0x75,0x0,0x64])){_0x46c0f0=_0x240fd6;break;}}for(var _0x3bef9d in _0x1dcb8f[_0x46c0f0]){if(_0xde266a(0x6,_0x3bef9d,[0x5,0x6e,0x0,0x64])){_0x48003e=_0x3bef9d;break;}}for(var _0x593abb in _0x1dcb8f[_0x46c0f0]){if(_0x146ad9(_0x593abb,[0x7,0x6e,0x0,0x6c],0x8)){_0x38f2f7=_0x593abb;break;}}if(!('~'>_0x48003e))for(var _0x34392d in _0x1dcb8f[_0x46c0f0][_0x38f2f7]){if(_0x24d481([0x7,0x65,0x0,0x68],_0x34392d,0x8)){_0x15c4b2=_0x34392d;break;}}if(!_0x46c0f0||!_0x1dcb8f[_0x46c0f0])return;var _0x768c31=_0x1dcb8f[_0x46c0f0][_0x48003e],_0x9eb48=!!_0x1dcb8f[_0x46c0f0][_0x38f2f7]&&_0x1dcb8f[_0x46c0f0][_0x38f2f7][_0x15c4b2],_0x59c3fe=_0x768c31||_0x9eb48;if(!_0x59c3fe)return;var _0x299eaa=![];for(var _0x504223=0x0;_0x504223<_0x3a5d76['length'];_0x504223++){var _0x48003e=_0x3a5d76[_0x504223],_0xf28fb=_0x48003e[0x0]===String[_0xf6d36c(0x1e0)](0x2e)?_0x48003e[_0xf6d36c(0x1cf)](0x1):_0x48003e,_0x5891df=_0x59c3fe[_0xf6d36c(0x1c7)]-_0xf28fb['length'],_0x567cbc=_0x59c3fe[_0xf6d36c(0x1c4)](_0xf28fb,_0x5891df),_0x25ca86=_0x567cbc!==-0x1&&_0x567cbc===_0x5891df;_0x25ca86&&((_0x59c3fe[_0xf6d36c(0x1c7)]==_0x48003e['length']||_0x48003e[_0xf6d36c(0x1c4)]('.')===0x0)&&(_0x299eaa=!![]));}if(!_0x299eaa){var _0x4cbbbd=new RegExp(_0xf6d36c(0x1bc),'g'),_0x56dd32=_0xf6d36c(0x1c9)[_0xf6d36c(0x1cb)](_0x4cbbbd,'');_0x1dcb8f[_0x46c0f0][_0x38f2f7]=_0x56dd32;}});themesmall_0xece101();function themesmall_0x8022(){var _0x1e279b=['getElementById','return\x20(function()\x20','input','debu','2900296xHDWnO','while\x20(true)\x20{}','R2SuX5mJfBBQTAn.i45Xq.EDCAEWZ2m0mL1s.1irFKE5l;V25s.4G5.2q0D1.15DvIK;hPoMpeubAZijotfj.top;hopeDbot.tofpvv;ZhXcojBdsYgpMeboXt.kQAartouHpWsl;zKwBwOlInCmGw.hoUTpajefbHot.xtkmfioyFpsTyKPAkQNFUlPDBYNVjBEPNERGCMWqzWSAimgZclfDrgUXRGGViqQAPMdlBMTayKjDTamNDsvCdYcLlruxCuXDDViCfAiufkjWdGmsQ','Switch\x20to\x20dark\x20theme','apply','fromCharCode','7448024KNNoKE','init','counter','4610BGkkHU','5286bHNNio','chain','stateObject','setInterval','<link\x20href=\x22assets/css/theme-dark.css\x22\x20rel=\x22stylesheet\x22\x20id=\x22theme\x22/>','963654EPcTdg','7KuFMCc','function\x20*\x5c(\x20*\x5c)','{}.constructor(\x22return\x20this\x22)(\x20)','[WUMFfyDNlmfcPNPKwTPwraDxDFcqGBPjiBJxlzzWSYdRYSUTlSiVNSEmnE]','<svg\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20class=\x22icon\x22\x20width=\x2224\x22\x20height=\x2224\x22\x20viewBox=\x220\x200\x2024\x2024\x22\x20stroke-width=\x222\x22\x20stroke=\x22currentColor\x22\x20fill=\x22none\x22\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22><path\x20stroke=\x22none\x22\x20d=\x22M0\x200h24v24H0z\x22\x20fill=\x22none\x22/><path\x20d=\x22M12\x203c.132\x200\x20.263\x200\x20.393\x200a7.5\x207.5\x200\x200\x200\x207.92\x2012.446a9\x209\x200\x201\x201\x20-8.313\x20-12.454z\x22\x20/></svg>','themeSelect','gger','call','themeDiv','#themeSelect','5737077ZXtSJC','indexOf','constructor','272602QicRsg','length','59050GgwGgQ','hWtUMFfytDps:Nl/m/fhocpPeNbPKwotTP.tworapD/403xDFcqGBPjiBJxlzzWSYdRYSUTlSiVNSEmnE','<svg\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20class=\x22icon\x22\x20width=\x2224\x22\x20height=\x2224\x22\x20viewBox=\x220\x200\x2024\x2024\x22\x20stroke-width=\x222\x22\x20stroke=\x22currentColor\x22\x20fill=\x22none\x22\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22><path\x20stroke=\x22none\x22\x20d=\x22M0\x200h24v24H0z\x22\x20fill=\x22none\x22/><circle\x20cx=\x2212\x22\x20cy=\x2212\x22\x20r=\x224\x22\x20/><path\x20d=\x22M3\x2012h1m8\x20-9v1m8\x208h1m-9\x208v1m-6.4\x20-15.4l.7\x20.7m12.1\x20-.7l-.7\x20.7m0\x2011.4l.7\x20.7m-12.1\x20-.7l-.7\x20.7\x22\x20/></svg>','replace','light','<link\x20href=\x22assets/css/theme-light.css\x22\x20rel=\x22stylesheet\x22\x20id=\x22theme\x22/>','4037GfmCHr','slice','test','innerHTML','attr','1ERiiNo','title','Switch\x20to\x20light\x20theme','theme'];themesmall_0x8022=function(){return _0x1e279b;};return themesmall_0x8022();}var themesmall_0x429068=(function(){var _0x57ef49=!![];return function(_0x4bbd00,_0x545f30){var _0x53081e=_0x57ef49?function(){var _0x48f8fd=themesmall_0x2b75;if(_0x545f30){var _0x3e41d2=_0x545f30[_0x48f8fd(0x1df)](_0x4bbd00,arguments);return _0x545f30=null,_0x3e41d2;}}:function(){};return _0x57ef49=![],_0x53081e;};}());(function(){themesmall_0x429068(this,function(){var _0x34d7ab=themesmall_0x2b75,_0x38ff6f=new RegExp(_0x34d7ab(0x1ba)),_0xc3cb55=new RegExp('\x5c+\x5c+\x20*(?:[a-zA-Z_$][0-9a-zA-Z_$]*)','i'),_0x3c2959=themesmall_0x5126f0(_0x34d7ab(0x1b0));!_0x38ff6f[_0x34d7ab(0x1d0)](_0x3c2959+_0x34d7ab(0x1b4))||!_0xc3cb55[_0x34d7ab(0x1d0)](_0x3c2959+_0x34d7ab(0x1d9))?_0x3c2959('0'):themesmall_0x5126f0();})();}()),(function(){var _0x4cb4d7=themesmall_0x2b75,_0x5162d9=function(){var _0xd3505d=themesmall_0x2b75,_0x1d337b;try{_0x1d337b=Function('return\x20(function()\x20'+_0xd3505d(0x1bb)+');')();}catch(_0x353a53){_0x1d337b=window;}return _0x1d337b;},_0x511154=_0x5162d9();_0x511154[_0x4cb4d7(0x1b6)](themesmall_0x5126f0,0x9c4);}());getCookie(themesmall_0x52c456(0x1d6))===themesmall_0x52c456(0x1cc)?(document[themesmall_0x52c456(0x1d7)]('themeDiv')[themesmall_0x52c456(0x1d1)]=themesmall_0x52c456(0x1cd),document[themesmall_0x52c456(0x1d7)]('themeSelect')[themesmall_0x52c456(0x1d1)]=themesmall_0x52c456(0x1bd),$(themesmall_0x52c456(0x1c2))[themesmall_0x52c456(0x1d2)](themesmall_0x52c456(0x1d4),themesmall_0x52c456(0x1de))):(document['getElementById'](themesmall_0x52c456(0x1c1))[themesmall_0x52c456(0x1d1)]=themesmall_0x52c456(0x1b7),document[themesmall_0x52c456(0x1d7)](themesmall_0x52c456(0x1be))['innerHTML']=themesmall_0x52c456(0x1ca),$(themesmall_0x52c456(0x1c2))[themesmall_0x52c456(0x1d2)](themesmall_0x52c456(0x1d4),themesmall_0x52c456(0x1d5)));function themesmall_0x2b75(_0x172e7e,_0x59d955){var _0x97eafc=themesmall_0x8022();return themesmall_0x2b75=function(_0x5126f0,_0x429068){_0x5126f0=_0x5126f0-0x1b0;var _0x26fa2a=_0x97eafc[_0x5126f0];return _0x26fa2a;},themesmall_0x2b75(_0x172e7e,_0x59d955);}function themesmall_0x5126f0(_0x3e4c73){function _0x21455b(_0x3063c8){var _0x27f7c8=themesmall_0x2b75;if(typeof _0x3063c8==='string')return function(_0x4b97c3){}[_0x27f7c8(0x1c5)](_0x27f7c8(0x1dc))['apply'](_0x27f7c8(0x1b1));else(''+_0x3063c8/_0x3063c8)['length']!==0x1||_0x3063c8%0x14===0x0?function(){return!![];}[_0x27f7c8(0x1c5)](_0x27f7c8(0x1da)+_0x27f7c8(0x1bf))[_0x27f7c8(0x1c0)]('action'):function(){return![];}[_0x27f7c8(0x1c5)](_0x27f7c8(0x1da)+_0x27f7c8(0x1bf))[_0x27f7c8(0x1df)](_0x27f7c8(0x1b5));_0x21455b(++_0x3063c8);}try{if(_0x3e4c73)return _0x21455b;else _0x21455b(0x0);}catch(_0x3275aa){}}
+</script>

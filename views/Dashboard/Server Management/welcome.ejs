@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Server management: Welcome - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/welcome.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <% if (error != '') { %>
+          <script>
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 5000,
+              timerProgressBar: true
+            })
+
+            Toast.fire({
+              icon: 'error',
+              title: '<%= error %>'
+            });
+          </script>
+          <% }  %>
+          <% if(success != ''){ %>
+          <script>
+            const Toast1 = Swal.mixin({
+              toast: true,
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 5000,
+              timerProgressBar: true
+            })
+
+            Toast1.fire({
+              icon: 'success',
+              title: '<%= success %>'
+            });
+          </script>
+          <% } %>
+          <div class="clearfix">
+            <span> <span name="translate" caption="dashboard_welcome1">Welcome</span> <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;" name="translate" caption="dashboard_autoanime4">free/premium</code> </span>
+          </div>
+          <p class="text-muted mb-0" name="translate" caption="dashboard_welcome2"> Create welcome and leave messages with various options. </p><br>
+          <div class=" row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <form id="welcometoggleform">
+                    <div class="nickto">
+                      <label class="switch">
+                        <% if (welcome.welcomeToggle === true) {%>
+                        <input id="welcometoggle" name="welcomeToggle" type="checkbox" class="switch" value="on" checked></input>
+                        <% } else { %>
+                        <input id="welcometoggle" name="welcomeToggle" type="checkbox" class="switch" value="off"></input>
+                        <% } %>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                  </form>
+                    <h4 style="display: flex; justify-content: space-between;" class="card-title" name="translate" caption="dashboard_welcome3">WELCOME SETTINGS </h4>
+                  <form id="welcomeSettings">
+                    <div id="oc-welcome" style="display: block;">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome4">WELCOME CHANNEL</p>
+                      <div class="input-group">
+                        <select id="welcomeChannel" name="welcomeChannel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                          <%- include('../components/channels', {ch: ch, var1: welcome.welcomeChannel, var2: welcome.welcomeToggle }) %>
+                        </select>
+                      </div>
+                      <p class="text-muted mb-0"><span name="translate" caption="dashboard_welcome5">If you want to disable this addon, just select the</span> <code>#Disabled</code> <span name="translate" caption="dashboard_welcome6">channel</span></p>
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <% if (welcome.welcomePrivateToggle === true) { %>
+                        <input type="checkbox" class="form-check-input" id="welcomePrivate" name="welcomePrivate" checked> SEND
+                        WELCOME MESSAGE IN A DM (PRIVATE MESSAGE) </label>
+                      <% } else { %>
+                      <input type="checkbox" class="form-check-input" id="welcomePrivate" name="welcomePrivate"> SEND
+                      WELCOME MESSAGE IN A DM (PRIVATE MESSAGE) </label>
+                      <% } %>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <form id="leavetoggleform">
+                    <div class="nickto">
+                      <label class="switch">
+                        <% if (welcome.leaveToggle === true) {%>
+                        <input id="leavetoggle" name="leaveToggle" type="checkbox" class="switch" value="on" checked></input>
+                        <% } else { %>
+                        <input id="leavetoggle" name="leaveToggle" type="checkbox" class="switch" value="off"></input>
+                        <% } %>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                  </form>
+                    <h4 style="display: flex; justify-content: space-between;" class="card-title" name="translate" caption="dashboard_welcome7">LEAVE SETTINGS </h4>
+                  <form id="leaveSettings">
+                    <div id="oc-leave" style="display: block;">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome8">LEAVE CHANNEL</p>
+                      <div class="input-group">
+                        <select id="leaveChannel" name="leaveChannel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                          <%- include('../components/channels', {ch: ch, var1: welcome.leaveChannel, var2: welcome.leaveToggle }) %>
+                        </select>
+                      </div>
+                      <p class="text-muted mb-0"><span name="translate" caption="dashboard_welcome5">If you want to disable this addon, just select the</span> <code>#Disabled</code> <span name="translate" caption="dashboard_welcome6">channel</span></p>
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <% if (welcome.leavePrivateToggle === true) { %>
+                        <input type="checkbox" class="form-check-input" id="leavePrivate" name="leavePrivate" checked> SEND
+                        LEAVE MESSAGE IN A DM (PRIVATE MESSAGE) </label>
+                      <% } else { %>
+                      <input type="checkbox" class="form-check-input" id="leavePrivate" name="leavePrivate"> SEND
+                      LEAVE MESSAGE IN A DM (PRIVATE MESSAGE) </label>
+                      <% } %>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div id="welcome-m-settings" class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_welcome9">WELCOME MESSAGE SETTINGS</h4>
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_welcome10">Each option is unique and only one will be in effect. Configure it the way you want and preview it on the side.</p>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form id="notifyform">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_welcome42">Notify</p>
+                  <div class="control is-flex">
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="notify" name="notify" <% if (welcome.welcomeNotifyMention === true) { %> checked <% } %>></label><p class="form-check-label" name="translate" caption="dashboard_welcome43">Notify user with a mention (Eg. @Klaus)</p>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_welcome11">Message Type</p>
+                  <div class="control is-flex">
+                    <% if (welcome.messageType == "message") { %>
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="messageType" value="message" checked> Text Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="embedType" value="embed"> Embed Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="imageType" value="image"> Image Message </label>
+                      </div>
+                    </div>
+                    <% } else if (welcome.messageType == "embed") { %>
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="messageType" value="message"> Text Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="embedType" value="embed" checked> Embed Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="imageType" value="image"> Image Message </label>
+                      </div>
+                    </div>
+                    <% } else if (welcome.messageType == "image") { %>
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="messageType" value="message"> Text Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="embedType" value="embed"> Embed Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType" id="imageType" value="image" checked> Image Message </label>
+                      </div>
+                    </div>
+                    <% } %>
+                  </div>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <div class="col-sm-7" id="text" style="display: block;">
+                    <form role="form" action="/dashboard/<%= guild.guild.id %>/welcome" method="POST">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome12">Text message</p>
+                      <input>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="inText" name="inText" placeholder="Hello {user}, Welcome to **{guild}**!" value="<%= welcome.welcomeMessageText %>">
+                        <div class="input-group-append">
+                          <button name="inTextUpdate" id="inTextUpdate" class="btn btn-sm btn-outline-secondary" type="submit"><span name="translate" caption="dashboard_welcome13">Update</span></button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div id="embed" style="display: none;">
+                    <form role="form" action="/dashboard/<%= guild.guild.id %>/welcome" method="POST">
+                      <div class="col-md-10 offset-md-1" style="color: white">
+                        <div class="card-deck">
+                          <div class="card">
+                            <div class="card-block">
+                              <div class="row form-group">
+                                <div class="col-md-3">
+
+                                  <input name="leave_author_icon" value="<%= welcome.welcomeEmbed.author.icon %>" style="background-color: #2f2f2f; color: white" type="text" placeholder="Author Icon" class="form-control" maxlength="200" id="author_icon1">
+                                </div>
+
+                                <div class="col-md-6">
+
+                                  <input name="leave_author_name" value="<%= welcome.welcomeEmbed.author.name %>" style="background-color: #2f2f2f; color: white" type="text" placeholder="Author Name" class="form-control" maxlength="256" id="author_name1">
+                                </div>
+
+
+                                <div class="col-md-3">
+
+                                  <input name="leave_author_url" value="<%= welcome.welcomeEmbed.author.url %>" style="background-color: #2f2f2f; color: white" type="text" placeholder="Author URL" class="form-control" maxlength="256" id="author_url1">
+                                </div>
+                              </div>
+
+                              <div class="row form-group">
+                                <div class="col-md-9">
+                                  <input value="<%= welcome.welcomeEmbed.title %>" name="leave_embedTitle" style="background-color: #2f2f2f; color: white" type="text" placeholder="Embed Title" class="form-control" maxlength="200" id="title1">
+                                </div>
+                                <div class="col-md-3">
+
+                                  <input value="<%= welcome.welcomeEmbed.titleURL %>" name="leave_embedTitleURL" style="background-color: #2f2f2f; color: white" type="text" placeholder="Embed Title Url" class="form-control" maxlength="200" id="url1">
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12"><textarea name="leave_embedDescription" value="<%= welcome.welcomeEmbed.description %>" placeholder="Embed Description" style="background-color: #2f2f2f; color: white" rows="3" wrap="soft" class="col-12 form-control" maxlength="2048" type="text" id="description1">{user_tag} just left {guild}, we now have {memberCount} Members!</textarea><br></div>
+                              </div>
+
+
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <input value="<%= welcome.welcomeEmbed.thumbnail %>" name="leave_embedThumbnail" id="thumb1" style="background-color: #2f2f2f; color: white" class="form-control" maxlength="200" type="text" placeholder="Embed Thumbnail Url">
+
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                  <input id="footerIcon1" value="<%= welcome.welcomeEmbed.footerIcon %>" name="leave_embedFooterIcon" style="background-color: #2f2f2f; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Icon">
+                                </div>
+
+                                <div class="col-md-3">
+
+                                  <input id="footer1" value="<%= welcome.welcomeEmbed.footer %>" name="leave_embedFooter" style="background-color: #2f2f2f; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Text">
+                                </div>
+
+                              </div>
+
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <div class="col-md-6">
+                                <input value="<%= welcome.welcomeEmbed.image %>" name="leave_embedImage" id="image1" style="background-color: #2f2f2f; color: white;right: 12px;" class="form-control" maxlength="200" type="text" placeholder="Embed Image Url">
+                              </div>
+
+                              <br>
+                              <p>Timestamp</p>
+                              <div class="col-sm-5">
+                                <div class="form-check">
+                                  <% if (welcome.welcomeEmbed.timestamp == true) { %>
+                                  <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="leave_timestamp" id="leave_timestamp" value="time" checked> Toggle <i class="input-helper"></i></label>
+                                  <% } else { %>
+                                  <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="leave_timestamp" id="leave_timestamp" value="time"> Toggle <i class="input-helper"></i></label>
+                                  <% } %>
+                                </div>
+                              </div>
+                              <br>
+                              <input class="form-control" value="<%= welcome.welcomeEmbed.color || '#000000' %>" name="leave_embedColor" style="background-color: #2f2f2f; color: white" id="color1" type="color">
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <br>
+                        <center><button type="submit" name="inEmbedUpdate" id="inEmbedUpdate" class="btn btn-outline-secondary btn-sm"><span name="translate" caption="dashboard_welcome14">Update embed</span></button></center>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div id="image" style="display: none;">
+                    <form role="form" action="/dashboard/<%= guild.guild.id %>/welcome" method="POST">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome15">Title</p>
+                      <input type="text" class="form-control" id="inImageTitle" name="inImageTitle" placeholder="" value="<%= welcome.welcomeImageTitle %>">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome16">Subtitle</p>
+                      <input type="text" class="form-control" id="inImageSub" name="inImageSub" placeholder="" value="<%= welcome.welcomeImageSub %>">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome17">Change Subtitle Color</p>
+                      <input class="form-control" value="<%= welcome.welcomeImageTextColor || '#000000' %>" name="welcomeImageTextColor" style="background-color: #2f2f2f; color: white" id="welcomeImageTextColor" type="color">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome18">Change Background Color</p>
+                      <div class="sc-15s9jj9-2 jUSouP">
+                        <label style="border: none; outline: none; background: #FFED71; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card" id="cardgold" value="card1" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #7086FF; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card" id="cardblue" value="card2" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #8E55F5; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card" id="cardpurple" value="card3" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #FE32A4; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card" id="cardpink" value="card4" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #D3352F; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card" id="cardred" value="card5" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #00E92B; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card" id="cardgreen" value="card6" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #BABABA; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card" id="cardgrey" value="card7" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+                      </div>
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome19">Custom Card Background</p>
+                      <input type="text" class="form-control" id="inImageCustomBG" name="inImageCustomBG" placeholder="Background URL" value="<%= welcome.welcomeImageModel %>">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <button type="submit" name="inImageUpdate" id="inImageUpdate" class="btn btn-outline-secondary btn-sm"><span name="translate" caption="dashboard_welcome20">Update image</span></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="welcome-m-settings-preview" class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_welcome21">WELCOME PREVIEW</h4>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <div id="textPreview" style="display: block;">
+                    <div class="msgEmbed">
+                      <div class="contents">
+                        <img src="https://cdn.discordapp.com/avatars/<%= req.client_id %>/<%= req.client_avatar %>.webp?size=1024" class="avatar" alt=" ">
+                        <h2>
+                          <span class="username" role="button">Hope <img draggable="false" class="emoji" alt="🌺" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f33a.png"></span><span class="botTag"><span class="botText" style="">✓ BOT</span></span>
+                          <span class="timeText" name="translate" caption="dashboard_autobirthday16">Today at 8:22 AM</span>
+                        </h2>
+                      </div>
+                      <div id="outputText" class="markup messageContent"><%= welcome.welcomeMessageText || '{user}, welcome to **{server}**!' %></div>
+                    </div>
+                  </div>
+                  <div id="embedPreview" style="display: none;">
+                    <div class="container">
+                      <div id="embedColor1" id="embedColor1" class="embed markup" style="border-color: <%= welcome.welcomeEmbed.color || '#ff0000' %>;">
+                        <div class="embedGrid">
+                          <div class="embedAuthor embedMargin" style="display: flex;">
+                            <img id="embedAuthorIcon1" name="embedAuthorIcon1" class="embedAuthorIcon" src="<%= welcome.welcomeEmbed.author.icon || 'https://unsplash.it/100' %>">
+                            <a id="embedAuthorName1" name="embedAuthorName1" class="embedAuthorNameLink embedLink embedAuthorName" href="<%= welcome.welcomeEmbed.author.url || 'https://hopebot.top' %>" target="_blank"><%= welcome.welcomeEmbed.author.name || 'Author Name' %></a>
+                          </div>
+                          <div id="embedTitle1" name="embedTitle1" class="embedTitle embedMargin" style="display: unset;"><a class="anchor" target="_blank" href="<%= welcome.welcomeEmbed.titleURL || 'https://hopebot.top' %>"><%= welcome.welcomeEmbed.title || 'Title' %></a></div>
+                          <div id="embedDescription1" name="embedDescription1" class="embedDescription embedMargin" style="display: unset;"><%= welcome.welcomeEmbed.description || 'Description...' %></div>
+                          <img id="embedImage1" name="embedImage1" class="imageWrapper clickable embedMedia embedImage" src="<%= welcome.welcomeEmbed.image || 'https://unsplash.it/380/200' %>" style="display: block;">
+                          <img id="embedThumb1" name="embedThumb1" class="imageWrapper clickable embedThumbnail" src="<%= welcome.welcomeEmbed.thumbnail || 'https://unsplash.it/200' %>" style="display: block;">
+                          <div id="embedFooter1" name="embedFooter1" class="embedFooter embedMargin" style="display: flex;">
+                            <img id="embedFooterIcon1" name="embedFooterIcon1" class="embedFooterIcon" src="<%= welcome.welcomeEmbed.footerIcon || 'https://unsplash.it/100' %>">
+                            <span class="embedFooterText">
+                              <%= welcome.welcomeEmbed.footer || 'Footer Text' %>
+                              <span id="embedStamp1" name="embedStamp1" class="embedFooterSeparator" style="display: none;">• Today at 8:22 AM</span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <style>
+                    #bgcardwelcome {
+                      background-image: url(../../cards/card1.png);
+                      background-repeat: round;
+                      width: 768px;
+                      height: 376px;
+                    }
+
+                    #output {
+                      font-family: MV Boli;
+                      font-size: 18px;
+                    }
+
+                    #outputSub {
+                      color: #54ff46;
+                      text-shadow: 1px 1px 2px #53e87d, 0 0 25px #53e87d, 0 0 5px #53e87d;
+                      font-family: MV Boli;
+                      font-size: 18px;
+                    }
+                  </style>
+                  <div id="imagePreview" style="display: none;">
+                    <div class="sc-9p6mtp-0 jTFRoS sc-xf96lu-0 fpfbFT" dir="ltr">
+                      <!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+                      <svg name="bgcardwelcome" id="bgcardwelcome" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 550 250">
+                        <defs>
+                          <style>
+                            @font-face {
+                              font-family: https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf;
+                              src: url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-U1UpcaXcl0Aw.ttf);
+                            }
+                          </style>
+                        </defs>
+
+                        <!-- Background picture -->
+                        <rect id="rect" width="100%" height="100%" rx="3" ry="3" style="fill:#17181e00;"></rect>
+                        <% if (user.avatar) {
+                        avatar = "http://cdn.discordapp.com/avatars/" + req.user.id + "/" + user.avatar + ".png?size=128";
+                      } else {
+                        avatar = "http://cdn.glitch.com/82fe990a-7942-42e3-9790-39807ccdb9f6%2Ficon-404.png?v=1602412158188";
+                    }  %>
+                        <!-- Rounded rectangle in the center -->
+                        <rect y="5%" x="5%" rx="3" ry="3" width="90%" height="90%" style="fill:#17181e00;opacity:0.75;"></rect>
+
+                        <clipPath id="veyt5l-clipCircle">
+                          <circle cx="50%" cy="95" r="60"></circle>
+                        </clipPath>
+                        <circle cx="50%" cy="95" r="60" stroke="#ffffff" stroke-width="7"></circle>
+                        <image width="120" height="120" x="215" y="35" clip-path="url(#veyt5l-clipCircle)" xlink:href="<%= avatar %>"></image>
+
+                        <text id="output" font-family="https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf" font-size="20" font-weight="normal" fill="#fff" text-anchor="middle" y="190" x="50%">
+                          {userName} just joined the server
+                        </text>
+                        <text id="outputSub" font-family="https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf" font-size="20" font-weight="normal" fill="#54ff46" text-anchor="middle" y="215" x="50%">
+                          Member #{number}
+                        </text>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="leave-m-settings" class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_welcome22">LEAVE MESSAGE SETTINGS</h4>
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_welcome23">Each option is unique and only one will be in effect. Configure it the way you want and preview it on the side.</p>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form id="leavenotifyform">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_welcome42">Notify</p>
+                  <div class="control is-flex">
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" id="leavenotify" name="leavenotify" <% if (welcome.leaveNotifyMention === true) { %> checked <% } %>></label> <p class="form-check-label" name="translate" caption="dashboard_welcome43">Notify user with a mention (Eg. @Klaus)</p>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_welcome11">Message Type</p>
+                  <div class="control is-flex">
+                    <% if (welcome.leaveMessageType == "message") { %>
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="messageType2" value="" checked> Text Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="embedType2" value=""> Embed Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="imageType2" value=""> Image Message </label>
+                      </div>
+                    </div>
+                    <% } else if (welcome.leaveMessageType == "embed") { %>
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="messageType2" value=""> Text Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="embedType2" value="" checked> Embed Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="imageType2" value=""> Image Message </label>
+                      </div>
+                    </div>
+                    <% } else if (welcome.leaveMessageType == "image") { %>
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="messageType2" value=""> Text Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="embedType2" value=""> Embed Message </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="settingsType2" id="imageType2" value="" checked> Image Message </label>
+                      </div>
+                    </div>
+                    <% } %>
+                  </div>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <form role="form" action="/dashboard/<%= guild.guild.id %>/welcome" method="POST">
+                    <div class="col-sm-7" id="text2" style="display: block;">
+
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome12">Text message</p>
+                      <input>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="inText2" name="inText2" placeholder="" value="<%= welcome.leaveMessageText %>">
+                        <div class="input-group-append">
+                          <button name="inTextUpdate2" id="inTextUpdate2" class="btn btn-sm btn-outline-secondary" type="submit"><span name="translate" caption="dashboard_welcome13">Update</span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div id="embed2" style="display: none;">
+                    <form role="form" action="/dashboard/<%= guild.guild.id %>/welcome" method="POST">
+                      <div class="col-md-10 offset-md-1" style="color: white">
+                        <div class="card-deck">
+                          <div class="card">
+                            <div class="card-block">
+                              <div class="row form-group">
+                                <div class="col-md-3">
+
+                                  <input name="leave_author_icon2" value="<%= welcome.leaveEmbed.author.icon %>" style="background-color: #2f2f2f; color: white" type="text" placeholder="Author Icon" class="form-control" maxlength="200" id="author_icon2">
+                                </div>
+
+                                <div class="col-md-6">
+
+                                  <input name="leave_author_name2" value="<%= welcome.leaveEmbed.author.name %>" style="background-color: #2f2f2f; color: white" type="text" placeholder="Author Name" class="form-control" maxlength="256" id="author_name2">
+                                </div>
+
+
+                                <div class="col-md-3">
+
+                                  <input name="leave_author_url2" value="<%= welcome.leaveEmbed.author.url %>" style="background-color: #2f2f2f; color: white" type="text" placeholder="Author URL" class="form-control" maxlength="256" id="author_url2">
+                                </div>
+                              </div>
+
+                              <div class="row form-group">
+                                <div class="col-md-9">
+                                  <input value="<%= welcome.leaveEmbed.title %>" name="leave_embedTitle2" style="background-color: #2f2f2f; color: white" type="text" placeholder="Embed Title" class="form-control" maxlength="200" id="title2">
+                                </div>
+                                <div class="col-md-3">
+
+                                  <input value="<%= welcome.leaveEmbed.titleURL %>" name="leave_embedTitleURL2" style="background-color: #2f2f2f; color: white" type="text" placeholder="Embed Title Url" class="form-control" maxlength="200" id="url2">
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <div class="col-md-12"><textarea name="leave_embedDescription2" value="<%= welcome.leaveEmbed.description %>" placeholder="Embed Description" style="background-color: #2f2f2f; color: white" rows="3" wrap="soft" class="col-12 form-control" maxlength="2048" type="text" id="description2"><%= welcome.leaveEmbed.description %></textarea><br></div>
+                              </div>
+
+
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <input value="<%= welcome.leaveEmbed.thumbnail %>" name="leave_embedThumbnail2" id="thumb2" style="background-color: #2f2f2f; color: white" class="form-control" maxlength="200" type="text" placeholder="Embed Thumbnail Url">
+
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                  <input id="footerIcon2" value="<%= welcome.leaveEmbed.footerIcon %>" name="leave_embedFooterIcon2" style="background-color: #2f2f2f; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Icon">
+                                </div>
+
+                                <div class="col-md-3">
+
+                                  <input id="footer2" value="<%= welcome.leaveEmbed.footer %>" name="leave_embedFooter2" style="background-color: #2f2f2f; color: white" class="form-control" maxlength="1048" type="text" placeholder="Embed Footer Text">
+                                </div>
+
+                              </div>
+
+                              <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                              <div class="col-md-6">
+                                <input value="<%= welcome.leaveEmbed.image %>" name="leave_embedImage2" id="image2" style="background-color: #2f2f2f; color: white;right: 12px;" class="form-control" maxlength="200" type="text" placeholder="Embed Image Url">
+                              </div>
+
+                              <br>
+                              <p>Timestamp</p>
+                              <div class="col-sm-5">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <% if (welcome.leaveEmbed.timestamp == true) { %>
+                                    <input type="checkbox" class="form-check-input" name="leave_timestamp2" id="leave_timestamp2" value="option2" checked> Toggle <i class="input-helper"></i></label>
+                                  <% } else { %>
+                                  <input type="checkbox" class="form-check-input" name="leave_timestamp2" id="leave_timestamp2" value="option2"> Toggle <i class="input-helper"></i></label>
+                                  <% } %>
+                                </div>
+                              </div>
+                              <br>
+                              <input class="form-control" value="<%= welcome.leaveEmbed.color || '#000000' %>" name="leave_embedColor2" style="background-color: #2f2f2f; color: white" id="color2" type="color">
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <br>
+                        <center><button type="submit" name="inEmbedUpdate2" id="inEmbedUpdate2" class="btn btn-outline-secondary btn-sm"><span name="translate" caption="dashboard_welcome14">Update embed</span></button></center>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div id="leaveImageEdit" style="display: none;">
+                    <form role="form" action="/dashboard/<%= guild.guild.id %>/welcome" method="POST">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome15">Title</p>
+                      <input type="text" class="form-control" id="inImageTitle2" name="inImageTitle2" placeholder="" value="<%= welcome.leaveImageTitle %>">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome16">Subtitle</p>
+                      <input type="text" class="form-control" id="inImageSub2" name="inImageSub2" placeholder="" value="<%= welcome.leaveImageSub %>">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome17">Change Subtitle Color</p>
+                      <input class="form-control" value="<%= welcome.leaveImageTextColor || '#000000' %>" name="leaveImageTextColor" style="background-color: #2f2f2f; color: white" id="leaveImageTextColor" type="color">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome18">Change Background Color</p>
+                      <div class="sc-15s9jj9-2 jUSouP">
+                        <label style="border: none; outline: none; background: #FFED71; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card2" id="cardgold2" value="card1" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #7086FF; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card2" id="cardblue2" value="card2" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #8E55F5; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card2" id="cardpurple2" value="card3" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #FE32A4; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card2" id="cardpink2" value="card4" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #D3352F; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card2" id="cardred2" value="card5" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #00E92B; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card2" id="cardgreen2" value="card6" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+
+                        <label style="border: none; outline: none; background: #BABABA; width: 18px; height: 18px; border-radius: 50%; margin-inline-end: 8px; position: relative; cursor: pointer; transition: transform 0.15s ease-out 0s;">
+                          <input type="radio" name="card2" id="cardgrey2" value="card7" style="visibility: hidden; width: 0px; height: 0px;font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0;">
+                        </label>
+                      </div>
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <p class="text-muted mb-0" name="translate" caption="dashboard_welcome19">Custom Card Background</p>
+                      <input type="text" class="form-control" id="inImageCustomBG2" name="inImageCustomBG2" placeholder="Background URL" value="<%= welcome.leaveImageModel %>">
+                      <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                      <button type="submit" name="inImageUpdate2" id="inImageUpdate2" class="btn btn-outline-secondary btn-sm"><span name="translate" caption="dashboard_welcome20">Update image</span></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="leave-m-settings-preview" class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_welcome24">LEAVE PREVIEW</h4>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <div id="textPreview2" style="display: block;">
+                    <div class="msgEmbed">
+                      <div class="contents">
+                        <img src="https://cdn.discordapp.com/avatars/<%= req.client_id %>/<%= req.client_avatar %>.webp?size=1024" class="avatar" alt=" ">
+                        <h2>
+                          <span class="username" role="button">Hope <img draggable="false" class="emoji" alt="🌺" src="https://twemoji.maxcdn.com/v/13.1.0/72x72/1f33a.png"></span><span class="botTag"><span class="botText" style="">✓ BOT</span></span>
+                          <span class="timeText" name="translate" caption="dashboard_autobirthday16">Today at 8:22 AM</span>
+                        </h2>
+                      </div>
+                      <div id="outputText2" class="markup messageContent"><%= welcome.leaveMessageText || 'Oh-no! {user}, just leave the **{server}**!' %>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="embedPreview2" style="display: none;">
+                    <div class="container">
+                      <div id="embedColor2" id="embedColor2" class="embed markup" style="border-color: <%= welcome.leaveEmbed.color || '#ff0000' %>;">
+                        <div class="embedGrid">
+                          <div class="embedAuthor embedMargin" style="display: flex;">
+                            <img id="embedAuthorIcon2" name="embedAuthorIcon2" class="embedAuthorIcon" src="<%= welcome.leaveEmbed.author.icon || 'https://unsplash.it/100' %>">
+                            <a id="embedAuthorName2" name="embedAuthorName2" class="embedAuthorNameLink embedLink embedAuthorName" href="<%= welcome.leaveEmbed.author.url || 'https://hopebot.top' %>" target="_blank"><%= welcome.leaveEmbed.author.name %></a>
+                          </div>
+                          <div id="embedTitle2" name="embedTitle2" class="embedTitle embedMargin" style="display: unset;"><a class="anchor" target="_blank" href="<%= welcome.leaveEmbed.titleURL %>"><%= welcome.leaveEmbed.title || 'Embed Title' %></a></div>
+                          <div id="embedDescription2" name="embedDescription2" class="embedDescription embedMargin" style="display: unset;"><%= welcome.leaveEmbed.description || 'Embed Description' %></div>
+                          <img id="embedImage2" name="embedImage2" class="imageWrapper clickable embedMedia embedImage" src="<%= welcome.leaveEmbed.image || 'https://unsplash.it/380/200' %>" style="display: block;">
+                          <img id="embedThumb2" name="embedThumb2" class="imageWrapper clickable embedThumbnail" src="<%= welcome.leaveEmbed.thumbnail || 'https://unsplash.it/200' %>" style="display: block;">
+                          <div id="embedFooter2" name="embedFooter2" class="embedFooter embedMargin" style="display: flex;">
+                            <img id="embedFooterIcon2" name="embedFooterIcon2" class="embedFooterIcon" src="<%= welcome.leaveEmbed.footerIcon || 'https://unsplash.it/100' %>">
+                            <span class="embedFooterText2">
+                              <%= welcome.leaveEmbed.footer || 'Embed Footer Text' %>
+                              <span id="embedStamp2" name="embedStamp2" class="embedFooterSeparator" style="display: none;">• Today at 8:22 AM</span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <style>
+                    #bgcardwelcome2 {
+                      background-image: url(../../cards/card1.png);
+                      background-repeat: round;
+                      width: 768px;
+                      height: 376px;
+                    }
+
+                    #output2 {
+                      font-family: MV Boli;
+                      font-size: 18px;
+                    }
+
+                    #outputSub2 {
+                      color: #e85368;
+                      text-shadow: 1px 1px 2px red, 0 0 25px red, 0 0 5px red;
+                      font-family: MV Boli;
+                      font-size: 18px;
+                    }
+                  </style>
+                  <div id="imagePreview2" style="display: none;">
+                    <div class="sc-9p6mtp-0 jTFRoS sc-xf96lu-0 fpfbFT" dir="ltr">
+                      <!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+                      <svg name="bgcardwelcome2" id="bgcardwelcome2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 550 250">
+                        <defs>
+                          <style>
+                            @font-face {
+                              font-family: https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf;
+                              src: url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-U1UpcaXcl0Aw.ttf);
+                            }
+                          </style>
+
+                        </defs>
+
+                        <!-- Background picture -->
+                        <rect id="rect" width="100%" height="100%" rx="3" ry="3" style="fill:#17181e00;"></rect>
+                        <% if (user.avatar) {
+                        avatar = "http://cdn.discordapp.com/avatars/" + req.user.id + "/" + user.avatar + ".png?size=128";
+                      } else {
+                        avatar = "http://cdn.glitch.com/82fe990a-7942-42e3-9790-39807ccdb9f6%2Ficon-404.png?v=1602412158188";
+                    }  %>
+                        <!-- Rounded rectangle in the center -->
+                        <rect y="5%" x="5%" rx="3" ry="3" width="90%" height="90%" style="fill:#17181e00;opacity:0.75;"></rect>
+
+                        <clipPath id="veyt6l-clipCircle">
+                          <circle cx="50%" cy="95" r="60"></circle>
+                        </clipPath>
+                        <circle cx="50%" cy="95" r="60" stroke="#ffffff" stroke-width="7"></circle>
+                        <image width="120" height="120" x="215" y="35" clip-path="url(#veyt6l-clipCircle)" xlink:href="<%= avatar %>"></image>
+
+                        <text id="output2" font-family="https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf" font-size="16" font-weight="normal" fill="#ffffff" text-anchor="middle" y="190" x="50%">
+                          <%= welcome.leaveImageTitle || '{userName} just left the server' %>
+                        </text>
+                        <text id="outputSub2" opacity="0.7" font-family="https-fonts-gstatic-com-s-opensans-v-mem-YaGs-MiZpBA-U-UpcaXcl-Aw-ttf" font-size="20" font-weight="normal" fill="#e85368" text-anchor="middle" y="215" x="50%">
+                          <%= welcome.leaveImageSub || 'Bye' %>
+                        </text>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" style="font-size: 12px; line-height: 14px; letter-spacing: 2.1px; text-transform: uppercase; border-bottom: none;" name="translate" caption="dashboard_welcome25">VARIABLES</h4>
+                  <p style="font-size: 12px; line-height: 20px; color: #8793AA; letter-spacing: -0.2px;" name="translate" caption="dashboard_welcome26">You can use these variables in the message boxes above.</p>
+                  <b>
+                    <p style="color: white; font-size: .875em; font-weight: normal;">
+                      <span name="translate" caption="dashboard_welcome27">Variables:</span><br>
+                      <code>{user_tag}</code> <span name="translate" caption="dashboard_welcome28">- Username and tag in Discord. Eg:</span> <code name="translate" caption="dashboard_welcome29">Hello Hope 🌺#0104!</code><br>
+                      <code>{userName}</code> <span name="translate" caption="dashboard_welcome30">- The username of the user. Eg:</span> <code name="translate" caption="dashboard_welcome31">Hello Hope 🌺</code><br>
+                      <code>{userAvatar}</code> <span name="translate" caption="dashboard_welcome32">- The user's profile picture.</span><br>
+                      <code>{number}</code> <span name="translate" caption="dashboard_welcome33">- The Entry position on the server. Eg:</span> <code name="translate" caption="dashboard_welcome34">Hope is our number #1 member.</code><br>
+                      <code>{user_ID}</code> <span name="translate" caption="dashboard_welcome35">- The user ID.</span><br>
+                      <code>{guild_name}</code> <span name="translate" caption="dashboard_welcome36">- The Name of the server.</span><br>
+                      <code>{guild_ID}</code> <span name="translate" caption="dashboard_welcome37">- The server ID.</span><br>
+                      <code>{memberCount}</code> <span name="translate" caption="dashboard_welcome38">- The number of users on the server.</span><br>
+                      <code>{guild}</code> <span name="translate" caption="dashboard_welcome39">- The Name of the server.</span><br>
+                      <code>{user}</code> <span name="translate" caption="dashboard_welcome40">- Date of user account creation.</span><br>
+                      <code>{member_createdAt}</code> <span name="translate" caption="dashboard_welcome41">- Date of user's entrance in the server.</span>
+                    </p>
+                  </b>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          /* welcomeToggle-pill */
+          .welcomeToggle-pill input[type="checkbox"] {
+            display: none;
+          }
+
+          .welcomeToggle-pill input[type="checkbox"]+label {
+            display: block;
+            position: relative;
+            width: 3em;
+            height: 1.6em;
+            /* margin-bottom: 20px; */
+            border-radius: 1em;
+            background: #f3f3f3;
+            box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-transition: background 0.1s ease-in-out;
+            transition: background 0.1s ease-in-out;
+          }
+
+          .welcomeToggle-pill input[type="checkbox"]+label:before {
+            content: "";
+            display: block;
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: 1em;
+            background: #000;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            left: 0.2em;
+            top: 0.2em;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+          }
+
+          .welcomeToggle-pill input[type="checkbox"]:checked+label {
+            background: #fff;
+          }
+
+          .welcomeToggle-pill input[type="checkbox"]:checked+label:before {
+            box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+            left: 1.6em;
+          }
+
+          /* welcomeToggle-pill end */
+
+          /* welcomeToggle-pill-bw */
+          .welcomeToggle-pill-bw input[type="checkbox"] {
+            display: none;
+          }
+
+          .welcomeToggle-pill-bw input[type="checkbox"]+label {
+            display: block;
+            position: relative;
+            width: 3em;
+            height: 1.6em;
+            /* margin-bottom: 20px; */
+            background: #000;
+            border-radius: 1em;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-transition: background 0.1s ease-in-out;
+            transition: background 0.1s ease-in-out;
+          }
+
+          .welcomeToggle-pill-bw input[type="checkbox"]+label:before {
+            content: "";
+            display: block;
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: 1em;
+            background: #f7f2f2;
+            position: absolute;
+            left: 0.2em;
+            top: 0.2em;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+          }
+
+          .welcomeToggle-pill-bw input[type="checkbox"]:checked+label {
+            background: #40464a;
+          }
+
+          .welcomeToggle-pill-bw input[type="checkbox"]:checked+label:before {
+            left: 1.6em;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+          }
+
+          /* welcomeToggle-pill-bw end */
+
+          /* welcomeToggle-pill-color */
+          .welcomeToggle-pill-color input[type="checkbox"] {
+            display: none;
+          }
+
+          .welcomeToggle-pill-color input[type="checkbox"]+label {
+            display: block;
+            position: relative;
+            width: 3em;
+            height: 1.6em;
+            /* margin-bottom: 20px; */
+            border-radius: 1em;
+            background: #e84d4d;
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-transition: background 0.1s ease-in-out;
+            transition: background 0.1s ease-in-out;
+          }
+
+          .welcomeToggle-pill-color input[type="checkbox"]+label:before {
+            content: "";
+            display: block;
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: 1em;
+            background: #fff;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            left: 0.2em;
+            top: 0.2em;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+          }
+
+          .welcomeToggle-pill-color input[type="checkbox"]:checked+label {
+            background: #47cf73;
+          }
+
+          .welcomeToggle-pill-color input[type="checkbox"]:checked+label:before {
+            box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+            left: 1.6em;
+          }
+
+          /* welcomeToggle-pill-color end */
+
+          /* welcomeToggle-pill-color */
+          .welcomeToggle-pill-dark input[type="checkbox"] {
+            display: none;
+          }
+
+          .welcomeToggle-pill-dark input[type="checkbox"]+label {
+            display: block;
+            position: relative;
+            width: 3em;
+            height: 1.6em;
+            margin-bottom: 20px;
+            border-radius: 1em;
+            background: #000;
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-transition: background 0.1s ease-in-out;
+            transition: background 0.1s ease-in-out;
+          }
+
+          .welcomeToggle-pill-dark input[type="checkbox"]+label:before {
+            content: "";
+            display: block;
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: 1em;
+            background: #e84d4d;
+            position: absolute;
+            left: 0.2em;
+            top: 0.2em;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+          }
+
+          .welcomeToggle-pill-dark input[type="checkbox"]:checked+label:before {
+            background: #47cf73;
+            box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.2);
+            left: 1.6em;
+            -webkit-transform: rotate(295deg);
+            transform: rotate(295deg);
+          }
+
+          /* welcomeToggle-pill-dark end */
+        </style>
+        <style>
+          .nickto {
+            float: right !important;
+          }
+
+          /* The switch - the box around the slider */
+          .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+          }
+
+          /* Hide default HTML checkbox */
+          .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+
+          /* The slider */
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #0a0b0e;
+            -webkit-transition: .4s;
+            transition: .4s;
+          }
+
+          .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: rgb(255, 0, 0);
+            -webkit-transition: .4s;
+            transition: .4s;
+          }
+
+          input:checked+.slider {
+            background-color: #0a0b0e;
+          }
+
+          input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+          }
+
+          input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+            background-color: #00ff4c;
+          }
+
+          /* Rounded sliders */
+          .slider.round {
+            border-radius: 34px;
+          }
+
+          .slider.round:before {
+            border-radius: 50%;
+          }
+
+          @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+
+            input[type=checkbox],
+            input[type=radio] {
+              --active: #275EFE;
+              --active-inner: #fff;
+              --focus: 2px rgba(39, 94, 254, .3);
+              --border: #BBC1E1;
+              --border-hover: #275EFE;
+              --background: #fff;
+              --disabled: #F6F8FF;
+              --disabled-inner: #E1E6F9;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+              height: 21px;
+              outline: none;
+              display: inline-block;
+              vertical-align: top;
+              position: relative;
+              margin: 0;
+              cursor: pointer;
+              border: 1px solid var(--bc, var(--border));
+              background: var(--b, var(--background));
+              transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+            }
+
+            input[type=checkbox]:after,
+            input[type=radio]:after {
+              content: "";
+              display: block;
+              left: 0;
+              top: 0;
+              position: absolute;
+              transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+            }
+
+            input[type=checkbox]:checked,
+            input[type=radio]:checked {
+              --b: var(--active);
+              --bc: var(--active);
+              --d-o: .3s;
+              --d-t: .6s;
+              --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+            }
+
+            input[type=checkbox]:disabled,
+            input[type=radio]:disabled {
+              --b: var(--disabled);
+              cursor: not-allowed;
+              opacity: 0.9;
+            }
+
+            input[type=checkbox]:disabled:checked,
+            input[type=radio]:disabled:checked {
+              --b: var(--disabled-inner);
+              --bc: var(--border);
+            }
+
+            input[type=checkbox]:disabled+label,
+            input[type=radio]:disabled+label {
+              cursor: not-allowed;
+            }
+
+            input[type=checkbox]:hover:not(:checked):not(:disabled),
+            input[type=radio]:hover:not(:checked):not(:disabled) {
+              --bc: var(--border-hover);
+            }
+
+            input[type=checkbox]:focus,
+            input[type=radio]:focus {
+              outline: none;
+            }
+
+            input[type=checkbox]:not(.switch),
+            input[type=radio]:not(.switch) {
+              width: 21px;
+            }
+
+            input[type=checkbox]:not(.switch):after,
+            input[type=radio]:not(.switch):after {
+              opacity: var(--o, 0);
+            }
+
+            input[type=checkbox]:not(.switch):checked,
+            input[type=radio]:not(.switch):checked {
+              --o: 1;
+            }
+
+            input[type=checkbox]+label,
+            input[type=radio]+label {
+              font-size: 14px;
+              line-height: 21px;
+              display: inline-block;
+              vertical-align: top;
+              cursor: pointer;
+              margin-left: 4px;
+            }
+
+            input[type=checkbox]:not(.switch) {
+              border-radius: 7px;
+            }
+
+            input[type=checkbox]:not(.switch):after {
+              width: 5px;
+              height: 9px;
+              border: 2px solid var(--active-inner);
+              border-top: 0;
+              border-left: 0;
+              left: 7px;
+              top: 4px;
+              transform: rotate(var(--r, 20deg));
+            }
+
+            input[type=checkbox]:not(.switch):checked {
+              --r: 43deg;
+            }
+
+            input[type=checkbox].switch {
+              width: 38px;
+              border-radius: 11px;
+            }
+
+            input[type=checkbox].switch:after {
+              left: 2px;
+              top: 2px;
+              border-radius: 50%;
+              width: 15px;
+              height: 15px;
+              background: var(--ab, var(--border));
+              transform: translateX(var(--x, 0));
+            }
+
+            input[type=checkbox].switch:checked {
+              --ab: var(--active-inner);
+              --x: 17px;
+            }
+
+            input[type=checkbox].switch:disabled:not(:checked):after {
+              opacity: 0.6;
+            }
+
+            input[type=radio] {
+              border-radius: 50%;
+            }
+
+            input[type=radio]:after {
+              width: 19px;
+              height: 19px;
+              border-radius: 50%;
+              background: var(--active-inner);
+              opacity: 0;
+              transform: scale(var(--s, 0.7));
+            }
+
+            input[type=radio]:checked {
+              --s: .5;
+            }
+          }
+        </style>
+        <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script>
+          // Welcome {Strings}
+          var textValue = "<%= welcome.welcomeMessageText %>";
+          var imageTitle = "<%= welcome.welcomeImageTitle %>";
+          var imageSub = "<%= welcome.welcomeImageSub %>";
+          var authorIcon = "<%= welcome.welcomeEmbed.author.icon || 'https://unsplash.it/100' %>";
+          var authorName = "<%= welcome.welcomeEmbed.author.name || 'Author Name' %>";
+          var authorUrl = "<%= welcome.welcomeEmbed.author.url || 'https://hopebot.top' %>";
+          var embedTitle = "<%= welcome.welcomeEmbed.title || 'Title' %>";
+          var embedTitleUrl = "<%= welcome.welcomeEmbed.titleURL || 'https://hopebot.top' %>";
+          var embedDescription = "<%= welcome.welcomeEmbed.description || 'Description...' %>";
+          var embedThumb = "<%= welcome.welcomeEmbed.thumbnail || 'https://unsplash.it/200' %>";
+          var embedFooter = "<%= welcome.welcomeEmbed.footer || 'Footer Text' %>";
+          var embedFooterIcon = "<%= welcome.welcomeEmbed.footerIcon || 'https://unsplash.it/100' %>";
+          var embedColor = "<%= welcome.welcomeEmbed.color || '#ff0000' %>";
+          var embedImage = "<%= welcome.welcomeEmbed.image || 'https://unsplash.it/380/200' %>";
+          var imageTextColor = "<%= welcome.welcomeImageTextColor %>";
+          var imageCard = "<%= welcome.welcomeImageColor %>";
+          var imageCustomBG = "<%= welcome.welcomeImageModel %>";
+          // Leave {Strings}
+          var textValue2 = "<%= welcome.leaveMessageText %>";
+          var imageTitle2 = "<%= welcome.leaveImageTitle.replace('{userName}', 'Klaus') %>";
+          var imageSub2 = "<%= welcome.leaveImageSub %>";
+          var authorIcon2 = "<%= welcome.leaveEmbed.author.icon || 'https://unsplash.it/100' %>";
+          var authorName2 = "<%= welcome.leaveEmbed.author.name || 'Author Name' %>";
+          var authorUrl2 = "<%= welcome.leaveEmbed.author.url || 'https://hopebot.top' %>";
+          var embedTitle2 = "<%= welcome.leaveEmbed.title || 'Title' %>";
+          var embedTitleUrl2 = "<%= welcome.leaveEmbed.titleURL || 'https://hopebot.top' %>";
+          var embedDescription2 = "<%= welcome.leaveEmbed.description || 'Description...' %>";
+          var embedThumb2 = "<%= welcome.leaveEmbed.thumbnail || 'https://unsplash.it/200' %>";
+          var embedFooter2 = "<%= welcome.leaveEmbed.footer || 'Footer Text' %>";
+          var embedFooterIcon2 = "<%= welcome.leaveEmbed.footerIcon || 'https://unsplash.it/100' %>";
+          var embedColor2 = "<%= welcome.leaveEmbed.color || '#ff0000' %>";
+          var embedImage2 = "<%= welcome.leaveEmbed.image || 'https://unsplash.it/380/200' %>";
+          var imageTextColor2 = "<%= welcome.leaveImageTextColor %>";
+          var imageCard2 = "<%= welcome.leaveImageColor %>";
+          var imageCustomBG2 = "<%= welcome.leaveImageModel %>";
+        </script>
+        <!-- content-wrapper ends -->
+        <%- include("../../partials/_footer-dashboard.ejs") %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../../js/welcome.js"></script>
+  <script src="../../js/welcome-checks.js"></script>
+  <script src="../../js/leave-checks.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

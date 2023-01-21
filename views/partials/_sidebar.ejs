@@ -1,0 +1,170 @@
+<% if (guild.guild.icon) {
+    iconurl = "http://cdn.discordapp.com/icons/" + guild.guild.id + "/" + guild.guild.icon + ".png??size=512";
+ } else {
+    iconurl = "https://ui-avatars.com/api/?name=" + guild.guild.name + "&background=5865f2&color=fff";
+ } %>
+
+
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+      <a class="sidebar-brand brand-logo" href="/"><img src="https://i.imgur.com/A6wQYo6.png" alt="logo" /></a>
+      <a class="sidebar-brand brand-logo-mini" href="/"><img src="../../h-mini.png" alt="logo" /></a>
+    </div>
+    <ul class="nav">
+      <li class="nav-item profile">
+        <div class="profile-desc">
+          <div class="profile-pic">
+            <div class="count-indicator">
+              <img class="img-xs rounded-circle " src="<%= iconurl %>" alt="">
+            </div>
+            <div class="profile-name">
+              <h5 class="mb-0 font-weight-normal"><%= guild.guild.name %></h5>
+              <span><%= premium %></span>
+            </div>
+          </div>
+          <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+          <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+            <a href="/dashboard" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-swap-horizontal text-primary"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small" name="translate" caption="dashboard_sidebar1">Change server</p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="/api/v2/guild/<%= settings.guildID %>" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-database text-success"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small" name="translate" caption="dashboard_sidebar2">View server data</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item nav-category">
+        <span class="nav-link" name="translate" caption="dashboard_sidebar3">Navigation</span>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/home">
+          <span class="menu-icon">
+            <i class="mdi mdi-view-dashboard"></i>
+          </span>
+          <span class="menu-title" name="translate" caption="dashboard_sidebar4">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
+          <span class="menu-icon">
+            <i class="mdi mdi-settings"></i>
+          </span>
+          <span class="menu-title" name="translate" caption="dashboard_sidebar5">Settings</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="settings">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/bot"> Bot </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/guild"> Guild </a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/leaderboard">
+          <span class="menu-icon">
+            <i class="mdi mdi-trophy-variant-outline"></i>
+          </span>
+          <span class="menu-title" name="translate" caption="dashboard_sidebar6">Leaderboard</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+          <span class="menu-icon">
+            <i class="mdi mdi-forum"></i>
+          </span>
+          <span class="menu-title" name="translate" caption="dashboard_sidebar7">Engagement & Fun</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="auth">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/auto-anime"> Auto-Anime </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/auto-birthdays"> Auto-Birthdays </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/auto-twitch"> Auto-Twitch </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/auto-youtube"> Auto-Youtube </a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#management" aria-expanded="false" aria-controls="management">
+          <span class="menu-icon">
+            <i class="mdi mdi-server-security"></i>
+          </span>
+          <span class="menu-title" name="translate" caption="dashboard_sidebar8">Server management</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="management">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/welcome"> Welcome </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/reactionroles"> Reaction Roles </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/autorole"> Auto Role </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/ticket"> Ticket </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/giveaway"> Giveaway </a></li>
+            <li class="nav-item"> <a class="nav-link" href="#"> Levels </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/logging"> Logging </a></li>
+            <li class="nav-item"> <a class="nav-link" href="#"> Commands </a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#moderation" aria-expanded="false" aria-controls="moderation">
+          <span class="menu-icon">
+            <i class="mdi mdi-security"></i>
+          </span>
+          <span class="menu-title" name="translate" caption="dashboard_sidebar9">Moderation</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="moderation">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/automod"> Auto Mod </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/autoresponse"> Auto-Response </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/autonick"> Auto-Nick </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/verification"> Verification </a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#utilities" aria-expanded="false" aria-controls="utilities">
+          <span class="menu-icon">
+            <i class="mdi mdi-cube-outline"></i>
+          </span>
+          <span class="menu-title" name="translate" caption="dashboard_sidebar10">Utilities</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="utilities">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/automessage"> Auto-Message </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/sticky"> Sticky </a></li>
+            <li class="nav-item"> <a class="nav-link" href="#"> Reputation </a></li>
+            <li class="nav-item"> <a class="nav-link" href="#"> Suggestions </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/applications"> Applications </a></li>
+            <li class="nav-item"> <a class="nav-link" href="#"> Statistics </a></li>
+            <li class="nav-item"> <a class="nav-link" href="/dashboard/<%= guild.guild.id %>/embeds"> Embeds </a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/support">
+          <span class="menu-icon">
+            <i class="mdi mdi-help"></i>
+          </span>
+          <span class="menu-title" name="translate" caption="dashboard_sidebar11">Support</span>
+        </a>
+      </li>
+    </ul>
+  </nav>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Server management: Auto Role - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/auto-twitch.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form id="data1" class="form-horizontal">
+            <h4 name="translate" caption="dashboard_autorole1">Auto-Role</h4>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_autorole2">Customise everything related to your user.</p><br>
+            <div class=" row">
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_autorole3">Auto Role</h4>
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_autorole4">Automatically give the role on join.</p>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p name="translate" caption="dashboard_autorole5">This feature will automatically add the specified role every time a member joins your guild.</p>
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_autorole6">Role</p>
+                    <div class="input-group">
+                      <select id="xd1" name="xd1" class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px">
+                        <% for (const role of rr.roles) { %>
+                          <option value="<%- role.id %>" <% if (settings && settings.autoroleID.includes(role.id)) { %> selected <% } %>>@<%= role.name %></option>
+                          <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_autorole7">Sticky Role</h4>
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_autorole8">Give the role if had</p>
+                    <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                    <p name="translate" caption="dashboard_autorole9"> This feature will automatically add the specified role if the user had it when he left. </p>
+                    <p class="text-muted mb-0" name="translate" caption="dashboard_autorole6">Role</p>
+                    <div class="input-group">
+                      <select id="xd2" name="xd2" class="js-example-basic-multiple" multiple="multiple" style="width:483px;max-width:483px">
+                        <% for (const role of rr.roles) { %>
+                          <option value="<%- role.id %>" <% if (stickySettings && stickySettings.stickyroleID.includes(role.id)) { %> selected <% } %>>@<%= role.name %></option>
+                          <% } %>
+                      </select>
+                    </div>
+                    <div class="save" id="save">
+                      <span><span name="translate" caption="dashboard_autorole10">You have unsaved changes. Do you want to save them?</span>
+                        <input type="submit" class="cta" value="Save" name="confirmchange" id="confirmchange" onclick="offNotify();">
+                        <input name="cancel" type="button" class="ctb" value="Cancel" onclick="mudarCor();""></span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          .c011 {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            z-index: 3000;
+            padding: 1.2rem;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.75);
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            justify-content: center;
+          }
+
+          .c014 {
+            top: 34px;
+            right: 35px;
+            /* bottom: 20px; */
+            cursor: pointer;
+            position: absolute;
+            height: 30px;
+            width: 50px;
+          }
+
+          .savee {
+            position: fixed;
+            bottom: -1400px;
+            z-index: 999;
+            background: #13151b;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            /* padding: 30px 40px; */
+            border-radius: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 700;
+            transition: .2s all ease-in-out;
+          }
+
+          .savee .cta {
+            margin-left: 20px;
+          }
+
+          .savee.changes_truee {
+            top: 0;
+            /* left: 0; */
+            /* right: 0; */
+            bottom: 0;
+            /* display: flex; */
+            z-index: 3000;
+            padding: 1.2rem;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.75);
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 1500px;
+            height: 100%;
+          }
+        </style>
+        <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+                        <script>
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-right',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true
+                          })
+
+                          $("#data1").submit(function(e) {
+                            e.preventDefault();
+                            var form = $(this);
+
+                            $.ajax({
+                              type: "POST",
+                              url: '/dashboard/<%= req.params.guildID %>/autorole',
+                              data: form.serialize(),
+                              beforeSend: function() {
+                                Toast.fire({
+                                  icon: 'warning',
+                                  title: 'Saving...'
+                                });
+                              },
+                              success: function(data) {
+                                Toast.fire({
+                                  icon: 'success',
+                                  title: 'Saved Changes'
+                                });
+                              }
+                            }).fail(function() {
+                              Toast.fire({
+                                icon: 'error',
+                                title: 'An error occurred while saving...'
+                              });
+                            });
+                          });
+                        </script>
+                        <!-- content-wrapper ends -->
+                        <%- include("../../partials/_footer-dashboard.ejs") %>
+                        <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+                  </div>
+                  <!-- page-body-wrapper ends -->
+                </div>
+                <!-- container-scroller -->
+                <!-- plugins:js -->
+                <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+                <!-- endinject -->
+                <!-- Plugin js for this page -->
+                <script src="../../assets/vendors/select2/select2.min.js"></script>
+                <!-- End plugin js for this page -->
+                <!-- inject:js -->
+                <script src="../../assets/js/off-canvas.js"></script>
+                <script src="../../assets/js/hoverable-collapse.js"></script>
+                <script src="../../assets/js/misc.js"></script>
+                <script src="../../assets/js/settings.js"></script>
+                <script src="../../assets/js/todolist.js"></script>
+                <!-- endinject -->
+                <!-- Custom js for this page -->
+                <script src="../../js/auto-role.js"></script>
+                <script src="../../assets/js/select2.js"></script>
+                <!-- End custom js for this page -->
+</body>
+
+</html>

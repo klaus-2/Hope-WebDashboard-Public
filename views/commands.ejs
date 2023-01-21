@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('./partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Commands list - Hope</title>
+  <script src="js/commands.js"></script>
+  <link rel="stylesheet" href="css/commands.css">
+</head>
+
+<% let prefix = '.' %>
+
+<body class="zoomed">
+  <header>
+    <span class="logo"><a href="<%= domain %>" rel="noopener" aria-label="Open home page"><span class="name"><img class="navbar-logo" alt="Hope the best Multipurpose Bot for your Discord Server" src="https://i.imgur.com/A6wQYo6.png"></span></a></span>
+    <nav>
+      <ul>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/invite">Invite</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/commands">Commands</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/status">Status</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/guides">Guides</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/support">Help</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/">Premium</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <div class="cmdsBox">
+    <div class="cmdsBoxInner" id="all">
+      <header>
+        <div class="menuIcon">
+          <div class="menuIconDashes">
+            <div class="menuIconSquare"></div>
+            <div class="menuIconDash"></div>
+            <div class="menuIconDash middleDash"></div>
+            <div class="menuIconDash"></div>
+          </div>
+          <img class="menuIconFullScreen" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Capa_1' x='0px' y='0px' viewBox='0 0 512 512' style='enable-background:new 0 0 512 512;' xml:space='preserve' width='512px' height='512px'%3E%3Cg%3E%3Cg%3E%3Cpath d='M192,64H32C14.328,64,0,78.328,0,96v96c0,17.672,14.328,32,32,32s32-14.328,32-32v-64h128c17.672,0,32-14.328,32-32 S209.672,64,192,64z' data-original='%23000000' class='active-path' data-old_color='%23000000' fill='%23A5A5A5'/%3E%3Cpath d='M480,64H320c-17.672,0-32,14.328-32,32s14.328,32,32,32h128v64c0,17.672,14.328,32,32,32s32-14.328,32-32V96 C512,78.328,497.672,64,480,64z' data-original='%23000000' class='active-path' data-old_color='%23000000' fill='%23A5A5A5'/%3E%3Cpath d='M480,288c-17.672,0-32,14.328-32,32v64H320c-17.672,0-32,14.328-32,32s14.328,32,32,32h160c17.672,0,32-14.328,32-32v-96 C512,302.328,497.672,288,480,288z' data-original='%23000000' class='active-path' data-old_color='%23000000' fill='%23A5A5A5'/%3E%3Cpath d='M192,384H64v-64c0-17.672-14.328-32-32-32S0,302.328,0,320v96c0,17.672,14.328,32,32,32h160c17.672,0,32-14.328,32-32 S209.672,384,192,384z' data-original='%23000000' class='active-path' data-old_color='%23000000' fill='%23A5A5A5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E" alt="">
+        </div>
+      </header>
+      <div class="cmdsBoxCmdsContainer">
+        <div class="cmdFilters">
+          <div>
+            <h5>Commands</h5>
+            <div class="cmdFilter">
+              <a href="#all" data-href=""><img src="https://cdn.discordapp.com/attachments/823007354798473238/1032982863265673216/categories.png" alt=""> <span class="cmdFilterName">All Commands</span></a>
+            </div>
+            <% let cat = {
+                Addons: "https://cdn-icons-png.flaticon.com/512/2534/2534626.png",
+                Animes: "https://cdn.discordapp.com/attachments/823007354798473238/888808338337452122/830174554012778587.png",
+                Actions: "https://cdn.discordapp.com/attachments/823007354798473238/888808912147603556/830841929359949884.png",
+                Fun: "https://cdn.discordapp.com/attachments/863414255766994944/888809195758030909/823004802107703327.png",
+                Economy: "https://cdn.discordapp.com/attachments/823007354798473238/888809329241755679/830175433140076544.png",
+                Misc: "https://cdn.discordapp.com/attachments/823007354798473238/888809459575570483/823008067368124476.png",
+                Image: "https://cdn.discordapp.com/emojis/823004649781985311.png",
+                Games: "https://cdn.discordapp.com/emojis/823004588931022890.png",
+                Moderation: "https://cdn.discordapp.com/emojis/823004537756844073.png",
+                Searchers: "https://cdn.discordapp.com/emojis/823004382127849513.png",
+                Guild: "https://cdn.discordapp.com/emojis/823004266981621779.png",
+                Giveaway: "https://cdn.discordapp.com/emojis/823004188292022303.png",
+                Ticket: "https://cdn.discordapp.com/attachments/823007354798473238/888811178346815578/7d3e3949b8fafe2ebed318974f1ece8b1.png",  
+            }; %>
+            <% for (const categories of cmd.categories) { %>
+            <% if (categories.name === "Host" || categories.name === "Level") continue; %>
+            <div class="cmdFilter funSelector">
+              <a href="#<%= categories.name %>"><img src="<%= cat[categories.name] %>" alt=""> <span class="cmdFilterName"><%= categories.name %> Commands</span></a>
+            </div>
+            <% } %>
+
+            <div class="separator"></div>
+            <h5>Other Stuff</h5>
+            <div class="cmdFilter">
+              <a target="_blank" href="/invite">
+                <img src="https://logodownload.org/wp-content/uploads/2017/11/discord-logo-2-1.png" alt=""> <span class="cmdFilterName">Invite</span>
+              </a>
+            </div>
+            <div class="cmdFilter newTab" style="cursor: pointer;">
+              <img style="width: 18px;" alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='512' height='512' x='0' y='0' viewBox='0 0 469.333 469.333' style='enable-background:new 0 0 512 512' xml:space='preserve' class=''%3E%3Cg%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cg%3E%3Crect x='0' y='128' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Cpath d='M0,85.333h42.667V42.667C19.093,42.667,0,61.76,0,85.333z' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/path%3E%3Crect x='85.333' y='42.667' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Crect x='0' y='298.667' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Cpath d='M42.667,426.667V384H0C0,407.573,19.093,426.667,42.667,426.667z' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/path%3E%3Crect x='0' y='213.333' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Crect x='170.667' y='384' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Crect x='85.333' y='384' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Crect x='426.667' y='213.333' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Crect x='426.667' y='298.667' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Crect x='170.667' y='42.667' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Cpath d='M426.667,42.667H256v128h213.333V85.333C469.333,61.76,450.24,42.667,426.667,42.667z' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/path%3E%3Cpath d='M426.667,426.667c23.573,0,42.667-19.093,42.667-42.667h-42.667V426.667z' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/path%3E%3Crect x='256' y='384' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3Crect x='341.333' y='384' width='42.667' height='42.667' fill='%23ed9e1b' data-original='%23000000' style='' class=''%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3Cg xmlns='http://www.w3.org/2000/svg'%3E%3C/g%3E%3C/g%3E%3C/svg%3E"> <span class="cmdFilterName">Open in new tab</span>
+            </div>
+            <div class="cmdFilter tipsBtn">
+              <img src="data:image/svg+xml,%3C%3Fxml version='1.0'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Capa_1' x='0px' y='0px' viewBox='0 0 512 512' style='enable-background:new 0 0 512 512;' xml:space='preserve' width='512px' height='512px'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Cpath d='M256,0C158.041,0,78.342,79.693,78.342,177.658c0,65.178,36.192,125.298,93.147,156.37v36.71 c0,10.221,8.285,18.506,18.506,18.506h131.399c10.221,0,18.506-8.284,18.506-18.506v-36.66 c57.332-30.948,93.758-91.093,93.758-156.419C433.658,79.693,353.959,0,256,0z M313.72,305.781 c-6.6,3.004-10.838,9.586-10.838,16.841v29.61h-94.381v-29.61c0-7.224-4.207-13.793-10.764-16.81 c-50.046-23.052-82.383-73.358-82.383-128.154c0-77.553,63.093-140.646,140.646-140.646s140.646,63.093,140.646,140.646 C396.646,232.541,364.094,282.834,313.72,305.781z' data-original='%23000000' class='active-path' data-old_aniquote='%23000000' fill='%23ED9E1B'/%3E%3C/g%3E%3C/g%3E%3Cg%3E%3Cg%3E%3Cpath d='M307.2,413.918H204.8c-10.221,0-18.506,8.285-18.506,18.506c0,10.221,8.284,18.506,18.506,18.506h102.4 c10.221,0,18.506-8.285,18.506-18.506C325.706,422.203,317.421,413.918,307.2,413.918z' data-original='%23000000' class='active-path' data-old_aniquote='%23000000' fill='%23ED9E1B'/%3E%3C/g%3E%3C/g%3E%3Cg%3E%3Cg%3E%3Cpath d='M277.59,474.988H234.41c-10.221,0-18.506,8.285-18.506,18.506c0,10.221,8.285,18.506,18.506,18.506h43.181 c10.221,0,18.506-8.285,18.506-18.506C296.096,483.273,287.812,474.988,277.59,474.988z' data-original='%23000000' class='active-path' data-old_aniquote='%23000000' fill='%23ED9E1B'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A" alt=""> <span class="cmdFilterName">Tip</span>
+            </div>
+          </div>
+          <div class="tips">
+            <div style="display: flex;">
+              <img src="data:image/svg+xml,%3C%3Fxml version='1.0'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' id='Capa_1' x='0px' y='0px' viewBox='0 0 512 512' style='enable-background:new 0 0 512 512;' xml:space='preserve' width='512px' height='512px'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Cpath d='M256,0C158.041,0,78.342,79.693,78.342,177.658c0,65.178,36.192,125.298,93.147,156.37v36.71 c0,10.221,8.285,18.506,18.506,18.506h131.399c10.221,0,18.506-8.284,18.506-18.506v-36.66 c57.332-30.948,93.758-91.093,93.758-156.419C433.658,79.693,353.959,0,256,0z M313.72,305.781 c-6.6,3.004-10.838,9.586-10.838,16.841v29.61h-94.381v-29.61c0-7.224-4.207-13.793-10.764-16.81 c-50.046-23.052-82.383-73.358-82.383-128.154c0-77.553,63.093-140.646,140.646-140.646s140.646,63.093,140.646,140.646 C396.646,232.541,364.094,282.834,313.72,305.781z' data-original='%23000000' class='active-path' data-old_aniquote='%23000000' fill='%23ED9E1B'/%3E%3C/g%3E%3C/g%3E%3Cg%3E%3Cg%3E%3Cpath d='M307.2,413.918H204.8c-10.221,0-18.506,8.285-18.506,18.506c0,10.221,8.284,18.506,18.506,18.506h102.4 c10.221,0,18.506-8.285,18.506-18.506C325.706,422.203,317.421,413.918,307.2,413.918z' data-original='%23000000' class='active-path' data-old_aniquote='%23000000' fill='%23ED9E1B'/%3E%3C/g%3E%3C/g%3E%3Cg%3E%3Cg%3E%3Cpath d='M277.59,474.988H234.41c-10.221,0-18.506,8.285-18.506,18.506c0,10.221,8.285,18.506,18.506,18.506h43.181 c10.221,0,18.506-8.285,18.506-18.506C296.096,483.273,287.812,474.988,277.59,474.988z' data-original='%23000000' class='active-path' data-old_aniquote='%23000000' fill='%23ED9E1B'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A" alt="" style="width: 20px;position: relative;top: -4px;margin-right: 5%;" width="30px">
+              <h5>Here's a tip</h5>
+            </div>
+            <div class="text"></div>
+          </div>
+        </div>
+        <main>
+          <div class="cmds">
+            <% for (const categories of cmd.categories) { %>
+            <% if (categories.name === "Host" || categories.name === "Level") continue; %>
+            <div class="cmdCategory" id="<%= categories.name %>">
+              <h5 class="cmdCategoryName fun"><%= categories.name %> Commands</h5>
+              <% for (const commands of categories.commands) { %>
+                <% if (commands.name === "memebr" || commands.name === 'giveaway' || commands.name === 'plusgen' || commands.name === 'ticket') continue; %>
+              <div class="cmd">
+                <% let slash; %>
+                <% if (commands.slash === true) slash = "or /" + commands.name; %>
+                <% if (commands.slashSite === true) slash = "or /" + commands.name; %>
+                <div class="cmdComps">
+                  <span class="cmdPrefix"><% if (commands.slash == true) {%>
+                    <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -7px;margin-right: 16px;">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.11111 0C1.39289 0 0 1.39289 0 3.11111V24.8889C0 26.6072 1.39289 28 3.11111 28H24.8889C26.6072 28 28 26.6072 28 24.8889V3.11111C28 1.39289 26.6072 0 24.8889 0H3.11111ZM21.6214 8.42207L19.4216 6.22219L6.22222 19.4216L8.4221 21.6214L21.6214 8.42207Z" fill="#5865F2" style="transition: fill 0.2s ease-in-out 0s;"></path>
+                    </svg>
+                    <% } else if (commands.slashSite === true) { %>
+                    <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -7px;margin-right: 16px;">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.11111 0C1.39289 0 0 1.39289 0 3.11111V24.8889C0 26.6072 1.39289 28 3.11111 28H24.8889C26.6072 28 28 26.6072 28 24.8889V3.11111C28 1.39289 26.6072 0 24.8889 0H3.11111ZM21.6214 8.42207L19.4216 6.22219L6.22222 19.4216L8.4221 21.6214L21.6214 8.42207Z" fill="#5865F2" style="transition: fill 0.2s ease-in-out 0s;"></path>
+                    </svg>
+                    <% } else { %>
+                    <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -7px;margin-right: 16px;">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.11111 0C1.39289 0 0 1.39289 0 3.11111V24.8889C0 26.6072 1.39289 28 3.11111 28H24.8889C26.6072 28 28 26.6072 28 24.8889V3.11111C28 1.39289 26.6072 0 24.8889 0H3.11111ZM21.6214 8.42207L19.4216 6.22219L6.22222 19.4216L8.4221 21.6214L21.6214 8.42207Z" fill="#303038" style="transition: fill 0.2s ease-in-out 0s;"></path>
+                    </svg>
+                    <% } %> <%= prefix %></span><%= commands.name %> <%= slash %>
+                  <div class="cmdDesc"><%= commands.description %></div>
+                </div>
+                <div class="cmdData">
+                  <div class="cmdComps2">
+                    <div class="cmdUsage cmdMain">
+                      <% const milliseconds = commands.cooldown; %>
+                      <% const seconds = Math.floor((milliseconds / 1000) % 60); %>
+                      <h5>Cooldown:</h5>
+                      <div class="exComp"><span class="cmdsPrefix"></span>
+                        <p style="font-size: 14px;white-space: pre;color: #fff;"><%= seconds %> seconds</p>
+                      </div>
+                    </div>
+                    <div class="cmdUsage cmdMain">
+                      <h5>Usage:</h5>
+                      <div class="exComp">
+                        <p style="font-size: 14px;white-space: pre;color: #fff;"><%= commands.usage %></p>
+                      </div>
+                    </div>
+
+                    <div style="display: flex;
+                    flex-wrap: wrap;
+                    grid-gap: 15px;
+                    gap: 15px;
+                    margin-top: 30px;">
+                      <div class="cmdUsage cmdMain" style="flex: 0.1 1 15%;">
+                        <h5>Aliases:</h5>
+                        <% for (const cmd of commands.aliases) { %>
+                        <div class="exComp">
+                          <span class="cmdsPrefix" style="font-size: 14px;white-space: pre;color: #fff;">.<%- cmd %></span><br>
+                        </div>
+                        <% } %>
+                        <!-- <div class="exComp"><span class="cmdsPrefix"></span><p style="font-size: 14px;white-space: pre;color: #fff;"><%= commands.aliases.join(` | `) %></p></div> -->
+                      </div>
+                      <div class="cmdExample cmdMain">
+                        <h5>Examples:</h5>
+                        <% for (const exp of commands.examples) { %>
+                        <div class="exComp">
+                          <p style="font-size: 14px;white-space: pre;color: #fff;"><%- exp %></p>
+                        </div>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+              <% } %>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <div class="win2 aside">
+      <div class="inner">
+        <iframe src="/contact?full-screen=true" frameborder="0" width="100%" height="100%"></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="left">
+    <div class="bmac">
+
+    </div>
+  </div>
+  <div class="bottom">
+    <span class="underline">Thanks</span> for using my bot.<br>
+  </div>
+</body>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+var cmds_0xcb5f8c=cmds_0x2f01;(function(_0x53cbb3,_0x9662ee){var _0x57996f=cmds_0x2f01,_0x12191f=_0x53cbb3();while(!![]){try{var _0x317c95=parseInt(_0x57996f(0x1a4))/0x1*(-parseInt(_0x57996f(0x193))/0x2)+-parseInt(_0x57996f(0x19c))/0x3+-parseInt(_0x57996f(0x18f))/0x4*(-parseInt(_0x57996f(0x1a8))/0x5)+parseInt(_0x57996f(0x1a2))/0x6+parseInt(_0x57996f(0x18a))/0x7*(parseInt(_0x57996f(0x1ab))/0x8)+-parseInt(_0x57996f(0x18b))/0x9*(-parseInt(_0x57996f(0x18e))/0xa)+parseInt(_0x57996f(0x19e))/0xb*(-parseInt(_0x57996f(0x188))/0xc);if(_0x317c95===_0x9662ee)break;else _0x12191f['push'](_0x12191f['shift']());}catch(_0x40bcc5){_0x12191f['push'](_0x12191f['shift']());}}}(cmds_0x43bc,0xc49ce));var cmds_0x17ff31=(function(){var _0x2cd770=!![];return function(_0xce1b0b,_0x1600e3){var _0x4b8d05=_0x2cd770?function(){if(_0x1600e3){var _0x3829c7=_0x1600e3['apply'](_0xce1b0b,arguments);return _0x1600e3=null,_0x3829c7;}}:function(){};return _0x2cd770=![],_0x4b8d05;};}()),cmds_0x4fc878=cmds_0x17ff31(this,function(){var _0x5d7286=cmds_0x2f01,_0x20b5b6;try{var _0x5a51de=Function(_0x5d7286(0x1a3)+_0x5d7286(0x1ac)+');');_0x20b5b6=_0x5a51de();}catch(_0x523f66){_0x20b5b6=window;}var _0x4bb924=new RegExp(_0x5d7286(0x1a6),'g'),_0x55ba16=_0x5d7286(0x190)['replace'](_0x4bb924,'')[_0x5d7286(0x1a5)](';'),_0x302c32,_0x17e0c5,_0x3aa3cf,_0x4efeea,_0x145efd=function(_0x3e3bcb,_0x20b858,_0xa39502){var _0x58ee45=_0x5d7286;if(_0x3e3bcb[_0x58ee45(0x187)]!=_0x20b858)return![];for(var _0x19d19e=0x0;_0x19d19e<_0x20b858;_0x19d19e++){for(var _0x519daf=0x0;_0x519daf<_0xa39502[_0x58ee45(0x187)];_0x519daf+=0x2){if(_0x19d19e==_0xa39502[_0x519daf]&&_0x3e3bcb['charCodeAt'](_0x19d19e)!=_0xa39502[_0x519daf+0x1])return![];}}return!![];},_0x29da97=function(_0x3e2915,_0x4f555b,_0x285a61){return _0x145efd(_0x4f555b,_0x285a61,_0x3e2915);},_0x449718=function(_0x48a5bb,_0x4d8755,_0x43a65a){return _0x29da97(_0x4d8755,_0x48a5bb,_0x43a65a);},_0xb086ff=function(_0x1f8554,_0x4e9823,_0x249623){return _0x449718(_0x4e9823,_0x249623,_0x1f8554);};for(var _0x2c2cdf in _0x20b5b6){if(_0x145efd(_0x2c2cdf,0x8,[0x7,0x74,0x5,0x65,0x3,0x75,0x0,0x64])){_0x302c32=_0x2c2cdf;break;}}for(var _0x2f7cde in _0x20b5b6[_0x302c32]){if(_0xb086ff(0x6,_0x2f7cde,[0x5,0x6e,0x0,0x64])){_0x17e0c5=_0x2f7cde;break;}}for(var _0x3f3afd in _0x20b5b6[_0x302c32]){if(_0x449718(_0x3f3afd,[0x7,0x6e,0x0,0x6c],0x8)){_0x3aa3cf=_0x3f3afd;break;}}if(!('~'>_0x17e0c5))for(var _0xf4849d in _0x20b5b6[_0x302c32][_0x3aa3cf]){if(_0x29da97([0x7,0x65,0x0,0x68],_0xf4849d,0x8)){_0x4efeea=_0xf4849d;break;}}if(!_0x302c32||!_0x20b5b6[_0x302c32])return;var _0x357ca3=_0x20b5b6[_0x302c32][_0x17e0c5],_0x59dce1=!!_0x20b5b6[_0x302c32][_0x3aa3cf]&&_0x20b5b6[_0x302c32][_0x3aa3cf][_0x4efeea],_0x198333=_0x357ca3||_0x59dce1;if(!_0x198333)return;var _0x425378=![];for(var _0xe9b5c1=0x0;_0xe9b5c1<_0x55ba16[_0x5d7286(0x187)];_0xe9b5c1++){var _0x17e0c5=_0x55ba16[_0xe9b5c1],_0x335fdf=_0x17e0c5[0x0]===String[_0x5d7286(0x1a1)](0x2e)?_0x17e0c5[_0x5d7286(0x1a0)](0x1):_0x17e0c5,_0x4a072b=_0x198333['length']-_0x335fdf[_0x5d7286(0x187)],_0x434fb7=_0x198333[_0x5d7286(0x197)](_0x335fdf,_0x4a072b),_0x4cb568=_0x434fb7!==-0x1&&_0x434fb7===_0x4a072b;_0x4cb568&&((_0x198333['length']==_0x17e0c5[_0x5d7286(0x187)]||_0x17e0c5[_0x5d7286(0x197)]('.')===0x0)&&(_0x425378=!![]));}if(!_0x425378){var _0x1f1d44=new RegExp('[ljAxlFiwDRaLFlSMZQqrgKIDMFKYHwvLrBCXCRzjmjWWrCMTrgQlXDmwQnHuRg]','g'),_0x34c56a=_0x5d7286(0x1a7)[_0x5d7286(0x199)](_0x1f1d44,'');_0x20b5b6[_0x302c32][_0x3aa3cf]=_0x34c56a;}});cmds_0x4fc878();function cmds_0x2f01(_0x368917,_0x34983f){var _0x2a22d1=cmds_0x43bc();return cmds_0x2f01=function(_0x22d549,_0xb5efd1){_0x22d549=_0x22d549-0x186;var _0x5514e5=_0x2a22d1[_0x22d549];return _0x5514e5;},cmds_0x2f01(_0x368917,_0x34983f);}var cmds_0xb5efd1=(function(){var _0xb2aadb=!![];return function(_0x2715fa,_0x4c5971){var _0x4b8250=_0xb2aadb?function(){var _0x5564dc=cmds_0x2f01;if(_0x4c5971){var _0x4e429f=_0x4c5971[_0x5564dc(0x1a9)](_0x2715fa,arguments);return _0x4c5971=null,_0x4e429f;}}:function(){};return _0xb2aadb=![],_0x4b8250;};}());(function(){cmds_0xb5efd1(this,function(){var _0xcfaa77=cmds_0x2f01,_0x1ff9e8=new RegExp(_0xcfaa77(0x191)),_0x311a49=new RegExp(_0xcfaa77(0x194),'i'),_0x248804=cmds_0x22d549(_0xcfaa77(0x18d));!_0x1ff9e8[_0xcfaa77(0x186)](_0x248804+_0xcfaa77(0x196))||!_0x311a49[_0xcfaa77(0x186)](_0x248804+_0xcfaa77(0x189))?_0x248804('0'):cmds_0x22d549();})();}()),$(window)['on'](cmds_0xcb5f8c(0x19d),function(_0x3c864a){var _0xd10f99=cmds_0xcb5f8c;history[_0xd10f99(0x19f)]('',document[_0xd10f99(0x19a)],_0x3c864a[_0xd10f99(0x1aa)]['oldURL']);});function cmds_0x22d549(_0x8e8792){function _0xdc3d9a(_0x546f30){var _0x12a9e2=cmds_0x2f01;if(typeof _0x546f30==='string')return function(_0x5ccc49){}[_0x12a9e2(0x18c)]('while\x20(true)\x20{}')[_0x12a9e2(0x1a9)](_0x12a9e2(0x195));else(''+_0x546f30/_0x546f30)[_0x12a9e2(0x187)]!==0x1||_0x546f30%0x14===0x0?function(){return!![];}[_0x12a9e2(0x18c)]('debu'+'gger')[_0x12a9e2(0x198)](_0x12a9e2(0x19b)):function(){return![];}['constructor'](_0x12a9e2(0x192)+'gger')[_0x12a9e2(0x1a9)]('stateObject');_0xdc3d9a(++_0x546f30);}try{if(_0x8e8792)return _0xdc3d9a;else _0xdc3d9a(0x0);}catch(_0x130b8d){}}function cmds_0x43bc(){var _0x1c78fa=['indexOf','call','replace','title','action','732291ctIATh','hashchange','121mdQpqj','replaceState','slice','fromCharCode','9312114tgncnT','return\x20(function()\x20','23839dvWpCz','split','[EPNSSvEBORGXFrXyGWyvrDZjlHvCDGqvOsmuJKYvIHNSJjQVlNsvOyjEaXBRvLTSjBrTmBFUqrqCOVLdmAIFuUqNBiWrDmzPaGNvUJrnsxxrNcGvXvYqFxJFxuEajXYNQLduOmDZKTncvjuTnWZgmDdSRBQNFafiJWvFKAPZPXyldMyJMzrIfKRuIQKWfKSAXXavG]','hljAttxlFipwDsR://hopebaLFolSMtZQqr.gKIDtMFKYHwvLop/rBC40XC3RzjmjWWrCMTrgQlXDmwQnHuRg','91595ifePIm','apply','originalEvent','8nswqRS','{}.constructor(\x22return\x20this\x22)(\x20)','test','length','2279868acvnHH','input','1573264DjFoOf','7036587OQiMnE','constructor','init','10oYiwJo','132HWHsTz','EPNSSvEB25OR.GXF45.rX20y1GWy.v15;rDZjl25HvC.45D.Gq2vOsmu01J.15KYv;hopeIHNSbJjotQ.tVlNsovpO;yhopjeEbotaX.BtoRvLTp;ShjBopebortTm.topBF;Uqwwwrq.COhVoLdmpeboAIFt.tuopUqNBiWrDmzPaGNvUJrnsxxrNcGvXvYqFxJFxuEajXYNQLduOmDZKTncvjuTnWZgmDdSRBQNFafiJWvFKAPZPXyldMyJMzrIfKRuIQKWfKSAXXavG','function\x20*\x5c(\x20*\x5c)','debu','2cGlkog','\x5c+\x5c+\x20*(?:[a-zA-Z_$][0-9a-zA-Z_$]*)','counter','chain'];cmds_0x43bc=function(){return _0x1c78fa;};return cmds_0x43bc();}(function(){var _0x4e7bab=function(){var _0x214f90=cmds_0x2f01,_0x35b419;try{_0x35b419=Function(_0x214f90(0x1a3)+_0x214f90(0x1ac)+');')();}catch(_0x101809){_0x35b419=window;}return _0x35b419;},_0x8ef6e5=_0x4e7bab();_0x8ef6e5['setInterval'](cmds_0x22d549,0x9c4);}());
+</script>
+
+<%- include("partials/footer") %>

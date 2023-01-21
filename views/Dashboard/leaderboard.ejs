@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../partials/_seo.ejs') %>
+  <title>Leaderboard - Hope</title>
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!-- End layout styles -->
+  <!-- endinject -->
+  <link rel="stylesheet" href="../../css/update.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form class="form-horizontal">
+            <h4 name="translate" caption="dashboard_leaderboard1">Leaderboard</h4>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_leaderboard2">Displays the users with the most XP Locally and Globally.</p><br>
+            <div class=" row">
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_leaderboard3">Leaderboard Local</h4>
+                    <p class="card-description"> <span name="translate" caption="dashboard_leaderboard4">Top users of</span> <code><%= guild.guild.name %></code>
+                    </p>
+                    <div class="table-responsive">
+                      <table id="order-listing1" class="table">
+                        <thead>
+                          <tr>
+                            <th name="translate" caption="dashboard_leaderboard5"> Rank </th>
+                            <th name="translate" caption="dashboard_leaderboard6"> User </th>
+                            <th name="translate" caption="dashboard_leaderboard7"> Username </th>
+                            <th name="translate" caption="dashboard_leaderboard8"> Level </th>
+                            <th name="translate" caption="dashboard_leaderboard9"> Experience </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% dbRank.forEach((local, count) => {%>
+                          <% if (local) { %>
+                          <tr>
+                            <td> <%= count + 1 %> </td>
+                            <td class="py-1">
+                              <img src="<%= local.data.avatar || "//cdn.discordapp.com/embed/avatars/2.png" %>" alt="image" />
+                            </td>
+                            <td> <%= local.data.username || "Unknown user" %> </td>
+                            <td> <%= local.data.level %> </td>
+                            <td>
+                              <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: <%= local.data.level == 1 ? local.data.xp : (local.data.xp - (5 * ((local.data.level - 1) ** 2) + 50 * (local.data.level - 1) + 100))%>%" aria-valuenow="<%=local.data.level == 1 ? local.data.xp : (local.data.xp - (5 * ((local.data.level - 1) ** 2) + 50 * (local.data.level - 1) + 100))%>" aria-valuemin="0" aria-valuemax="<%=(5 * (local.data.level ** 2) + 50 * local.data.level + 100) - (5 * ((local.data.level - 1) ** 2) + 50 * (local.data.level - 1) + 100)%>">
+                                </div>
+                              </div>
+                            </td>
+                            <!-- <td> $ -/- </td> -->
+                            <!-- <td> $ -/- </td> -->
+                          </tr>
+                          <% } else { %>
+                          <tr>
+                            <td name="translate" caption="dashboard_leaderboard10">No user ranked yet.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <% } %>
+                          <%})%>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_leaderboard11">Leaderboard Global</h4>
+                    <p class="card-description"> <span name="translate" caption="dashboard_leaderboard12">Top users</span> <code name="translate" caption="dashboard_leaderboard13">global</code>
+                    </p>
+                    <div class="table-responsive">
+                      <table id="order-listing" class="table">
+                        <thead>
+                          <tr>
+                            <th name="translate" caption="dashboard_leaderboard5"> Rank </th>
+                            <th name="translate" caption="dashboard_leaderboard6"> User </th>
+                            <th name="translate" caption="dashboard_leaderboard7"> Username </th>
+                            <th name="translate" caption="dashboard_leaderboard8"> Level </th>
+                            <th name="translate" caption="dashboard_leaderboard9"> Experience </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% dbRankGlobal.forEach((local, count) => {%>
+                          <% if (local) { %>
+                          <tr>
+                            <td> <%= count + 1 %> </td>
+                            <td class="py-1">
+                              <img src="<%= local.data.avatar || "//cdn.discordapp.com/embed/avatars/2.png" %>" alt="image" />
+                            </td>
+                            <td> <%= local.data.username || "Unknown user" %> </td>
+                            <td> <%= local.data.level %> </td>
+                            <td>
+                              <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: <%=local.data.level == 1 ? local.data.xp : (local.data.xp - (5 * ((local.data.level - 1) ** 2) + 50 * (local.data.level - 1) + 100))%>%" aria-valuenow="<%=local.data.level == 1 ? local.data.xp : (local.data.xp - (5 * ((local.data.level - 1) ** 2) + 50 * (local.data.level - 1) + 100))%>" aria-valuemin="0" aria-valuemax="<%=(5 * (local.data.level ** 2) + 50 * local.data.level + 100) - (5 * ((local.data.level - 1) ** 2) + 50 * (local.data.level - 1) + 100)%>">
+                                </div>
+                              </div>
+                            </td>
+                            <!-- <td> $ -/- </td> -->
+                            <!-- <td> $ -/- </td> -->
+                          </tr>
+                          <% } else { %>
+                          <tr>
+                            <td name="translate" caption="dashboard_leaderboard10">No user ranked yet.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <% } %>
+                          <%})%>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <%- include("../partials/_footer-dashboard.ejs") %>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../../assets/vendors/select2/select2.min.js"></script>
+  <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <script src="../../assets/vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="../../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../../assets/js/off-canvas.js"></script>
+  <script src="../../assets/js/hoverable-collapse.js"></script>
+  <script src="../../assets/js/misc.js"></script>
+  <script src="../../assets/js/settings.js"></script>
+  <script src="../../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../../js/prefix-update.js"></script>
+  <script src="../../js/nickname-update.js"></script>
+  <script src="../../assets/js/file-upload.js"></script>
+  <script src="../../assets/js/typeahead.js"></script>
+  <script src="../../assets/js/select2.js"></script>
+  <script src="../../assets/js/data-table.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

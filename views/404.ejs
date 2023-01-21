@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('./partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>404: Not Found - Hope</title>
+</head>
+
+<span><i class="fa fa-chain-broken fa-5"></span></i><h2><span> 4</span><span>0</span><span>4</span></h2>
+<h1>What have you done? Just look at it. Shame...</h1>
+<span><button id="abutton" value="abc">< save class="Fix" ></button></span>
+<a href="/" target="_blank">Go to homepage</a>
+<style>
+*:focus {outline:none;}
+body {
+  background: #C33232;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  margin: 30px;
+  overflow:hidden;
+}
+
+.fa-5, h2 {
+    font-size: 12em;
+    font-weight: 600;
+    display:inline-block;
+    margin: 0;
+}
+
+.content {
+
+}
+
+#abutton {
+  width: 500px;
+  height: 60px;
+  font-size: 2em;
+  background: white;
+  border: 0;
+  margin-top: 10px;
+  cursor:pointer;
+  transition: all .2s;
+  -moz-transition: all .2s;
+  -webkit-transition: all .2s;
+}
+
+#abutton:hover {
+  transform: scale(.989);
+  -moz-transform: scale(.989);
+  -webkit-transform: scale(.989);
+  background: #f4f4f4;
+}
+
+a {
+  position:fixed;
+  bottom: 10px;
+  right:10px;
+  color: #ddd;
+}
+</style>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script type="text/javascript" src="../../js/jGravity.js"></script>
+<script>
+/* ------------------------------------------------------------
+ * Only works nice in fullscreen :I
+ * Test it out, just open the link in the corner in a new tab!
+ > ------------------------------------------------------------
+ */
+
+ $(document).ready(function() {
+  $('body').width(window.innerWidth).height(window.innerHeight);
+  $('#abutton').on('click', albert);
+
+  function albert() {
+    $('h1').html('<span>Oh</span> <span>gosh</span><span>,</span> <span>it</span> <span>crashed!</span><span>"!"+!</span>');
+    $('span, button').attr('style', 'cursor:move !important;')
+    $('body').jGravity({
+      target: 'span',
+      ignoreClass: 'dontMove',
+      weight: 25,
+      depth: 100,
+      drag: true
+    });
+    $('#abutton').off('click', albert);
+  }
+});
+</script>

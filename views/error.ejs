@@ -1,0 +1,210 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <%- include('./partials/_seo.ejs') %>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <!-- Title  -->
+  <title>Error | Hope</title>
+
+  <!-- Style css -->
+  <noscript>
+    <div class="no-js">
+      To view the page please enable javascript in your browser
+    </div>
+  </noscript>
+</head>
+
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    height: 100%;
+  }
+
+  body {
+    background: #09080d;
+    font-family: "Nunito", sans-serif;
+  }
+
+  .container {
+    width: 75%;
+    max-width: 700px;
+    margin: 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (max-width: 650px) {
+    .container {
+      width: 85%;
+    }
+  }
+
+  .container .header {
+    color: #ff0195;
+    font-size: 5em;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0px 2px 14px #d90574;
+  }
+
+  @media (max-width: 650px) {
+    .container .header {
+      font-size: 3em;
+    }
+  }
+
+  .compcontainer {
+    margin-left: -209px;
+    margin-top: 216px;
+    margin-bottom: -108px;
+    width: 75%;
+    height: 13rem;
+    padding: 1rem 0;
+  }
+
+  @media (max-width: 650px) {
+    .compcontainer {
+      height: 10rem;
+    }
+  }
+
+  .compcontainer svg {
+    max-width: 100%;
+    max-height: 100%;
+    animation: bouncy 1300ms linear infinite;
+  }
+
+  .instructions {
+    background: #121117;
+    width: 80%;
+    height: auto;
+    padding: 1rem;
+    border: 1px solid #1e1e1e;
+    border-radius: 0.25rem;
+  }
+
+  @media (max-width: 650px) {
+    .instructions {
+      width: 100%;
+    }
+  }
+
+  .instructions h2 {
+    font-size: 1.25em;
+    line-height: 1.3;
+    color: #e30528;
+  }
+
+  @media (max-width: 650px) {
+    .instructions h2 {
+      font-size: 1.05em;
+    }
+  }
+
+  .instructions p {
+    font-size: 1.15em;
+    line-height: 1.5;
+    color: #6c757d;
+  }
+
+  @media (max-width: 650px) {
+    .instructions p {
+      font-size: 1em;
+    }
+  }
+
+  .instructions .step {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 1.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .instructions .step .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    align-self: center;
+  }
+
+  @media (max-width: 650px) {
+    .instructions .step .icon {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  .instructions .step p {
+    display: inline-block;
+    width: 80%;
+    line-height: 1.5;
+    padding-left: 0.5rem;
+  }
+
+  @keyframes bouncy {
+    0% {
+      transform: translateY(10px) translateX(0) rotate(0);
+    }
+
+    25% {
+      transform: translateX(-10px) rotate(-10deg);
+    }
+
+    50% {
+      transform: translateX(0) rotate(0deg);
+    }
+
+    75% {
+      transform: translateX(10px) rotate(10deg);
+    }
+
+    100% {
+      transform: translateY(10px) translateX(0) rotate(0);
+    }
+  }
+</style>
+<div class="container">
+  <div class="compcontainer">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.5 74.769">
+      <path fill="#6c757d" d="M58.073 74.769H32.426l6.412-19.236h12.824z" />
+      <path fill="#373F45" d="M90.5 52.063c0 1.917-2.025 3.471-4.525 3.471H4.525C2.025 55.534 0 53.98 0 52.063V3.471C0 1.554 2.026 0 4.525 0h81.449c2.5 0 4.525 1.554 4.525 3.471v48.592z" />
+      <path fill="#000" d="M84.586 46.889c0 1.509-1.762 2.731-3.936 2.731H9.846c-2.172 0-3.933-1.223-3.933-2.731V8.646c0-1.508 1.761-2.732 3.933-2.732H80.65c2.174 0 3.936 1.225 3.936 2.732v38.243z" />
+      <path fill="#ff0195" d="M16.426 5.913L8.051 23h13l-6.875 12.384L26.75 46.259l-8.375-11.375L26.75 20H14.625l6.801-14.087zM68.551 49.62l-8.375-17.087h13l-6.875-12.384L78.875 9.274 70.5 20.649l8.375 14.884H66.75l6.801 14.087z" />
+    </svg>
+  </div>
+  <h1 class="header">Uh-oh!</h1>
+  <div class="instructions">
+    <h2>Sorry, something went wrong on our end. We are currently trying to fix the problem.</h2>
+    <p>In the meantime, you can:</p>
+    <div class="step">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 489.711 489.711">
+        <path fill="#fff" fill-opacity="1" d="M112.156,97.111c72.3-65.4,180.5-66.4,253.8-6.7l-58.1,2.2c-7.5,0.3-13.3,6.5-13,14c0.3,7.3,6.3,13,13.5,13    c0.2,0,0.3,0,0.5,0l89.2-3.3c7.3-0.3,13-6.2,13-13.5v-1c0-0.2,0-0.3,0-0.5v-0.1l0,0l-3.3-88.2c-0.3-7.5-6.6-13.3-14-13    c-7.5,0.3-13.3,6.5-13,14l2.1,55.3c-36.3-29.7-81-46.9-128.8-49.3c-59.2-3-116.1,17.3-160,57.1c-60.4,54.7-86,137.9-66.8,217.1    c1.5,6.2,7,10.3,13.1,10.3c1.1,0,2.1-0.1,3.2-0.4c7.2-1.8,11.7-9.1,9.9-16.3C36.656,218.211,59.056,145.111,112.156,97.111z"></path>
+        <path fill="#fff" fill-opacity="1" d="M462.456,195.511c-1.8-7.2-9.1-11.7-16.3-9.9c-7.2,1.8-11.7,9.1-9.9,16.3c16.9,69.6-5.6,142.7-58.7,190.7    c-37.3,33.7-84.1,50.3-130.7,50.3c-44.5,0-88.9-15.1-124.7-44.9l58.8-5.3c7.4-0.7,12.9-7.2,12.2-14.7s-7.2-12.9-14.7-12.2l-88.9,8    c-7.4,0.7-12.9,7.2-12.2,14.7l8,88.9c0.6,7,6.5,12.3,13.4,12.3c0.4,0,0.8,0,1.2-0.1c7.4-0.7,12.9-7.2,12.2-14.7l-4.8-54.1    c36.3,29.4,80.8,46.5,128.3,48.9c3.8,0.2,7.6,0.3,11.3,0.3c55.1,0,107.5-20.2,148.7-57.4    C456.056,357.911,481.656,274.811,462.456,195.511z"></path>
+      </svg>
+      <p>Refresh the page</p>
+    </div>
+    <div class="step">
+      <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+        <path fill="#fff" fill-opacity="1" d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30   S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z"></path>
+        <path fill="#fff" fill-opacity="1" d="M30,6c-0.552,0-1,0.447-1,1v23H14c-0.552,0-1,0.447-1,1s0.448,1,1,1h16c0.552,0,1-0.447,1-1V7C31,6.447,30.552,6,30,6z"></path>
+      </svg>
+      <p>Wait a few minutes</p>
+    </div>
+    <p>or join the <a href="/support">support server</a>.</p>
+    </ul>
+  </div>
+</div>

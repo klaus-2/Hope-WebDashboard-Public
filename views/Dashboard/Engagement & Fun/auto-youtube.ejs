@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Engagement & Fun: Auto-Youtube - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/auto-twitch.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <form id="data" class="form-horizontal">
+            <div class="clearfix">
+              <span name="translate" caption="dashboard_autoyoutube1">Auto-Youtube</span>
+              <a class="btn btn-outline-danger float-right btn-fw" href="#addchannel" name="translate" caption="dashboard_autoyoutube2">🎥 Add channel </a>
+            </div>
+            <p class="text-muted mb-0" name="translate" caption="dashboard_autoyoutube3">Subscribe to a Youtube channel and receive notifications when it posts a new video!</p><br>
+            <div class="row ">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title" name="translate" caption="dashboard_autoyoutube4">SUBSCRIPTION LIST</h4>
+                    <p id="alert-error" style="display: none;"></p>
+                    </p>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th name="translate" caption="dashboard_autoyoutube5">Youtube Channels</th>
+                            <th name="translate" caption="dashboard_autoyoutube6">Discord Channel</th>
+                            <th name="translate" caption="dashboard_autoyoutube7">Message Content</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% let cha; %>
+                          <% for (const channel of ch.channels) { %>
+                            <% if (channel.type === 0 && channel.id === dbYoutube.channelID) { %>
+                          <% cha = channel.name %>
+                          <% } %>
+                          <% } %>
+
+                          <% if (dbYoutube) {%>
+                          <tr>
+                            <td><% dbYoutube.canais.forEach((data, count) => {%>
+                              <%= data %><br><br>
+                              <% }) %></td>
+
+                            <td>#<%= cha || 'None' %></td>
+                            <td><%= dbYoutube.customMsg || 'Custom message not set.' %></td>
+                            <td><input id="removeyt" name="removeyt" class="typeahead" placeholder="enter the id/name of the youtube channel you want to remove"></td>
+                          </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="addchannel" class="modal-window">
+              <div>
+                <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_autoyoutube8">Close</a>
+                <h4 name="translate" caption="dashboard_autoyoutube9">Add a YT Channel</h4>
+                <div>
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_autoyoutube10">Channel to post</p>
+                  <div class="input-group">
+                    <select id="ytchanneltopost" name="ytchanneltopost" class="js-example-basic-single" style="width:483px;max-width:483px;">
+                      <% if (dbYoutube) {%>
+                        <% for (const channel of ch.channels) { %>
+                          <% if (channel.type === 0 && channel.id !== dbYoutube.channelID) { %>
+                            <option value="<%= channel.id %>">#<%= channel.name %></option>
+                            <% } else if (channel.type === 0 && channel.id == dbYoutube.channelID) { %>
+                            <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+                          <% } %>
+                        <% } %>
+                      <% } %>
+                    </select>
+                  </div>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_autoyoutube11">YT Channel name</p>
+                  <div id="the-basics">
+                    <input class="typeahead" type="text" placeholder="ninja" id="ytname" name="ytname">
+                  </div>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_autoyoutube12">Message
+                  </p>
+                  <textarea class="form-control" name="YTcustomMessageAdd" id="YTcustomMessageAdd" rows="4" placeholder="{everyone} Yaayy! {author} just posted a new video, go check it out!
+                Link: {url} 😎"><%= dbYoutube.customMsg %></textarea>
+                </div>
+                <div><small name="translate" caption="dashboard_autoyoutube13">Variables</small></div>
+                <code>{everyone}</code><span name="translate" caption="dashboard_autoyoutube14"> - mention @everyone. Eg:</span> <code name="translate" caption="dashboard_autoyoutube15">{everyone} live is starting</code><br>
+                <code>{here}</code><span name="translate" caption="dashboard_autoyoutube16"> - mention @here. Eg:</span> <code name="translate" caption="dashboard_autoyoutube17">{here} live is starting</code><br>
+                <code>{author}</code><span name="translate" caption="dashboard_autoyoutube18"> - Streamer Name. Eg:</span> <code name="translate" caption="dashboard_autoyoutube19">Hey {everyone}! {streamer} is now live</code><br>
+                <code>{url}</code><span name="translate" caption="dashboard_autoyoutube20"> - Stream link. Eg:</span> <code name="translate" caption="dashboard_autoyoutube21">Hey {everyone}! {streamer} is now live. Link: {link}</code><br>
+                <code>{title}</code><span name="translate" caption="dashboard_autoyoutube22"> - Stream Title. Eg:</span> <code name="translate" caption="dashboard_autoyoutube23">{everyone} {streamer} is now live. {title} {link}</code><br>
+              </div>
+            </div>
+            <div class="save" id="save">
+              <span><span name="translate" caption="dashboard_autoyoutube24">You have unsaved changes. Do you want to save them?</span>
+                <input type="submit" class="cta" value="Save" name="confirmchange" id="confirmchange" onclick="offNotify();">
+                <input name="cancel" type="button" class="ctb" value="Cancel" onclick="mudarCor();""></span>
+          </div>
+          </form>
+          <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                <style>
+                  .modal-window {
+                    position: fixed;
+                    background-color: rgb(0 0 0 / 82%);
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 1030;
+                    visibility: hidden;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: all 0.3s;
+                    overflow: auto;
+                  }
+
+                  .modal-window:target {
+                    visibility: visible;
+                    opacity: 1;
+                    pointer-events: auto;
+                  }
+
+                  .modal-window>div {
+                    width: 800px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    padding: 2em;
+                    background: #13151b;
+                  }
+
+                  @media (max-width: 768px) {
+                    .modal-window>div {
+                      width: 800px;
+                      position: absolute;
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      padding: 2em;
+                      background: #13151b;
+                    }
+                  }
+
+                  @media (max-width: 543px) {
+                    .modal-window>div {
+                      width: 350px;
+                      position: absolute;
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      padding: 2em;
+                      background: #13151b;
+                    }
+                  }
+
+                  @media (max-width: 490px) {
+                    .modal-window>div {
+                      width: 350px;
+                      position: absolute;
+                      top: 60%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      padding: 2em;
+                      background: #13151b;
+                    }
+                  }
+
+                  .modal-window header {
+                    font-weight: bold;
+                  }
+
+                  .modal-window h1 {
+                    font-size: 150%;
+                    margin: 0 0 15px;
+                  }
+
+                  .modal-close {
+                    color: #aaa;
+                    line-height: 50px;
+                    font-size: 80%;
+                    position: absolute;
+                    right: 0;
+                    text-align: center;
+                    top: 0;
+                    width: 70px;
+                    text-decoration: none;
+                  }
+
+                  .modal-close:hover {
+                    color: rgb(255, 255, 255);
+                  }
+
+                  .modal-window>div {
+                    border-radius: 1rem;
+                  }
+
+                  .modal-window div:not(:last-of-type) {
+                    margin-bottom: 15px;
+                  }
+                </style>
+                <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+                <script>
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-right',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true
+                  })
+
+                  var premium = "<%= premium %>";
+                  var lenght = "<%= dbYoutube.canais.length >= 10 %>";
+                  if (lenght == true && premium !== "Premium Server") {
+                    var x = document.getElementById('alert-error');
+                    if (x.style.display === 'none') {
+                      x.style.display = 'block';
+                      $('p#alert-error').html('*You have reached the <code>10</code> channels limit. To exceed this limit, become <a href="/premium" style="padding: 5px;color: #fc424a;font-weight: 300;font-size: 0.875rem;border-radius: 4px;"><code>premium</code></a>.');
+                      //x.textContent="*You have reached the 10 channel limit. To exceed this limit, become premium."
+                    } else {
+                      x.style.display = 'none';
+                    }
+                  }
+
+                  $("#data").submit(function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+
+                    $.ajax({
+                      type: "POST",
+                      url: 'auto-youtube',
+                      data: form.serialize(),
+                      beforeSend: function() {
+                        Toast.fire({
+                          icon: 'warning',
+                          title: 'Saving...'
+                        });
+                        if (lenght == true && premium !== "Premium Server") {
+                          var x = document.getElementById('alert-error');
+                          if (x.style.display === 'none') {
+                            x.style.display = 'block';
+                            $('p#alert-error').html('*You have reached the <code>10</code> channels limit. To exceed this limit, become <a href="/premium" style="padding: 5px;color: #fc424a;font-weight: 300;font-size: 0.875rem;border-radius: 4px;"><code>premium</code></a>.');
+                            //x.textContent="*You have reached the 10 channel limit. To exceed this limit, become premium."
+                          } else {
+                            x.style.display = 'none';
+                          }
+                        }
+                      },
+                      success: function(data) {
+                        Toast.fire({
+                          icon: 'success',
+                          title: 'Saved Changes'
+                        });
+                      }
+                    }).fail(function() {
+                      Toast.fire({
+                        icon: 'error',
+                        title: 'An error occurred while saving...!'
+                      });
+                    });
+                  });
+                </script>
+                <!-- content-wrapper ends -->
+                <%- include("../../partials/_footer-dashboard.ejs") %>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src=" ../../assets/vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <script src="../../assets/vendors/select2/select2.min.js"></script>
+      <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+      <script src="../../assets/js/off-canvas.js"></script>
+      <script src="../../assets/js/hoverable-collapse.js"></script>
+      <script src="../../assets/js/misc.js"></script>
+      <script src="../../assets/js/settings.js"></script>
+      <script src="../../assets/js/todolist.js"></script>
+      <!-- endinject -->
+      <!-- Custom js for this page -->
+      <script src="../../assets/js/file-upload.js"></script>
+      <script src="../../assets/js/typeahead.js"></script>
+      <script src="../../assets/js/select2.js"></script>
+      <script src="../../js/auto-youtube.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <!-- End custom js for this page -->
+</body>
+
+</html>

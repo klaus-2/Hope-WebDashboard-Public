@@ -1,0 +1,119 @@
+@font-face {
+    font-family: Avenir;
+    src: url(https://static-assets.bamgrid.com/fonts/avenir/Avenir-Light/Avenir-Light-07.f3974cd611d0a51c6f3d468a8ac6a700.woff2);
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: Avenir;
+    src: url(https://static-assets.bamgrid.com/fonts/avenir/Avenir-Book/Avenir-Book-01.41636cf359d913529a78a8d39e2b55be.woff2);
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: Avenir;
+    src: url(https://static-assets.bamgrid.com/fonts/avenir/Avenir-Roman/Avenir-Roman-12.8c6e15565760efae86de48644cfd9b71.woff2);
+    font-weight: 400;
+    font-style: normal;
+    font-display: optional
+  }
+
+  @font-face {
+    font-family: Seol-Sans;
+    src: url(https://static-assets.bamgrid.com/fonts/seol-sans/SeolSans-Book-v4.20df06308312a75501cba81cb9a92e4e.woff2);
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: Seol-Sans;
+    src: url(https://static-assets.bamgrid.com/fonts/seol-sans/SeolSans-Medium-v4.feac37bc783c6ef3a83d7881715aa443.woff2);
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: Seol-Sans;
+    src: url(https://static-assets.bamgrid.com/fonts/seol-sans/SeolSans-Book-v4.20df06308312a75501cba81cb9a92e4e.woff2);
+    font-weight: 400;
+    font-style: normal;
+    font-display: optional
+  }
+
+  @font-face {
+    font-family: Tazugane;
+    src: url(https://static-assets.bamgrid.com/fonts/tazugane/TazuganeInfo-Book-v4.e7ec92b7a6c5443e5bfb9492195ba16a.woff2);
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: Tazugane;
+    src: url(https://static-assets.bamgrid.com/fonts/tazugane/TazuganeInfo-Medium-v4.fc000b0b48bcde210f082c08b7279b25.woff2);
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: Tazugane;
+    src: url(https://static-assets.bamgrid.com/fonts/tazugane/TazuganeInfo-Book-v4.e7ec92b7a6c5443e5bfb9492195ba16a.woff2);
+    font-weight: 400;
+    font-style: normal;
+    font-display: optional
+  }
+
+  @font-face {
+    font-family: xiangHeHei-SC;
+    src: url(https://static-assets.bamgrid.com/fonts/xiangHeHei-SC/MXiangHeHeiSC-Book-v4.0742ff294fab04ef4c0aa96ea0264752.woff2);
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: xiangHeHei-SC;
+    src: url(https://static-assets.bamgrid.com/fonts/xiangHeHei-SC/MXiangHeHeiSC-Medium-v4.7fb27e7df5de50fac3d825bad01ce117.woff2);
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: xiangHeHei-SC;
+    src: url(https://static-assets.bamgrid.com/fonts/xiangHeHei-SC/MXiangHeHeiSC-Book-v4.0742ff294fab04ef4c0aa96ea0264752.woff2);
+    font-weight: 400;
+    font-style: normal;
+    font-display: undefined
+  }
+
+  @font-face {
+    font-family: xiangHeHei-TC;
+    src: url(https://static-assets.bamgrid.com/fonts/xiangHeHei-TC/MXiangHeHeiTC-Book-v4.df142a0880679449650bf6c287b5e271.woff2);
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: xiangHeHei-TC;
+    src: url(https://static-assets.bamgrid.com/fonts/xiangHeHei-TC/MXiangHeHeiTC-Medium-v4.554b0888e777a7dbbb2015c19b1a877c.woff2);
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap
+  }
+
+  @font-face {
+    font-family: xiangHeHei-TC;
+    src: url(https://static-assets.bamgrid.com/fonts/xiangHeHei-TC/MXiangHeHeiTC-Book-v4.df142a0880679449650bf6c287b5e271.woff2);
+    font-weight: 400;
+    font-style: normal;
+    font-display: optional
+  }

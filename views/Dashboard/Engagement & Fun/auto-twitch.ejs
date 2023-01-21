@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <%- include('../../partials/_seo.ejs') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Engagement & Fun: Auto-Twitch - Hope</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../../assets/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+  <!-- End Plugin css for this page -->
+  <!-- inject:css -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../css/auto-twitch.css">
+  <!-- End layout styles -->
+</head>
+
+<body>
+  <div class="container-scroller">
+    <%- include("../../partials/_sidebar.ejs") %>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <%- include("../../partials/_navbar.ejs") %>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <% if (error != '') { %>
+          <script>
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 10000,
+              timerProgressBar: true
+            })
+
+            Toast.fire({
+              icon: 'error',
+              title: '<%= error %>'
+            });
+          </script>
+          <% }  %>
+          <% if(success != ''){ %>
+          <script>
+            const Toast1 = Swal.mixin({
+              toast: true,
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 10000,
+              timerProgressBar: true
+            })
+
+            Toast1.fire({
+              icon: 'success',
+              title: '<%= success %>'
+            });
+          </script>
+          <% } %>
+          <div class="clearfix">
+            <span><span name="translate" caption="dashboard_autotwitch1">Auto-Twitch</span> <code style="color: #ff7f00;text-transform: uppercase;font-weight: 600;font-size: 11px;letter-spacing: 1.2px;" name="translate" caption="dashboard_autoanime4">free/premium</code></span>
+            <a id="btn-addstreamer" class="btn btn-outline-info float-right btn-fw" href="#addstreamer" name="translate" caption="dashboard_autotwitch2">🎬 Add streamer </a>
+          </div>
+          <p class="text-muted mb-0" name="translate" caption="dashboard_autotwitch3">Subscribe to a Twitch channel and receive notifications when it goes live!</p><br>
+          <div class="row ">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title" name="translate" caption="dashboard_autotwitch4">SUBSCRIPTION LIST</h4>
+                  <p id="alert-error" class="float-right" style="display: none;"></p>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th name="translate" caption="dashboard_autotwitch5">Channel</th>
+                          <th name="translate" caption="dashboard_autotwitch6">Streamer</th>
+                          <th name="translate" caption="dashboard_autotwitch7">Content</th>
+                          <th name="translate" caption="dashboard_autotwitch8">Role</th>
+                          <th name="translate" caption="dashboard_autotwitch9">Discord</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if (dbTwitch) {%>
+                        <% dbTwitch.forEach((data, count) => {%>
+                        <tr>
+                          <form role="form" action="/dashboard/<%= guild.guild.id %>/auto-twitch" method="POST">
+
+                            <td><select id="<%= count + 1 %>channel" name="<%= count + 1 %>channel" class="js-example-basic-single" style="width:483px;max-width:483px">
+                                <% for (const channel of ch.channels) { %>
+                                <% if (channel.type === 0 && channel.id !== data.ChannelToPost) { %>
+                                <option value="<%= channel.id %>">#<%= channel.name %></option>
+                                <% } else if (channel.type === 0 && channel.id == data.ChannelToPost) { %>
+                                <option value="<%= channel.id %>" selected>#<%= channel.name %></option>
+                                <% } %>
+                                <% } %>
+                              </select></td>
+                            <td><code><%= data.ChannelName %></code><input class="typeahead" id="<%= count + 1 %>" name="<%= count + 1 %>" type="text" placeholder="<%= data.ChannelName %>" value="<%= data.ChannelName %>" style="display: none;"></td>
+                            <td><input class="typeahead" id="<%= count + 1 %>msg" name="<%= count + 1 %>msg" type="text" placeholder="<%= data.customMsg %>" value="<%= data.customMsg %>"></td>
+                            <td><select id="<%= count + 1 %>role" name="<%= count + 1 %>role" class="js-example-basic-single" style="width:483px;max-width:483px">
+                                <% for (const role of rr.roles) { %>
+                                  <% if (data.roleNotify !== role.id && role.name !== "@everyone" && !role.managed) { %>
+                                    <option value="<%= role.id %>">@<%= role.name %></option>
+                                    <% } else if (data.roleNotify === role.id) { %>
+                                    <option value="<%= role.id %>" selected>@<%= role.name %></option>
+                                  <% } %>
+                                <% } %>
+                                <option value="none" <% if (data.roleNotify === null) { %> selected <% } %>>@None</option>
+                              </select></td>
+                            <td><input class="typeahead" id="<%= count + 1 %>dsc" name="<%= count + 1 %>dsc" type="text" placeholder="<%= data.DiscordServer %>" value="<%= data.DiscordServer %>"></td>
+                            <td><button type="submit" class="btn btn-outline-success btn-fw" id="update<%= count + 1 %>" name="update<%= count + 1 %>"><span name="translate" caption="dashboard_autotwitch10">Update</span></button><button type="submit" class="btn btn-outline-danger btn-fw" id="del<%= count + 1 %>" name="del<%= count + 1 %>"><span name="translate" caption="dashboard_autotwitch11">Remove</span></button></td>
+                          </form>
+                        </tr>
+                        <%})%>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form role="form" action="/dashboard/<%= guild.guild.id %>/auto-twitch" method="POST">
+            <div id="addstreamer" class="modal-window">
+              <div>
+                <a href="#" title="Close" class="modal-close" name="translate" caption="dashboard_autotwitch12">Close</a>
+                <h4 name="translate" caption="dashboard_autotwitch13">Add a Streamer</h4><button type="submit" class="btn btn-outline-info float-right btn-fw" id="addstreamer" name="addstreamer"><span name="translate" caption="dashboard_autotwitch14"> Add </span></button>
+                <div>
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_autotwitch15">Channel to post</p>
+                  <div class="input-group">
+                    <select id="channeltopost" name="channeltopost" class="js-example-basic-single" style="width:483px;max-width:483px;">
+                      <% for (const channel of ch.channels) { %>
+                      <% if (channel.type === 0) { %>
+                      <option value="<%= channel.id %>">#<%= channel.name %></option>
+                      <% } %>
+                      <% } %>
+                    </select>
+                  </div>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_autotwitch16">Streamer name</p>
+                  <div id="the-basics">
+                    <input class="typeahead" type="text" placeholder="ninja" id="streamername" name="streamername">
+                  </div>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_autotwitch17">Custom message </p>
+                  <textarea class="form-control" name="customMessageAdd" id="customMessageAdd" rows="4" placeholder="{everyone} **{streamer} is live!**"></textarea>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_autotwitch18">Discord Server</p>
+                  <div class="form-inline">
+                    <div class="input-group mb-2 mr-sm-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"> https://discord.gg/ </div>
+                      </div>
+                      <input type="text" class="form-control" name="dscserveradd" id="dscserveradd" placeholder="eXnZRSBRC8" maxlength="12">
+                    </div>
+                    <p class="text-muted mb-0"><span name="translate" caption="dashboard_autotwitch19">Leave</span> <code name="translate" caption="dashboard_autotwitch20">blank</code> <span name="translate" caption="dashboard_autotwitch21">if you</span> <code name="translate" caption="dashboard_autotwitch22">don't</code> <span name="translate" caption="dashboard_autotwitch23">want to add a Discord Server to embed.</span></p>
+                  </div>
+                  <hr class="sc-120wsjt-0 sc-1o36vqg-2 keqMWH">
+                  <p class="text-muted mb-0" name="translate" caption="dashboard_autotwitch24">Role Notify</p>
+                  <div class="input-group">
+                    <select id="rolenotifyAdd" name="rolenotifyAdd" class="js-example-basic-single" style="width:483px;max-width:483px">
+                      <% for (const role of rr.roles) { %>
+                      <% if (role.name !== "@everyone" && !role.managed) { %>
+                      <option value="<%= role.id %>">@<%= role.name %></option>
+                      <% } %>
+                      <% } %>
+
+                      <option selected value="none">@None</option>
+                    </select>
+                  </div>
+                  <p class="text-muted mb-0"><span name="translate" caption="dashboard_autotwitch25">If you do not want to use this feature, just select the</span> <code name="translate" caption="dashboard_autotwitch26">#None</code> <span name="translate" caption="dashboard_autotwitch27">role.</span></p>
+                </div>
+                <div><small name="translate" caption="dashboard_autotwitch28">Variables</small></div>
+                <code>{everyone}</code> <span name="translate" caption="dashboard_autotwitch29">- mention @everyone. Eg:</span> <code name="translate" caption="dashboard_autotwitch30">{everyone} live is starting</code><br>
+                <code>{here}</code> <span name="translate" caption="dashboard_autotwitch31">- mention @here. Eg:</span> <code name="translate" caption="dashboard_autotwitch32">{here} live is starting</code><br>
+                <code>{streamer}</code> <span name="translate" caption="dashboard_autotwitch33">- Streamer Name. Eg:</span> <code name="translate" caption="dashboard_autotwitch34">Hey {everyone}! {streamer} is now live</code><br>
+                <code>{link}</code> <span name="translate" caption="dashboard_autotwitch35">- Stream link. Eg:</span> <code name="translate" caption="dashboard_autotwitch36">Hey {everyone}! {streamer} is now live. Link: {link}</code><br>
+                <code>{title}</code> <span name="translate" caption="dashboard_autotwitch37">- Stream Title. Eg:</span> <code name="translate" caption="dashboard_autotwitch38">{everyone} {streamer} is now live. {title} {link}</code><br>
+                <code>{viewer}</code> <span name="translate" caption="dashboard_autotwitch39">- Number of viewers in the Stream. Eg:</span> <code name="translate" caption="dashboard_autotwitch40">{everyone} {streamer} is now live with {viewer} viewers</code>
+              </div>
+            </div>
+            <div class="save" id="save">
+              <span><span name="translate" caption="dashboard_autotwitch41">You have unsaved changes. Do you want to save them?</span>
+                <input type="submit" class="cta" value="Save" name="confirmchange" id="confirmchange" onclick="offNotify();">
+                <input name="cancel" type="button" class="ctb" value="Cancel" onclick="mudarCor();""></span>
+          </div>
+          </form>
+          <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                <style>
+                  .modal-window {
+                    position: fixed;
+                    background-color: rgb(0 0 0 / 82%);
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 1030;
+                    visibility: hidden;
+                    opacity: 0;
+                    pointer-events: none;
+                    transition: all 0.3s;
+                    overflow: auto;
+                  }
+
+                  .modal-window:target {
+                    visibility: visible;
+                    opacity: 1;
+                    pointer-events: auto;
+                  }
+
+                  .modal-window>div {
+                    width: 800px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    padding: 2em;
+                    background: #13151b;
+                  }
+
+                  @media (max-width: 768px) {
+                    .modal-window>div {
+                      width: 800px;
+                      position: absolute;
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      padding: 2em;
+                      background: #13151b;
+                    }
+                  }
+
+                  @media (max-width: 543px) {
+                    .modal-window>div {
+                      width: 350px;
+                      position: absolute;
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      padding: 2em;
+                      background: #13151b;
+                    }
+                  }
+
+                  @media (max-width: 490px) {
+                    .modal-window>div {
+                      width: 350px;
+                      position: absolute;
+                      top: 83%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      padding: 2em;
+                      background: #13151b;
+                    }
+                  }
+
+                  .modal-window header {
+                    font-weight: bold;
+                  }
+
+                  .modal-window h1 {
+                    font-size: 150%;
+                    margin: 0 0 15px;
+                  }
+
+                  .modal-close {
+                    color: #aaa;
+                    line-height: 50px;
+                    font-size: 80%;
+                    position: absolute;
+                    right: 0;
+                    text-align: center;
+                    top: 0;
+                    width: 70px;
+                    text-decoration: none;
+                  }
+
+                  .modal-close:hover {
+                    color: rgb(255, 255, 255);
+                  }
+
+                  .modal-window>div {
+                    border-radius: 1rem;
+                  }
+
+                  .modal-window div:not(:last-of-type) {
+                    margin-bottom: 15px;
+                  }
+                </style>
+                <script src=" https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                <script>
+                  var premium = "<%= isPremium %>";
+                  var db = "<%= dbTwitch.length %>";
+
+                  var lenght = db >= 10;
+                  if (lenght == true && premium == "false") {
+                    var x = document.getElementById('alert-error');
+                    $('#btn-addstreamer').removeAttr("href").addClass("disabled")
+                    if (x.style.display === 'none') {
+                      x.style.display = 'block';
+                      $('p#alert-error').html('*You have reached the <code>10</code> streamer limit. To exceed this limit, become <a href="/premium" style="padding: 5px;color: #fc424a;font-weight: 300;font-size: 0.875rem;border-radius: 4px;"><code>premium</code></a>.');
+                      //x.textContent="*You have reached the 10 channel limit. To exceed this limit, become premium."
+                    } else {
+                      x.style.display = 'none';
+                    }
+                  }
+                </script>
+
+                <!-- content-wrapper ends -->
+                <%- include("../../partials/_footer-dashboard.ejs") %>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+      </div>
+      <!-- container-scroller -->
+      <!-- plugins:js -->
+      <script src=" ../../assets/vendors/js/vendor.bundle.base.js"></script>
+      <!-- endinject -->
+      <!-- Plugin js for this page -->
+      <script src="../../assets/vendors/select2/select2.min.js"></script>
+      <script src="../../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+      <!-- End plugin js for this page -->
+      <!-- inject:js -->
+      <script src="../../assets/js/off-canvas.js"></script>
+      <script src="../../assets/js/hoverable-collapse.js"></script>
+      <script src="../../assets/js/misc.js"></script>
+      <script src="../../assets/js/settings.js"></script>
+      <script src="../../assets/js/todolist.js"></script>
+      <!-- endinject -->
+      <!-- Custom js for this page -->
+      <script src="../../assets/js/file-upload.js"></script>
+      <script src="../../assets/js/typeahead.js"></script>
+      <script src="../../assets/js/select2.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <!-- End custom js for this page -->
+</body>
+
+</html>

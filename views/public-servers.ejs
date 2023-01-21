@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+  <head>
+    <%- include('./partials/_seo.ejs') %>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  
+    <!-- Title  -->
+    <title>Public Servers - Hope</title>
+  
+    <!-- Style css -->
+    <link rel="stylesheet" href="assets/website/css/style.css">
+    <noscript>
+      <div class="no-js">
+        To view the page please enable javascript in your browser
+      </div>
+    </noscript>
+  </head>
+
+<body>
+  <div class="main">
+    <!-- ***** Header Start ***** -->
+    <%- include('./partials/_header.ejs') %>
+    <!-- ***** Header End ***** -->
+
+    <!-- ***** Breadcrumb Area Start ***** -->
+    <section class="breadcrumb-area overlay-dark d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Breamcrumb Content -->
+            <div class="breadcrumb-content text-center">
+              <h2 class="m-0">Public Servers</h2>
+              <ol class="breadcrumb d-flex justify-content-center">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Public Servers</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Breadcrumb Area End ***** -->
+
+    <!-- ***** Help Center Area Start ***** -->
+    <section class="help-center-area">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-7">
+            <!-- Intro -->
+            <div class="intro text-center">
+              <span name="translate" caption="pb_1">Public Servers</span>
+              <p name="translate" caption="pb_2">
+                A quality, well-made listing service that offers users a completely fair and unbiased list of servers for you to explore and join!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="cloneable">
+          <div class="filter-section">
+            <div class="filters-vertical pagination-example">
+              <div class="form-block w-form">
+                <form id="search-form" name="wf-form-Search-Form" data-name="Search-Form" method="get" class="search-parent">
+                  <input type="text" class="text-field w-input" maxlength="256" name="search" filter-by="*" data-name="search" placeholder="Filter by search" id="search" />
+                </form>
+              </div>
+              <div class="filters-group filters-colors mb-normal">
+                <a filter-by="*" class="sort-button btn-small w-inline-block">
+                  <div><span name="translate" caption="pb_3">All Categories</span></div>
+                </a>
+                <% for (const name of categories) { %>
+                <a filter-by="#<%= name %>" class="sort-button btn-small w-inline-block">
+                  <div>#<%= name %></div>
+                </a>
+                <% } %>
+              </div>
+            </div>
+            <div class="filters-create-100percentwidth">
+              <div class="collection-list-wrapper w-dyn-list">
+                <div role="list" class="collection-list filter-complex w-dyn-items">
+                  <% for (const server of serversData) { %>
+                  <div role="listitem" class="collection-list-item w-dyn-item">
+                    <a style="color: #fff;" href="/public-servers/<%- server.guildID %>">
+                    <div class="collection-list-content">
+                      <% if (server.guildIcon) { %>
+                      <div style="background-image: url('https://cdn.discordapp.com/icons/<%= server.guildID %>/<%= server.guildIcon %>.webp?size=1024');" class="image-background" onerror="imgError(this);"></div>
+                      <% } else { %>
+                        <div style="background-image: url('https://ui-avatars.com/api/?name=<%= server.guildName %>&background=5865f2&color=fff');" class="image-background" onerror="imgError(this);"></div>
+                        <% } %>
+                      <div class="server-name" title="<%= server.guildName %>"><%= server.guildName %></div>
+                      <div class="server-member-count"><span><%= server.guildMembers %></span> members</div>
+                      <div class="server-description" style="color: #6b7c91;max-height: 95px;"><div class="server-description-content-wrapper"><p><%= server.description %></p></div></div>
+                      <div class="filters-hide">
+                        <% for (const categorie of server.categories) { %>
+                        <div hidden class="color">#<%= categorie %></div>
+                        <% } %>
+                      </div>
+                    </div>
+                  </a>
+                  </div>
+                  <% } %>
+                  <% if (!serversData) { %>
+                    <div role="listitem" class="collection-list-item w-dyn-item">
+                      <a style="color: #fff;" href="<%= server.inviteURL %>">
+                      <div class="collection-list-content">
+                        <div class="server-description" style="color: #6b7c91;"><div class="server-description-content-wrapper"><p>No servers yet.</p></div></div>
+                      </div>
+                    </a>
+                    </div>
+                    <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ***** Help Center Area End ***** -->
+
+    <!--====== Footer Area Start ======-->
+    <%- include('./partials/_footer.ejs') %>
+    <!--====== Footer Area End ======-->
+
+    <!--====== Modal Search Area Start ======-->
+    <div id="search" class="modal fade p-0">
+      <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+          <div class="modal-header" data-dismiss="modal">
+            Search <i class="far fa-times-circle icon-close"></i>
+          </div>
+          <div class="modal-body">
+            <form class="row">
+              <div class="col-12 align-self-center">
+                <div class="row">
+                  <div class="col-12 pb-3">
+                    <h2 class="search-title mt-0 mb-3">
+                      What are you looking for?
+                    </h2>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 input-group mt-4">
+                    <input type="text" placeholder="Enter your keywords" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 input-group align-self-center">
+                    <button class="btn btn-bordered-white mt-3">
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--====== Modal Search Area End ======-->
+
+    <!--====== Modal Responsive Menu Area Start ======-->
+    <div id="menu" class="modal fade p-0">
+      <div class="modal-dialog dialog-animated">
+        <div class="modal-content h-100">
+          <div class="modal-header" data-dismiss="modal">
+            Menu <i class="far fa-times-circle icon-close"></i>
+          </div>
+          <div class="menu modal-body">
+            <div class="row w-100">
+              <div class="items p-0 col-12 text-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--====== Modal Responsive Menu Area End ======-->
+    <link href="css/public-servers.css" rel="stylesheet" type="text/css" />
+  <!--====== Scroll To Top Area Start ======-->
+  <div class="scroll-top">
+    <a class="smoothscroll" href="#top" name="translate" caption="scroll_to_top">Scroll to Top
+    </a>
+  </div>
+  <!--====== Scroll To Top Area End ======-->
+  </div>
+
+  <style>
+    /* Remove tap highlight on mobile */
+    input,
+    textarea,
+    button,
+    select,
+    a {
+      -webkit-tap-highlight-color: transparent;
+      tap-highlight-color: transparent;
+    }
+
+    /*smoother text*/
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /*make inputs unstyled in safari*/
+    textarea,
+    input.text,
+    input[type="text"],
+    input[type="button"],
+    input[type="submit"] {
+      -webkit-appearance: none;
+    }
+
+    /* Get rid of textarea resizer */
+    textarea {
+      resize: none;
+    }
+  </style>
+  <style>
+    /* Styles for pagination element customization */
+    /* classes that we can work with
+  most important for styling:
+  .fs-pagination
+  .fs-pagination ul li a
+  ui elements:
+  .fs-pagination-page
+  .fs-pagination-prev
+  .fs-pagination-inactive
+  .fs-pagination-active
+  .fs-pagination-dots
+  .fs-pagination-next
+  */
+  </style>
+
+  <!-- ***** All jQuery Plugins ***** -->
+
+  <script src="../js/webflow.js" type="text/javascript"></script>
+  <!--[if lte IE 9
+      ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><!
+    [endif]-->
+  <!-- Hosted Library script file on CDN for free -->
+  <script src="https://cdn.jsdelivr.net/npm/@finsweet/cms-library@1/cms-library.js"></script>
+  <script>
+    (function() {
+      // create a new Library instance and store it in a variable called "projectsGrid"
+      var projectsGrid = new FsLibrary(".collection-list");
+
+      /* FILTER COMPONENT */
+
+      // define our filter group(s)
+      var myFilters = [{
+          filterWrapper: ".filters-colors",
+          filterType: "exclusive",
+        },
+        {
+          filterWrapper: ".search-parent",
+          filterType: "exclusive",
+        },
+        {
+          filterWrapper: ".filters-services",
+          filterType: "multi",
+        },
+        {
+          filterWrapper: ".filters-cms",
+          filterType: "exclusive",
+        },
+        {
+          filterWrapper: ".filters-years",
+          filterType: "multi",
+        },
+      ];
+
+      // run filter on our instance
+      projectsGrid.filter({
+        filterArray: myFilters, // the filter group name we defined
+        activeClass: "fltr-active", // the active class we give to our buttons
+        animation: {
+          enable: true,
+          duration: 200,
+          easing: "ease-out",
+          effects: "fade translate(0px,20px)",
+        },
+      });
+
+      /* LOAD MORE COMPONENT */
+
+      // run loadmore on our instance
+      projectsGrid.loadmore({
+        button: ".load-more-button",
+        resetIx: true,
+        loadAll: true,
+        paginate: {
+          enable: true,
+          itemsPerPage: 4,
+          insertPagination: ".pagination-container",
+          bgColor: "#FFFFFF",
+          bgColorActive: "#240c2e",
+          textColor: "#240c2e",
+          textColorActive: "#FFFFFF",
+          borderColor: "#3D315B",
+        },
+        animation: {
+          enable: false,
+        },
+      });
+    })();
+  </script>
+  <!-- jQuery(necessary for all JavaScript plugins) -->
+  <script src="assets/website/js/vendor/jquery.min.js"></script>
+
+  <!-- Bootstrap js -->
+  <script src="assets/website/js/vendor/popper.min.js"></script>
+  <script src="assets/website/js/vendor/bootstrap.min.js"></script>
+
+  <!-- Plugins js -->
+  <script src="assets/website/js/vendor/all.min.js"></script>
+  <script src="assets/website/js/vendor/slider.min.js"></script>
+  <script src="../../js/translate-manager.js"></script>
+  <script src="assets/website/js/vendor/countdown.min.js"></script>
+  <script src="assets/website/js/vendor/shuffle.min.js"></script>
+
+  <!-- Active js -->
+  <script src="assets/website/js/main.js"></script>
+</body>
+
+</html>

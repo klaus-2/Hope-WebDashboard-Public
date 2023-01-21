@@ -1,0 +1,13 @@
+<% for (const role of rr.roles) { %>
+    <% if (role.id !== var1 && role.name !== "@everyone" && !role.managed) { %>
+      <option value="<%= role.id %>">@<%= role.name %></option>
+      <% } else if (role.id == var1) { %>
+      <option value="<%= role.id %>" selected>@<%= role.name %></option>
+    <% } %>
+  <% } %>
+
+  <% if (var2 == false) { %>
+    <option selected value="none">@None</option>
+  <% } else { %>
+    <option value="none">@None</option>
+  <% } %>
