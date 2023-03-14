@@ -4,7 +4,7 @@
   "description": "",
   "main": "base.js",
   "dependencies": {
-    "@microsoft/signalr": "^6.0.8",
+    "@microsoft/signalr": "^7.0.4",
     "@sentry/node": "^7.13.0",
     "@sentry/tracing": "^7.13.0",
     "accepts": "^1.3.8",
